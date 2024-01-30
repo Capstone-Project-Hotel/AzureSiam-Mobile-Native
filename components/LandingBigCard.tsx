@@ -1,9 +1,9 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native'
 import React from 'react'
 
-export default function LandingBigCard({children}:{children:React.ReactNode}) {
+export default function LandingBigCard({style,children}:{style?:StyleProp<ViewStyle>,children:React.ReactNode}) {
   return (
-    <View style={styles.card}>
+    <View style={[styles.card,style]}>
       {children}
     </View>
   )

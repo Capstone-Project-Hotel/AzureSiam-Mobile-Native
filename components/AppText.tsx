@@ -4,7 +4,7 @@ export default function AppText({
   styles,
   children,
 }: {
-  styles: StyleProp<TextStyle>
+  styles?: StyleProp<TextStyle>
   children: ReactNode;
 }) {
   return (
