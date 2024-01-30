@@ -13,6 +13,8 @@ import AppText from "./components/AppText";
 import React, { useState } from "react";
 import SmallModalCard from "./components/SmallModalCard";
 import Card from "./components/Card";
+import { AppRegistry } from "react-native";
+import Button from "@ant-design/react-native/lib/button";
 
 const banner = {
   uri: "https://cdn.discordapp.com/attachments/457166097230069773/1186379702336753684/coverImage.jpg",
@@ -55,6 +57,7 @@ export default function App() {
             marginRight: 16,
           }}
         >
+          {/* <Button>Test Ant Design</Button> */}
           <AppText styles={styles.landingBigCardTitle}>
             AzureSiam Hotel and Spa
           </AppText>
