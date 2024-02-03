@@ -1,19 +1,18 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
-import CalendarPicker from "react-native-calendar-picker";
+import CustomDateRange from "./components/CustomDateRange";
+import * as eva from "@eva-design/eva";
+import { ApplicationProvider } from "@ui-kitten/components";
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-      <CalendarPicker
-        allowRangeSelection={true}
-        onDateChange={(date: any) => console.log(date)}
-        minDate={new Date()}
-        selectedDayColor="blue"
-      />
-    </View>
+    <ApplicationProvider {...eva} theme={eva.light}>
+      <View style={styles.container}>
+        <Text>Open up App.tsx to start working on your app!</Text>
+        <CustomDateRange />
+        <StatusBar style="auto" />
+      </View>
+    </ApplicationProvider>
   );
 }
 
