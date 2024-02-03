@@ -1,5 +1,5 @@
 import { RangeCalendar, Text } from "@ui-kitten/components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { addDays, format } from "date-fns";
 
@@ -20,34 +20,66 @@ export default function CustomDateRange() {
     );
   };
 
-  const filter = (date: Date): boolean => date != new Date();
+  const disabledDates = [new Date("2024-02-10"), new Date("2024-02-18")];
+  const [myDisabledDates, setMyDisabledDates] = useState<any[]>(disabledDates);
+  const [minDate, setMinDate] = useState<Date>(new Date());
+  const [maxDate, setMaxDate] = useState<Date>(addDays(new Date(), 999999));
+
+  const filter = (date: Date): boolean => {
+    const disabledDatesFormat = myDisabledDates.map((d) => {
+      return format(d, "dd/MM/yyyy");
+    });
+    return !disabledDatesFormat.includes(format(date, "dd/MM/yyyy"));
+  };
+
+  const onSelect = (nextRange: any) => {
+    for (var i = 0; i < disabledDates.length; i++) {
+      if (nextRange.startDate < disabledDates[i]) {
+        setMyDisabledDates([...disabledDates.slice(0, i)]);
+        if (i > 0) setMinDate(new Date(disabledDates[i - 1]));
+        setMaxDate(new Date(disabledDates[i]));
+        break;
+      }
+    }
+
+    if (nextRange.startDate < nextRange.endDate) {
+      setMinDate(new Date());
+      setMaxDate(addDays(new Date(), 999999));
+      setMyDisabledDates(disabledDates);
+    }
+
+    if (nextRange.startDate > nextRange.endDate) {
+      setRange({
+        startDate: nextRange.startDate,
+        endDate: addDays(nextRange.endDate, 1),
+      });
+    }
+
+    if (nextRange.startDate?.toString() !== nextRange.endDate?.toString()) {
+      setRange(nextRange);
+    } else if (
+      nextRange.startDate?.toString() == nextRange.endDate?.toString()
+    ) {
+      if (nextRange.endDate) {
+        setRange({
+          startDate: nextRange.startDate,
+          endDate: addDays(nextRange.endDate, 1),
+        });
+        setMinDate(new Date());
+        setMaxDate(addDays(new Date(), 999999));
+        setMyDisabledDates(disabledDates);
+      }
+    }
+  };
 
   return (
     <>
       <RangeCalendar
         range={range}
-        onSelect={(nextRange) => {
-          if (
-            nextRange.startDate?.toString() !== nextRange.endDate?.toString()
-          ) {
-            console.log("q");
-
-            setRange(nextRange);
-          } else if (
-            nextRange.startDate?.toString() == nextRange.endDate?.toString()
-          ) {
-            console.log("w");
-
-            if (nextRange.endDate) {
-              setRange({
-                startDate: nextRange.startDate,
-                endDate: addDays(nextRange.endDate, 1),
-              });
-            }
-          }
-        }}
+        onSelect={onSelect}
         renderDay={DayCell}
-        min={new Date()}
+        min={minDate}
+        max={maxDate}
         filter={filter}
       />
       <View>
