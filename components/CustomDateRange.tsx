@@ -5,25 +5,59 @@ import { addDays, format } from "date-fns";
 
 export default function CustomDateRange() {
   const [range, setRange] = useState<any>({});
+  const disabledDates = [new Date("2024-02-10"), new Date("2024-02-18")];
+  const [myDisabledDates, setMyDisabledDates] = useState<any[]>(disabledDates);
+  const [minDate, setMinDate] = useState<Date>(new Date());
+  const [maxDate, setMaxDate] = useState<Date>(addDays(new Date(), 999999));
 
   const DayCell = (
     { date }: { date: Date },
     style: any
   ): React.ReactElement => {
+    const disabledDatesFormat = myDisabledDates.map((d) => {
+      return format(d, "dd/MM/yyyy");
+    });
+
+    if (date.getDay() == 1 || date.getDay() == 5) {
+      return (
+        <View style={[styles.dayContainer, style.container]}>
+          <Text style={style.text}>{date.getDate()}</Text>
+          {(date >= new Date() || date == new Date()) &&
+          !disabledDatesFormat.includes(format(date, "dd/MM/yyyy")) ? (
+            <Text style={[style.text, styles.value]}>THB1,000</Text>
+          ) : (
+            <Text style={[style.text, styles.value]}></Text>
+          )}
+        </View>
+      );
+    }
+
+    if (date.getDay() == 6) {
+      return (
+        <View style={[styles.dayContainer, style.container]}>
+          <Text style={style.text}>{date.getDate()}</Text>
+          {(date >= new Date() || date == new Date()) &&
+          !disabledDatesFormat.includes(format(date, "dd/MM/yyyy")) ? (
+            <Text style={[style.text, styles.value]}>THB1,400</Text>
+          ) : (
+            <Text style={[style.text, styles.value]}></Text>
+          )}
+        </View>
+      );
+    }
+
     return (
       <View style={[styles.dayContainer, style.container]}>
         <Text style={style.text}>{date.getDate()}</Text>
-        {date >= new Date() || date == new Date() ? (
+        {(date >= new Date() || date == new Date()) &&
+        !disabledDatesFormat.includes(format(date, "dd/MM/yyyy")) ? (
           <Text style={[style.text, styles.value]}>THB1,200</Text>
-        ) : null}
+        ) : (
+          <Text style={[style.text, styles.value]}></Text>
+        )}
       </View>
     );
   };
-
-  const disabledDates = [new Date("2024-02-10"), new Date("2024-02-18")];
-  const [myDisabledDates, setMyDisabledDates] = useState<any[]>(disabledDates);
-  const [minDate, setMinDate] = useState<Date>(new Date());
-  const [maxDate, setMaxDate] = useState<Date>(addDays(new Date(), 999999));
 
   const filter = (date: Date): boolean => {
     const disabledDatesFormat = myDisabledDates.map((d) => {
