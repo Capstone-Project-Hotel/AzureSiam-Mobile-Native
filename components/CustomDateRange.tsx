@@ -1,10 +1,13 @@
 import { RangeCalendar, Text } from "@ui-kitten/components";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { addDays, format } from "date-fns";
 
 export default function CustomDateRange() {
-  const [range, setRange] = useState<any>({});
+  const [range, setRange] = useState<any>({
+    startDate: new Date(),
+    endDate: addDays(new Date(), 1),
+  });
   const disabledDates = [new Date("2024-02-10"), new Date("2024-02-18")];
   const [myDisabledDates, setMyDisabledDates] = useState<any[]>(disabledDates);
   const [minDate, setMinDate] = useState<Date>(new Date());
