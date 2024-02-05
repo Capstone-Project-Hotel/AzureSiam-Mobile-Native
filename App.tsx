@@ -1,20 +1,35 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import LandingPage from "@/screens/Landing";
+import ContactUsPage from "@/screens/ContactUs";
+import SearchResultPage from "@/screens/SearchResult";
+import ReservationAndGuestDetailPage from "@/screens/ReservationAndGuestDetail";
+import SummaryBookingDetailPage from "@/screens/SummaryBookingDetail";
+import BookingConfirmationPage from "@/screens/BookingConfirmation";
+import { AppRegistry } from "react-native";
 
+const Stack = createStackNavigator();
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Landing" component={LandingPage} />
+        {/* <Stack.Screen name="ContactUs" component={ContactUsPage} /> */}
+        <Stack.Screen name="SearchResult" component={SearchResultPage} />
+        <Stack.Screen
+          name="ReservationAndGuestDetail"
+          component={ReservationAndGuestDetailPage}
+        />
+        <Stack.Screen
+          name="SummaryBooking"
+          component={SummaryBookingDetailPage}
+        />
+        <Stack.Screen
+          name="BookingConfirmation"
+          component={BookingConfirmationPage}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

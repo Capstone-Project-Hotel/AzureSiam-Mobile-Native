@@ -1,5 +1,6 @@
 {
   "expo": {
+    "main": "node_modules/expo/AppEntry.js",
     "name": "azure-siam-project",
     "slug": "azure-siam-project",
     "version": "1.0.0",
@@ -25,6 +26,16 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/NotoSansThai.ttf"
+          ]
+        }
+      ]
+    ]
   }
 }
