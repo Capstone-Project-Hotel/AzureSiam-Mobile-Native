@@ -10,19 +10,19 @@ import {
   AppRegistry,
   Dimensions,
 } from "react-native";
-import LandingBigCard from "./components/LandingBigCard";
+import LandingBigCard from "@/components/LandingBigCard";
 import { useFonts } from "expo-font";
-import AppText from "./components/AppText";
+import AppText from "@/components/AppText";
 import React, { useState } from "react";
-import SmallModalCard from "./components/SmallModalCard";
-import Card from "./components/Card";
+import SmallModalCard from "@/components/SmallModalCard";
+import Card from "@/components/Card";
 import AntDesign from "@expo/vector-icons/AntDesign";
 // import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 // import Button from "@ant-design/react-native/lib/button";
 // import { Carousel } from "@ant-design/react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import Carousel from "react-native-reanimated-carousel";
-import BottomTab from "./components/BottomTab";
+import BottomTab from "@/components/BottomTab";
 
 const banner = {
   uri: "https://cdn.discordapp.com/attachments/457166097230069773/1186379702336753684/coverImage.jpg",
@@ -68,7 +68,7 @@ const gallery = [
 
 export default function App() {
   const [fontsLoaded, fontError] = useFonts({
-    NotoSansThai: require("./assets/fonts/NotoSansThai.ttf"),
+    NotoSansThai: require("@/assets/fonts/NotoSansThai.ttf"),
   });
   if (!fontsLoaded) {
     return <Text>LOADING...</Text>;
@@ -289,7 +289,7 @@ export default function App() {
             />
           </View>
         </ScrollView>
-        <BottomTab/>
+        <BottomTab />
         <StatusBar style="auto" />
       </View>
     </GestureHandlerRootView>
