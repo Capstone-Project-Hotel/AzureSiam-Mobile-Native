@@ -7,6 +7,7 @@ import SearchResultPage from "@/screens/SearchResult";
 import ReservationAndGuestDetailPage from "@/screens/ReservationAndGuestDetail";
 import SummaryBookingDetailPage from "@/screens/SummaryBookingDetail";
 import BookingConfirmationPage from "@/screens/BookingConfirmation";
+import { AppRegistry } from "react-native";
 
 const Stack = createStackNavigator();
 export default function App() {
@@ -14,7 +15,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Landing" component={LandingPage} />
-        <Stack.Screen name="ContactUs" component={ContactUsPage} />
+        {/* <Stack.Screen name="ContactUs" component={ContactUsPage} /> */}
         <Stack.Screen name="SearchResult" component={SearchResultPage} />
         <Stack.Screen
           name="ReservationAndGuestDetail"

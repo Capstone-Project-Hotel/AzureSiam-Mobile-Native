@@ -72,7 +72,7 @@ export default function LandingPage() {
             }}
           >
             <AppText styles={styles.landingBigCardTitle}>
-              AzureSiam Hotel and Spa {currency}
+              AzureSiam Hotel and Spa
             </AppText>
             <AppText styles={styles.landingBigCardDescription}>
               Welcome to AzureSiam Hotel, an urban retreat seamlessly blending
