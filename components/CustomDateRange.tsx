@@ -8,7 +8,11 @@ export default function CustomDateRange() {
     startDate: new Date(),
     endDate: addDays(new Date(), 1),
   });
-  const disabledDates = [new Date("2024-02-10"), new Date("2024-02-18")];
+  const disabledDates = [
+    new Date("2024-02-10"),
+    new Date("2024-02-18"),
+    new Date("2024-02-22"),
+  ];
   const [myDisabledDates, setMyDisabledDates] = useState<any[]>(disabledDates);
   const [minDate, setMinDate] = useState<Date>(new Date());
   const [maxDate, setMaxDate] = useState<Date>(addDays(new Date(), 999999));
@@ -77,19 +81,15 @@ export default function CustomDateRange() {
         setMaxDate(new Date(disabledDates[i]));
         break;
       }
+      if (i == disabledDates.length - 1) {
+        setMinDate(new Date(disabledDates[i]));
+      }
     }
 
     if (nextRange.startDate < nextRange.endDate) {
       setMinDate(new Date());
       setMaxDate(addDays(new Date(), 999999));
       setMyDisabledDates(disabledDates);
-    }
-
-    if (nextRange.startDate > nextRange.endDate) {
-      setRange({
-        startDate: nextRange.startDate,
-        endDate: addDays(nextRange.endDate, 1),
-      });
     }
 
     if (nextRange.startDate?.toString() !== nextRange.endDate?.toString()) {
