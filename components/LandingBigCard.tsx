@@ -1,5 +1,6 @@
 import { StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native'
 import React from 'react'
+import { COLORS } from '@/constants'
 
 export default function LandingBigCard({style,children}:{style?:StyleProp<ViewStyle>,children:React.ReactNode}) {
   return (
@@ -12,7 +13,7 @@ export default function LandingBigCard({style,children}:{style?:StyleProp<ViewSt
 const styles = StyleSheet.create({
   card: {
     flexDirection: "row",
-    backgroundColor: "#E7EFF6",
+    backgroundColor: COLORS.BACKGROUND_1,
     height: 160,
     alignItems: "center"
   }
