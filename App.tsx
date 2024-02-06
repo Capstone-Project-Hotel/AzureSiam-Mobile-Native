@@ -9,31 +9,35 @@ import SummaryBookingDetailPage from "@/screens/SummaryBookingDetail";
 import BookingConfirmationPage from "@/screens/BookingConfirmation";
 import { AppRegistry } from "react-native";
 import * as eva from "@eva-design/eva";
-import { ApplicationProvider } from "@ui-kitten/components";
+import { ApplicationProvider, IconRegistry } from "@ui-kitten/components";
+import { EvaIconsPack } from "@ui-kitten/eva-icons";
 
 const Stack = createStackNavigator();
 export default function App() {
   return (
-    <ApplicationProvider {...eva} theme={eva.light}>
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="Landing" component={LandingPage} />
-          {/* <Stack.Screen name="ContactUs" component={ContactUsPage} /> */}
-          <Stack.Screen name="SearchResult" component={SearchResultPage} />
-          <Stack.Screen
-            name="ReservationAndGuestDetail"
-            component={ReservationAndGuestDetailPage}
-          />
-          <Stack.Screen
-            name="SummaryBooking"
-            component={SummaryBookingDetailPage}
-          />
-          <Stack.Screen
-            name="BookingConfirmation"
-            component={BookingConfirmationPage}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </ApplicationProvider>
+    <>
+      <IconRegistry icons={EvaIconsPack} />
+      <ApplicationProvider {...eva} theme={eva.light}>
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen name="Landing" component={LandingPage} />
+            {/* <Stack.Screen name="ContactUs" component={ContactUsPage} /> */}
+            <Stack.Screen name="SearchResult" component={SearchResultPage} />
+            <Stack.Screen
+              name="Reservation And Guest Detail"
+              component={ReservationAndGuestDetailPage}
+            />
+            <Stack.Screen
+              name="Summary Booking Detail"
+              component={SummaryBookingDetailPage}
+            />
+            <Stack.Screen
+              name="Booking Confirmation"
+              component={BookingConfirmationPage}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </ApplicationProvider>
+    </>
   );
 }

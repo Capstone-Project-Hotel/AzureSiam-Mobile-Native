@@ -9,6 +9,7 @@ import {
   ScrollView,
   AppRegistry,
   Dimensions,
+  TouchableOpacity,
 } from "react-native";
 import LandingBigCard from "@/components/LandingBigCard";
 import { useFonts } from "expo-font";
@@ -66,7 +67,7 @@ const gallery = [
   },
 ];
 
-export default function App() {
+export default function App({ navigation }: any) {
   const [fontsLoaded, fontError] = useFonts({
     NotoSansThai: require("@/assets/fonts/NotoSansThai.ttf"),
   });
@@ -76,6 +77,11 @@ export default function App() {
   const width = Dimensions.get("window").width;
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("Reservation And Guest Detail")}
+      >
+        <Text style={{ height: 55 }}>Go To ReservationAndGuestDetail Page</Text>
+      </TouchableOpacity>
       <View style={styles.container}>
         <ScrollView>
           <ImageBackground
