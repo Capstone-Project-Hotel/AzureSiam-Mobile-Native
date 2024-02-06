@@ -9,6 +9,10 @@ import {
   ScrollView,
   AppRegistry,
   Dimensions,
+  SafeAreaView,
+  Modal,
+  TouchableOpacity,
+  Button,
 } from "react-native";
 import LandingBigCard from "@/components/LandingBigCard";
 import { useFonts } from "expo-font";
@@ -66,7 +70,20 @@ const gallery = [
   },
 ];
 
+import i18next, { languageResources } from "../services/i18next";
+import { useTranslation } from "react-i18next";
+import languagesList from "../services/languagesList.json";
+
 export default function App() {
+  // Test lng
+  const [visible, setVisible] = useState(false);
+  const { t } = useTranslation();
+
+  const changeLng = (lng: any) => {
+    i18next.changeLanguage(lng);
+    setVisible(false);
+  };
+
   const [fontsLoaded, fontError] = useFonts({
     NotoSansThai: require("@/assets/fonts/NotoSansThai.ttf"),
   });
@@ -74,8 +91,36 @@ export default function App() {
     return <Text>LOADING...</Text>;
   }
   const width = Dimensions.get("window").width;
+
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
+      {/* Text lng */}
+      <SafeAreaView style={{ margin: 20 }}>
+        <Modal visible={visible} onRequestClose={() => setVisible(false)}>
+          <View>
+            <FlatList
+              style={{ padding: 30 }}
+              data={Object.keys(languageResources)}
+              renderItem={({ item }) => (
+                <TouchableOpacity onPress={() => changeLng(item)}>
+                  <Text style={{ fontSize: 20 }}>
+                    {(languagesList as any)[item].nativeName}
+                  </Text>
+                </TouchableOpacity>
+              )}
+            />
+          </View>
+        </Modal>
+        <Text style={{ fontSize: 20, textAlign: "center", padding: 10 }}>
+          {t("welcome")}
+        </Text>
+        <Button
+          onPress={() => setVisible(true)}
+          title={t("change-language")}
+          color="green"
+        />
+      </SafeAreaView>
+
       <View style={styles.container}>
         <ScrollView>
           <ImageBackground

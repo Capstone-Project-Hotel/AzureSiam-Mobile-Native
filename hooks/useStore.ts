@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const emptyGuest: Guest = {
   firstName: "",
@@ -92,7 +93,7 @@ const useStore = create<Store>()(
     }),
     {
       name: "store",
-      storage: createJSONStorage(() => sessionStorage),
+      storage: createJSONStorage(() => AsyncStorage),
     }
   )
 );
