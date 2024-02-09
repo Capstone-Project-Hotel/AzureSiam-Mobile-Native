@@ -25,6 +25,7 @@ export default function SummaryCard({ page }: { page: string }) {
         <Text>No Transportation [Package One]</Text>
       )}
       <Text>Sub Total</Text>
+      <Text>{currency}</Text>
       <Text>Service Charge (10%)</Text>
       <Text>Texes + Fee (7%)</Text>
       <Text>{currency} 1,000 Total</Text>
