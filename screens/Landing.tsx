@@ -29,6 +29,7 @@ import Carousel from "react-native-reanimated-carousel";
 import BottomTab from "@/components/BottomTab";
 import TestBottomTab from "@/components/TestBottomTab";
 import useStore from "@/hooks/useStore";
+import axios from "axios";
 
 const banner = {
   uri: "https://cdn.discordapp.com/attachments/457166097230069773/1186379702336753684/coverImage.jpg",
@@ -76,6 +77,7 @@ import i18next, { languageResources } from "../services/i18next";
 import { useTranslation } from "react-i18next";
 import languagesList from "../services/languagesList.json";
 import CustomDateRange from "@/components/CustomDateRange";
+import { Select, SelectItem } from "@ui-kitten/components";
 
 const promotions = {
   fifty: {
@@ -116,11 +118,68 @@ const attractions = {
   },
 };
 
+const listquotes = [
+  "SGD",
+  "MYR",
+  "EUR",
+  "USD",
+  "AUD",
+  "JPY",
+  "CNH",
+  "HKD",
+  "CAD",
+  "INR",
+  "DKK",
+  "GBP",
+  "RUB",
+  "NZD",
+  "MXN",
+  "IDR",
+  "TWD",
+  "THB",
+  "VND",
+];
+
 export default function Landing({ navigation }: any) {
   // Test lng
   const [visible, setVisible] = useState(false);
   const { t } = useTranslation();
-  const { bookingDetail, setBookingDetail } = useStore();
+  const {
+    bookingDetail,
+    setBookingDetail,
+    setCurrency,
+    setExchangeRate,
+    currency,
+    exchangeRate,
+  } = useStore();
+
+  const handleExChange = async (value: string) => {
+    try {
+      if (value && value !== "THB") {
+        const response = await axios.get(
+          "https://currency-exchange.p.rapidapi.com/exchange",
+          {
+            params: {
+              from: "THB",
+              to: value,
+            },
+            headers: {
+              "X-RapidAPI-Key":
+                "32978adf6emsh766e865f3b81f21p11aafajsnb354410acc8c",
+              "X-RapidAPI-Host": "currency-exchange.p.rapidapi.com",
+            },
+          }
+        );
+        setCurrency(value);
+        setExchangeRate(response.data);
+      } else {
+        setCurrency("THB");
+        setExchangeRate(1);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const changeLng = (lng: any) => {
     i18next.changeLanguage(lng);
@@ -159,6 +218,20 @@ export default function Landing({ navigation }: any) {
             />
           </View>
         </Modal>
+        {/* Test Currency */}
+        <Select
+          onSelect={(i: any) => handleExChange(listquotes[i.row])}
+          value={currency}
+          placeholder="Select Currency"
+        >
+          {listquotes.map((quote, index) => (
+            <SelectItem key={index} title={quote} />
+          ))}
+        </Select>
+        <Text>
+          {currency} {exchangeRate}
+        </Text>
+
         <Text style={{ fontSize: 20, textAlign: "center", padding: 10 }}>
           {t("welcome")}
         </Text>
@@ -168,6 +241,10 @@ export default function Landing({ navigation }: any) {
           color="green"
         />
       </SafeAreaView>
+
+      <View>
+        <CustomDateRange onDatesChange={(dates: any) => console.log(dates)} />
+      </View>
 
       <View style={styles.container}>
         <ScrollView>
