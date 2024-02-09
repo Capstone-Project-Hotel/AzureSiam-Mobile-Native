@@ -1,22 +1,33 @@
-import { AppRegistry } from "react-native";
 import React from "react";
-import { InputItem } from "@ant-design/react-native";
-import { ScrollView, Text, View } from "react-native";
+import { ScrollView, Text, TextInput, View } from "react-native";
+import useStore from "@/hooks/useStore";
 
 export default function Filter() {
+  const { currency } = useStore();
   return (
     <View>
       <ScrollView>
         <Text>Booking Detail</Text>
+
         <Text>Check-in date & Check-out date</Text>
         <Text>Adults</Text>
-        <InputItem clear type="number" />
+        <TextInput
+          keyboardType="numeric"
+          placeholder="Enter numbers only"
+          placeholderTextColor="#999"
+        />
         <Text>Children</Text>
-        <InputItem clear type="number" value="1" placeholder="number">
-          Test
-        </InputItem>
+        <TextInput
+          keyboardType="numeric"
+          placeholder="Enter numbers only"
+          placeholderTextColor="#999"
+        />
         <Text>Code Promotion</Text>
-        <InputItem clear type="text" />
+        <TextInput
+          keyboardType="default"
+          placeholder="eg. valid"
+          placeholderTextColor="#999"
+        />
         <Text>Room Type</Text>
         <Text>Standard</Text>
         <Text>Deluxe</Text>
@@ -29,9 +40,9 @@ export default function Filter() {
         <Text>Jacuzzi</Text>
         <Text>Price</Text>
         <Text>Any price is acceptable</Text>
-        <Text>Not exceeding THB 1,500</Text>
-        <Text>Not exceeding THB 2,000</Text>
-        <Text>Not exceeding THB 2,500</Text>
+        <Text>Not exceeding {currency} 1,500</Text>
+        <Text>Not exceeding {currency} 2,000</Text>
+        <Text>Not exceeding {currency} 2,500</Text>
       </ScrollView>
     </View>
   );
