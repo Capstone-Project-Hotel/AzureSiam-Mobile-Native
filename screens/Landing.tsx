@@ -243,7 +243,7 @@ export default function Landing({ navigation }: any) {
       </SafeAreaView>
 
       <View>
-        <CustomDateRange onDatesChange={(dates: any) => console.log(dates)} />
+        <CustomDateRange />
       </View>
 
       <View style={styles.container}>

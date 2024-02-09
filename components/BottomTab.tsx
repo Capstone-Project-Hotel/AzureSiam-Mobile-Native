@@ -41,13 +41,6 @@ export default function TestBottomTab({
         <View style={styles.calendarModalContainer}>
           <Button onPress={onModalClose}>Dismiss</Button>
           <CustomDateRange
-            onDatesChange={(range: { startDate: Date; endDate: Date }) =>
-              setBookingDetail({
-                ...bookingDetail,
-                startDate: format(range.startDate.toString(), "dd/MM/yyyy"),
-                endDate: format(range.endDate.toString(), "dd/MM/yyyy"),
-              })
-            }
           />
         </View>
       </Modal>
