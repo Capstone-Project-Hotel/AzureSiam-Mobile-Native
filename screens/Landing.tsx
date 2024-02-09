@@ -9,6 +9,7 @@ import {
   ScrollView,
   AppRegistry,
   Dimensions,
+  Pressable,
 } from "react-native";
 import LandingBigCard from "@/components/LandingBigCard";
 import { useFonts } from "expo-font";
@@ -16,13 +17,13 @@ import AppText from "@/components/AppText";
 import React, { useState } from "react";
 import SmallModalCard from "@/components/SmallModalCard";
 import Card from "@/components/Card";
-import AntDesign from "@expo/vector-icons/AntDesign";
 // import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 // import Button from "@ant-design/react-native/lib/button";
 // import { Carousel } from "@ant-design/react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import Carousel from "react-native-reanimated-carousel";
 import BottomTab from "@/components/BottomTab";
+import TestBottomTab from "@/components/TestBottomTab";
 
 const banner = {
   uri: "https://cdn.discordapp.com/attachments/457166097230069773/1186379702336753684/coverImage.jpg",
@@ -66,14 +67,53 @@ const gallery = [
   },
 ];
 
-export default function App() {
+const promotions = {
+  fifty: {
+    uri: "https://cdn.discordapp.com/attachments/457166097230069773/1186562459033686056/image_14.jpg",
+  },
+  monday: {
+    uri: "https://cdn.discordapp.com/attachments/457166097230069773/1186562459331477626/cover_3.jpg",
+  },
+  friday: {
+    uri: "https://cdn.discordapp.com/attachments/457166097230069773/1186562459604090920/cover_4.jpg",
+  },
+};
+
+const schedule = {
+  swim: {
+    uri: "https://cdn.discordapp.com/attachments/457166097230069773/1186562753062785054/cover_5.jpg",
+  },
+  medi: {
+    uri: "https://cdn.discordapp.com/attachments/457166097230069773/1186562753389936750/cover_6.jpg",
+  },
+  rock: {
+    uri: "https://cdn.discordapp.com/attachments/457166097230069773/1186562753759039508/cover_7.jpg",
+  },
+};
+
+const attractions = {
+  paragon: {
+    uri: "https://cdn.discordapp.com/attachments/457166097230069773/1186563062191357963/cover_8.jpg",
+    loc: "https://www.google.com/maps/place/%E0%B8%AA%E0%B8%A2%E0%B8%B2%E0%B8%A1%E0%B8%9E%E0%B8%B2%E0%B8%A3%E0%B8%B2%E0%B8%81%E0%B8%AD%E0%B8%99/@13.7463371,100.5322779,17z/data=!4m10!1m2!2m1!1ssiam+paragon!3m6!1s0x30e29ecde3aee521:0x9f43939a2caf2963!8m2!3d13.7462411!4d100.5347402!15sCgxzaWFtIHBhcmFnb25aDiIMc2lhbSBwYXJhZ29ukgEPc2hvcHBpbmdfY2VudGVy4AEA!16zL20vMDltbWho?entry=ttu",
+  },
+  samyan: {
+    uri: "https://cdn.discordapp.com/attachments/457166097230069773/1186563062510137374/cover_9.jpg",
+    loc: "https://www.google.com/maps/place/%E0%B8%AA%E0%B8%B2%E0%B8%A1%E0%B8%A2%E0%B9%88%E0%B8%B2%E0%B8%99+%E0%B8%A1%E0%B8%B4%E0%B8%95%E0%B8%A3%E0%B8%97%E0%B8%B2%E0%B8%A7%E0%B8%99%E0%B9%8C/@13.7336159,100.525937,17z/data=!3m1!4b1!4m6!3m5!1s0x30e298d55b6099b5:0xe4f4cc8ef569d83f!8m2!3d13.7336159!4d100.5285119!16s%2Fg%2F11cs1tf084?entry=ttu",
+  },
+  central: {
+    uri: "https://cdn.discordapp.com/attachments/457166097230069773/1186563062765994074/cover_10.jpg",
+    loc: "https://www.google.com/maps/place/%E0%B9%80%E0%B8%8B%E0%B9%87%E0%B8%99%E0%B8%97%E0%B8%A3%E0%B8%B1%E0%B8%A5%E0%B9%80%E0%B8%A7%E0%B8%B4%E0%B8%A5%E0%B8%94%E0%B9%8C/@13.7465337,100.5365739,17z/data=!3m1!4b1!4m6!3m5!1s0x30e29ecfc2f455e1:0xc4ad0280d8906604!8m2!3d13.7465337!4d100.5391488!16zL20vMGZuNTdn?entry=ttu",
+  },
+};
+
+export default function Landing() {
   const [fontsLoaded, fontError] = useFonts({
     NotoSansThai: require("@/assets/fonts/NotoSansThai.ttf"),
   });
   if (!fontsLoaded) {
     return <Text>LOADING...</Text>;
   }
-  const width = Dimensions.get("window").width;
+  const width = Dimensions.get("window").width; // ย้ายไป cosntant
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <View style={styles.container}>
@@ -262,6 +302,120 @@ export default function App() {
               </AppText>
             </View>
           </LandingBigCard>
+          <View style={styles.sectionMargin}>
+            <AppText styles={styles.sectionText}>Promotions</AppText>
+            <View style={{ flexDirection: "row", gap: 8 }}>
+              <SmallModalCard
+                cardContent={
+                  <Card name="50% Sale" image={promotions.fifty.uri} />
+                }
+                modalContent={
+                  <>
+                    <AppText styles={styles.modalTitle}>50% Sale</AppText>
+                    <AppText styles={styles.modalDescription}>
+                      Embrace luxury for less with our 50% off hotel room sale!
+                      Enjoy a comfortable and stylish stay at half the price.
+                      Whether it's a spontaneous trip or a planned escape, this
+                      limited-time offer lets you indulge in quality
+                      accommodation without breaking the bank. Book now and
+                      elevate your travel experience with unbeatable savings!
+                    </AppText>
+                  </>
+                }
+              />
+              <SmallModalCard
+                cardContent={
+                  <Card name="Monday Sale" image={promotions.monday.uri} />
+                }
+                modalContent={
+                  <>
+                    <AppText styles={styles.modalTitle}>Monday Sale</AppText>
+                    <AppText styles={styles.modalDescription}>
+                      Elevate your Mondays with our exclusive hotel room sale!
+                      Enjoy unbeatable discounts for a premium stay without the
+                      premium price. Perfect for business or leisure, seize this
+                      opportunity to turn your Monday into a memorable
+                      experience. Book now and make your week start on a high
+                      note!
+                    </AppText>
+                  </>
+                }
+              />
+              <SmallModalCard
+                cardContent={
+                  <Card name="Friday Sale" image={promotions.friday.uri} />
+                }
+                modalContent={
+                  <>
+                    <AppText styles={styles.modalTitle}>Friday Sale</AppText>
+                    <AppText styles={styles.modalDescription}>
+                      Kick off your weekend with our Friday Sale on hotel rooms!
+                      Enjoy exclusive discounts for a perfect blend of comfort
+                      and savings. Whether it's a romantic getaway or a
+                      spontaneous escape, make your Friday night special without
+                      breaking the bank. Book now for unbeatable savings and
+                      elevate your weekend stay!
+                    </AppText>
+                  </>
+                }
+              />
+            </View>
+          </View>
+          <View style={styles.sectionMargin}>
+            <AppText styles={styles.sectionText}>Activity Schedule</AppText>
+            <View style={{ flexDirection: "row", gap: 8 }}>
+              <SmallModalCard
+                cardContent={
+                  <Card name="Swimming Pool" image={schedule.swim.uri} />
+                }
+                modalContent={
+                  <>
+                    <AppText styles={styles.modalTitle}>Swimming Pool</AppText>
+                    <AppText styles={styles.modalDescription}>
+                      Dive into versatility with pool activities! Whether it's a
+                      leisurely swim, family fun, or a focused workout, the pool
+                      caters to all interests. From water aerobics to
+                      competitive training, it's a refreshing and social space
+                      for relaxation, family time, or beating the heat.
+                    </AppText>
+                  </>
+                }
+              />
+              <SmallModalCard
+                cardContent={
+                  <Card name="Meditation" image={schedule.medi.uri} />
+                }
+                modalContent={
+                  <>
+                    <AppText styles={styles.modalTitle}>Meditation</AppText>
+                    <AppText styles={styles.modalDescription}>
+                      Meditation promotes mindfulness and inner peace. By
+                      focusing on breath or the present moment in a quiet space,
+                      it reduces stress, enhances well-being, and fosters mental
+                      clarity—a valuable tool for daily life challenges.
+                    </AppText>
+                  </>
+                }
+              />
+              <SmallModalCard
+                cardContent={
+                  <Card name="Rock Climbing" image={schedule.rock.uri} />
+                }
+                modalContent={
+                  <>
+                    <AppText styles={styles.modalTitle}>Rock Climbing</AppText>
+                    <AppText styles={styles.modalDescription}>
+                      Rock climbing is a meditative pursuit, combining physical
+                      challenge with mental focus. Whether indoors or outdoors,
+                      the rhythmic breath and intense concentration turn the
+                      climb into a moving meditation, offering a unique and
+                      invigorating form of mindfulness.
+                    </AppText>
+                  </>
+                }
+              />
+            </View>
+          </View>
           <View style={{ flex: 1 }}>
             <Carousel
               loop
@@ -281,15 +435,39 @@ export default function App() {
                   }}
                 >
                   {/* <Text style={{ textAlign: 'center', fontSize: 30 }}>
-                            {index}
-                        </Text> */}
+                      {index}
+                  </Text> */}
                   <Image source={gallery[index]} style={styles.carouselImage} />
                 </View>
               )}
             />
           </View>
+
+          <View style={styles.sectionMargin}>
+            <AppText styles={styles.sectionText}>Nearby Attraction</AppText>
+            <View style={{ flexDirection: "row", gap: 8 }}>
+              <Card
+                name="Siam Paragon"
+                image={attractions.paragon.uri}
+                url={attractions.paragon.loc}
+              />
+              <Card
+                name="Samyan Mitrtown"
+                image={attractions.samyan.uri}
+                url={attractions.samyan.loc}
+              />
+              <Card
+                name="Central World"
+                image={attractions.central.uri}
+                url={attractions.central.loc}
+              />
+            </View>
+          </View>
+
+          <View style={styles.bottomScrollSpace}></View>
         </ScrollView>
-        <BottomTab />
+        <BottomTab height={40} />
+        {/* <TestBottomTab/> */}
         <StatusBar style="auto" />
       </View>
     </GestureHandlerRootView>
@@ -302,7 +480,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     // alignItems: "center",
-    gap: 16,
+    // gap: 16,
   },
   bigCard: {
     height: 160,
@@ -339,5 +517,8 @@ const styles = StyleSheet.create({
   },
   carouselImage: {
     flex: 1,
+  },
+  bottomScrollSpace: {
+    height: 40,
   },
 });

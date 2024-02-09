@@ -48,7 +48,7 @@ const getStyles = (height:number|undefined) => {
   const tabItemRadius = height ? height-10: TAB_ITEM_RADIUS
   return StyleSheet.create({
     container: {
-      backgroundColor: "red",
+      backgroundColor: COLORS.PRIMARY,
       height: bottomBarHeight,
       marginTop: 0,
       paddingTop: 0,
