@@ -4,13 +4,8 @@ import { StyleSheet, View } from "react-native";
 import { addDays, format } from "date-fns";
 import useStore from "@/hooks/useStore";
 
-interface CustomDateRangeProps {
-  onDatesChange: (dates: any) => void;
-}
-
-export default function CustomDateRange({
-  onDatesChange,
-}: CustomDateRangeProps) {
+export default function CustomDateRange() {
+  const { bookingDetail, setBookingDetail } = useStore();
   const [range, setRange] = useState<any>({
     startDate: new Date(),
     endDate: addDays(new Date(), 1),
@@ -101,10 +96,10 @@ export default function CustomDateRange({
 
     if (nextRange.startDate?.toString() !== nextRange.endDate?.toString()) {
       setRange(nextRange);
-      console.log("oat", nextRange);
-      onDatesChange({
-        startDate: addDays(nextRange.startDate, 1),
-        endDate: addDays(nextRange.endDate, 1),
+      setBookingDetail({
+        ...bookingDetail,
+        startDate: nextRange.startDate,
+        endDate: nextRange.endDate,
       });
     } else if (
       nextRange.startDate?.toString() == nextRange.endDate?.toString()
@@ -114,10 +109,12 @@ export default function CustomDateRange({
           startDate: nextRange.startDate,
           endDate: addDays(nextRange.endDate, 1),
         });
-        onDatesChange({
-          startDate: addDays(nextRange.startDate, 1),
-          endDate: addDays(nextRange.endDate, 2),
+        setBookingDetail({
+          ...bookingDetail,
+          startDate: nextRange.startDate,
+          endDate: addDays(nextRange.endDate, 1),
         });
+
         setMinDate(new Date());
         setMaxDate(addDays(new Date(), 999999));
         setMyDisabledDates(disabledDates);
@@ -139,14 +136,14 @@ export default function CustomDateRange({
         <Text>
           {`Start Date : ${
             range.startDate
-              ? format(range.startDate.toString(), "dd/MM/yyyy")
+              ? format(bookingDetail.startDate.toString(), "dd/MM/yyyy")
               : "-"
           }`}
         </Text>
         <Text>
           {`End Date   : ${
             range.endDate
-              ? format(range.endDate.toString(), "dd/MM/yyyy")
+              ? format(bookingDetail.endDate.toString(), "dd/MM/yyyy")
               : " -"
           }`}
         </Text>
