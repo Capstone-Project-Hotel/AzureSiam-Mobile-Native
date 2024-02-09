@@ -1,31 +1,48 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import { Entypo } from '@expo/vector-icons';
+import { Entypo } from "@expo/vector-icons";
 import { COLORS } from "@/constants";
 
 const BOTTOM_BAR_HEIGHT = 40;
 const TAB_ITEM_RADIUS = 30;
 
-export default function TestBottomTab({height}:{height?: number}) {
+export default function TestBottomTab({
+  height,
+  contactUsHandler,
+}: {
+  height?: number;
+  contactUsHandler: Function;
+}) {
   const styles = getStyles(height);
   return (
     <View style={styles.container}>
       <View style={styles.tabContainer}>
-        <View
-          style={styles.tabItem}
-        >
-          <AntDesign name="home" color={COLORS.PRIMARY} onPress={() => {}} size={styles.tabItem.borderRadius}/>
+        <View style={styles.tabItem}>
+          <AntDesign
+            name="home"
+            color={COLORS.PRIMARY}
+            onPress={() => {}}
+            size={styles.tabItem.borderRadius}
+          />
         </View>
-        <View
-          style={styles.tabItem}
-        >
-          <AntDesign name="calendar" color={COLORS.PRIMARY} onPress={() => {}} size={styles.tabItem.borderRadius}/>
+        <View style={styles.tabItem}>
+          <AntDesign
+            name="calendar"
+            color={COLORS.PRIMARY}
+            onPress={() => {}}
+            size={styles.tabItem.borderRadius}
+          />
         </View>
-        <View
-          style={styles.tabItem}
-        >
-          <AntDesign name="info" color={COLORS.PRIMARY} onPress={() => {}} size={styles.tabItem.borderRadius}/>
+        <View style={styles.tabItem}>
+          <AntDesign
+            name="info"
+            color={COLORS.PRIMARY}
+            onPress={() => {
+              contactUsHandler();
+            }}
+            size={styles.tabItem.borderRadius}
+          />
         </View>
       </View>
       {/* <View
@@ -43,9 +60,9 @@ export default function TestBottomTab({height}:{height?: number}) {
   );
 }
 
-const getStyles = (height:number|undefined) => {
-  const bottomBarHeight = height ?? BOTTOM_BAR_HEIGHT
-  const tabItemRadius = height ? height-10: TAB_ITEM_RADIUS
+const getStyles = (height: number | undefined) => {
+  const bottomBarHeight = height ?? BOTTOM_BAR_HEIGHT;
+  const tabItemRadius = height ? height - 10 : TAB_ITEM_RADIUS;
   return StyleSheet.create({
     container: {
       backgroundColor: COLORS.PRIMARY,
@@ -63,19 +80,17 @@ const getStyles = (height:number|undefined) => {
       alignItems: "center",
     },
     tabItem: {
-      width: tabItemRadius*2,
-      height: tabItemRadius*2,
+      width: tabItemRadius * 2,
+      height: tabItemRadius * 2,
       borderRadius: tabItemRadius,
       backgroundColor: "white",
       flexDirection: "row",
       justifyContent: "center",
-      alignItems: "center"
+      alignItems: "center",
     },
-    tabIcon: {
-      
-    }
+    tabIcon: {},
   });
-}
+};
 
 // const styles = StyleSheet.create({
 //   container: {

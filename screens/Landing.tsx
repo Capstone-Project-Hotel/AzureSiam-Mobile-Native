@@ -28,6 +28,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import Carousel from "react-native-reanimated-carousel";
 import BottomTab from "@/components/BottomTab";
 import TestBottomTab from "@/components/TestBottomTab";
+import useStore from "@/hooks/useStore";
 
 const banner = {
   uri: "https://cdn.discordapp.com/attachments/457166097230069773/1186379702336753684/coverImage.jpg",
@@ -74,6 +75,7 @@ const gallery = [
 import i18next, { languageResources } from "../services/i18next";
 import { useTranslation } from "react-i18next";
 import languagesList from "../services/languagesList.json";
+import CustomDateRange from "@/components/CustomDateRange";
 
 const promotions = {
   fifty: {
@@ -118,6 +120,7 @@ export default function Landing({ navigation }: any) {
   // Test lng
   const [visible, setVisible] = useState(false);
   const { t } = useTranslation();
+  const { bookingDetail, setBookingDetail } = useStore();
 
   const changeLng = (lng: any) => {
     i18next.changeLanguage(lng);
@@ -491,6 +494,23 @@ export default function Landing({ navigation }: any) {
                 </View>
               )}
             />
+            <CustomDateRange />
+            <TouchableOpacity
+              onPress={() => {
+                const updatedBookingDetail: BookingDetail = {
+                  ...bookingDetail,
+                  startDate: "09-02-2024",
+                  endDate: "11-02-2024",
+                  adultNumber: 1,
+                  childrenNumber: 0,
+                  codePromotion: "promo001",
+                };
+                setBookingDetail(updatedBookingDetail);
+                navigation.navigate("SearchResult");
+              }}
+            >
+              <Text style={{ height: 55 }}>Go To Search Result Page</Text>
+            </TouchableOpacity>
           </View>
 
           <View style={styles.sectionMargin}>
@@ -516,7 +536,12 @@ export default function Landing({ navigation }: any) {
 
           <View style={styles.bottomScrollSpace}></View>
         </ScrollView>
-        <BottomTab height={40} />
+        <BottomTab
+          height={40}
+          contactUsHandler={() => {
+            navigation.navigate("ContactUs");
+          }}
+        />
         {/* <TestBottomTab/> */}
         <StatusBar style="auto" />
       </View>

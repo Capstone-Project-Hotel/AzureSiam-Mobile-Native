@@ -2,6 +2,7 @@ import { RangeCalendar, Text } from "@ui-kitten/components";
 import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { addDays, format } from "date-fns";
+import useStore from "@/hooks/useStore";
 
 export default function CustomDateRange() {
   const [range, setRange] = useState<any>({

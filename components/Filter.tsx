@@ -1,22 +1,20 @@
-import { AppRegistry } from "react-native";
 import React from "react";
-import { InputItem } from "@ant-design/react-native";
 import { ScrollView, Text, View } from "react-native";
+import useStore from "@/hooks/useStore";
 
 export default function Filter() {
+  const { bookingDetail, setBookingDetail } = useStore();
   return (
     <View>
       <ScrollView>
         <Text>Booking Detail</Text>
         <Text>Check-in date & Check-out date</Text>
+        <Text>
+          {bookingDetail.startDate} - {bookingDetail.endDate}
+        </Text>
         <Text>Adults</Text>
-        <InputItem clear type="number" />
         <Text>Children</Text>
-        <InputItem clear type="number" value="1" placeholder="number">
-          Test
-        </InputItem>
         <Text>Code Promotion</Text>
-        <InputItem clear type="text" />
         <Text>Room Type</Text>
         <Text>Standard</Text>
         <Text>Deluxe</Text>

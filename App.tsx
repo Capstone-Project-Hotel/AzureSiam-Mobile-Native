@@ -21,7 +21,7 @@ export default function App() {
         <NavigationContainer>
           <Stack.Navigator>
             <Stack.Screen name="Landing" component={LandingPage} />
-            {/* <Stack.Screen name="ContactUs" component={ContactUsPage} /> */}
+            <Stack.Screen name="ContactUs" component={ContactUsPage} />
             <Stack.Screen name="SearchResult" component={SearchResultPage} />
             <Stack.Screen
               name="Reservation And Guest Detail"
