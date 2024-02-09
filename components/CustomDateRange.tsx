@@ -1,9 +1,15 @@
 import { RangeCalendar, Text } from "@ui-kitten/components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { addDays, format } from "date-fns";
 
-export default function CustomDateRange() {
+interface CustomDateRangeProps {
+  onDatesChange: (dates: any) => void;
+}
+
+export default function CustomDateRange({
+  onDatesChange,
+}: CustomDateRangeProps) {
   const [range, setRange] = useState<any>({
     startDate: new Date(),
     endDate: addDays(new Date(), 1),
@@ -108,6 +114,10 @@ export default function CustomDateRange() {
       }
     }
   };
+
+  useEffect(() => {
+    onDatesChange(range);
+  }, [range]);
 
   return (
     <>

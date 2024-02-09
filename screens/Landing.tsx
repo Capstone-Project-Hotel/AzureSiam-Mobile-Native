@@ -74,6 +74,7 @@ const gallery = [
 import i18next, { languageResources } from "../services/i18next";
 import { useTranslation } from "react-i18next";
 import languagesList from "../services/languagesList.json";
+import CustomDateRange from "@/components/CustomDateRange";
 
 const promotions = {
   fifty: {
@@ -165,6 +166,10 @@ export default function Landing({ navigation }: any) {
           color="green"
         />
       </SafeAreaView>
+
+      <View>
+        <CustomDateRange onDatesChange={(dates: any) => console.log(dates)} />
+      </View>
 
       <View style={styles.container}>
         <ScrollView>
