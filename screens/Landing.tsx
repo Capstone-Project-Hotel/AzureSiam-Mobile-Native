@@ -169,6 +169,10 @@ export default function Landing({ navigation }: any) {
         />
       </SafeAreaView>
 
+      <View>
+        <CustomDateRange onDatesChange={(dates: any) => console.log(dates)} />
+      </View>
+
       <View style={styles.container}>
         <ScrollView>
           <ImageBackground

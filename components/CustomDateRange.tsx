@@ -1,10 +1,16 @@
 import { RangeCalendar, Text } from "@ui-kitten/components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { addDays, format } from "date-fns";
 import useStore from "@/hooks/useStore";
 
-export default function CustomDateRange() {
+interface CustomDateRangeProps {
+  onDatesChange: (dates: any) => void;
+}
+
+export default function CustomDateRange({
+  onDatesChange,
+}: CustomDateRangeProps) {
   const [range, setRange] = useState<any>({
     startDate: new Date(),
     endDate: addDays(new Date(), 1),
@@ -95,6 +101,11 @@ export default function CustomDateRange() {
 
     if (nextRange.startDate?.toString() !== nextRange.endDate?.toString()) {
       setRange(nextRange);
+      console.log("oat", nextRange);
+      onDatesChange({
+        startDate: addDays(nextRange.startDate, 1),
+        endDate: addDays(nextRange.endDate, 1),
+      });
     } else if (
       nextRange.startDate?.toString() == nextRange.endDate?.toString()
     ) {
@@ -102,6 +113,10 @@ export default function CustomDateRange() {
         setRange({
           startDate: nextRange.startDate,
           endDate: addDays(nextRange.endDate, 1),
+        });
+        onDatesChange({
+          startDate: addDays(nextRange.startDate, 1),
+          endDate: addDays(nextRange.endDate, 2),
         });
         setMinDate(new Date());
         setMaxDate(addDays(new Date(), 999999));
