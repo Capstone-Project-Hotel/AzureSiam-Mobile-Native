@@ -100,6 +100,11 @@ export default function CustomDateRange({
 
     if (nextRange.startDate?.toString() !== nextRange.endDate?.toString()) {
       setRange(nextRange);
+      console.log("oat", nextRange);
+      onDatesChange({
+        startDate: addDays(nextRange.startDate, 1),
+        endDate: addDays(nextRange.endDate, 1),
+      });
     } else if (
       nextRange.startDate?.toString() == nextRange.endDate?.toString()
     ) {
@@ -108,16 +113,16 @@ export default function CustomDateRange({
           startDate: nextRange.startDate,
           endDate: addDays(nextRange.endDate, 1),
         });
+        onDatesChange({
+          startDate: addDays(nextRange.startDate, 1),
+          endDate: addDays(nextRange.endDate, 2),
+        });
         setMinDate(new Date());
         setMaxDate(addDays(new Date(), 999999));
         setMyDisabledDates(disabledDates);
       }
     }
   };
-
-  useEffect(() => {
-    onDatesChange(range);
-  }, [range]);
 
   return (
     <>
