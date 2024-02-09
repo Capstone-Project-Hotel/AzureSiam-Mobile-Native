@@ -9,7 +9,7 @@ export default function SummaryCard({ page }: { page: string }) {
       <Text>
         {bookingDetail.startDate} - {bookingDetail.endDate}
       </Text>
-      <Text>2 nights</Text>
+      <Text>2 night(s)</Text>
       <Text>
         {bookingDetail.adultNumber} adult(s), {bookingDetail.childrenNumber}{" "}
         children
