@@ -1,8 +1,12 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import { Modal, Pressable, StyleSheet, Text, View } from "react-native";
+import React, { useState } from "react";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { Entypo } from "@expo/vector-icons";
 import { COLORS } from "@/constants";
+import CustomDateRange from "./CustomDateRange";
+import useStore from "@/hooks/useStore";
+import { Button } from "@ui-kitten/components";
+import { format } from "date-fns";
 
 const BOTTOM_BAR_HEIGHT = 40;
 const TAB_ITEM_RADIUS = 30;
@@ -14,9 +18,39 @@ export default function TestBottomTab({
   height?: number;
   contactUsHandler: Function;
 }) {
+  const { bookingDetail, setBookingDetail } = useStore();
+  const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
+  const onClickCalendar = () => {
+    setIsDatePickerVisible(true);
+  };
+
+  const onModalClose = () => {
+    setIsDatePickerVisible(false);
+  };
   const styles = getStyles(height);
+  // const handleCalendar = ()=>{
+  //   CustomDateRange
+  // }
   return (
     <View style={styles.container}>
+      <Modal
+        visible={isDatePickerVisible}
+        animationType="slide"
+        transparent={false}
+      >
+        <View style={styles.calendarModalContainer}>
+          <Button onPress={onModalClose}>Dismiss</Button>
+          <CustomDateRange
+            onDatesChange={(range: { startDate: Date; endDate: Date }) =>
+              setBookingDetail({
+                ...bookingDetail,
+                startDate: format(range.startDate.toString(), "dd/MM/yyyy"),
+                endDate: format(range.endDate.toString(), "dd/MM/yyyy"),
+              })
+            }
+          />
+        </View>
+      </Modal>
       <View style={styles.tabContainer}>
         <View style={styles.tabItem}>
           <AntDesign
@@ -34,6 +68,16 @@ export default function TestBottomTab({
             size={styles.tabItem.borderRadius}
           />
         </View>
+        <Pressable onPress={onClickCalendar}>
+          <View style={styles.tabItem}>
+            <AntDesign
+              name="calendar"
+              color={COLORS.PRIMARY}
+              // onPress={() => {}}
+              size={styles.tabItem.borderRadius}
+            />
+          </View>
+        </Pressable>
         <View style={styles.tabItem}>
           <AntDesign
             name="info"
@@ -45,17 +89,6 @@ export default function TestBottomTab({
           />
         </View>
       </View>
-      {/* <View
-        style={{
-          width: 60,
-          height: 60,
-          borderRadius: 30, // halve width&height
-          backgroundColor: "green",
-          position: "absolute",
-          left: 0,
-          top: -30, // - halve width&height
-        }}
-      /> */}
     </View>
   );
 }
@@ -89,6 +122,7 @@ const getStyles = (height: number | undefined) => {
       alignItems: "center",
     },
     tabIcon: {},
+    calendarModalContainer: {},
   });
 };
 

@@ -169,10 +169,6 @@ export default function Landing({ navigation }: any) {
         />
       </SafeAreaView>
 
-      <View>
-        <CustomDateRange onDatesChange={(dates: any) => console.log(dates)} />
-      </View>
-
       <View style={styles.container}>
         <ScrollView>
           <ImageBackground
@@ -498,18 +494,18 @@ export default function Landing({ navigation }: any) {
                 </View>
               )}
             />
-            <CustomDateRange />
+            {/* <CustomDateRange onDatesChange={(range: {startDate: Date,endDate: Date})}/> */}
             <TouchableOpacity
               onPress={() => {
-                const updatedBookingDetail: BookingDetail = {
-                  ...bookingDetail,
-                  startDate: "09-02-2024",
-                  endDate: "11-02-2024",
-                  adultNumber: 1,
-                  childrenNumber: 0,
-                  codePromotion: "promo001",
-                };
-                setBookingDetail(updatedBookingDetail);
+                // const updatedBookingDetail: BookingDetail = {
+                //   ...bookingDetail,
+                //   startDate: "09-02-2024",
+                //   endDate: "11-02-2024",
+                //   adultNumber: 1,
+                //   childrenNumber: 0,
+                //   codePromotion: "promo001",
+                // };
+                // setBookingDetail(updatedBookingDetail);
                 navigation.navigate("SearchResult");
               }}
             >
