@@ -14,11 +14,12 @@ import {
   SafeAreaView,
   Modal,
   Button,
+  TouchableHighlight,
 } from "react-native";
 import LandingBigCard from "@/components/LandingBigCard";
 import { useFonts } from "expo-font";
 import AppText from "@/components/AppText";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import SmallModalCard from "@/components/SmallModalCard";
 import Card from "@/components/Card";
 // import MaterialIcons from "@expo/vector-icons/MaterialIcons";
@@ -30,6 +31,13 @@ import BottomTab from "@/components/BottomTab";
 import TestBottomTab from "@/components/TestBottomTab";
 import useStore from "@/hooks/useStore";
 import axios from "axios";
+import {
+  Ionicons,
+  Entypo,
+  AntDesign,
+  MaterialIcons,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 
 const banner = {
   uri: "https://cdn.discordapp.com/attachments/457166097230069773/1186379702336753684/coverImage.jpg",
@@ -143,6 +151,7 @@ const listquotes = [
 export default function Landing({ navigation }: any) {
   // Test lng
   const [visible, setVisible] = useState(false);
+  const [visibleL, setVisibleL] = useState(false);
   const { t } = useTranslation();
   const {
     bookingDetail,
@@ -151,6 +160,8 @@ export default function Landing({ navigation }: any) {
     setExchangeRate,
     currency,
     exchangeRate,
+    lng,
+    setLng,
   } = useStore();
 
   const handleExChange = async (value: string) => {
@@ -183,7 +194,7 @@ export default function Landing({ navigation }: any) {
 
   const changeLng = (lng: any) => {
     i18next.changeLanguage(lng);
-    setVisible(false);
+    setVisibleL(false);
   };
 
   const [fontsLoaded, fontError] = useFonts({
@@ -194,60 +205,172 @@ export default function Landing({ navigation }: any) {
   }
   const width = Dimensions.get("window").width; // ย้ายไป cosntant
 
+  const [ref, setRef] = useState<any>(null);
+  const [roomLayout, setRoomLayout] = useState<any>(null);
+  const [facilitiesLayout, setFacilitiesLayout] = useState<any>(null);
+  const [promotionsLayout, setPromotionsLayout] = useState<any>(null);
+  const [activityLayout, setActivityLayout] = useState<any>(null);
+  const [galleryLayout, setGalleryLayout] = useState<any>(null);
+  const [nearbyLayout, setNearbyLayout] = useState<any>(null);
+  const scrollTo = (layout: any) => {
+    setVisible(false);
+    if (ref && layout) {
+      ref.scrollTo({ y: layout.y, animated: true });
+    }
+  };
+
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <TouchableOpacity
+      {/* Go To ReservationAndGuestDetail Page Example */}
+      {/* <TouchableOpacity
         onPress={() => navigation.navigate("Reservation And Guest Detail")}
       >
         <Text style={{ height: 55 }}>Go To ReservationAndGuestDetail Page</Text>
-      </TouchableOpacity>
-      {/* Text lng */}
-      <SafeAreaView style={{ margin: 20 }}>
-        <Modal visible={visible} onRequestClose={() => setVisible(false)}>
-          <View>
-            <FlatList
-              style={{ padding: 30 }}
-              data={Object.keys(languageResources)}
-              renderItem={({ item }) => (
-                <TouchableOpacity onPress={() => changeLng(item)}>
-                  <Text style={{ fontSize: 20 }}>
-                    {(languagesList as any)[item].nativeName}
-                  </Text>
-                </TouchableOpacity>
-              )}
-            />
-          </View>
-        </Modal>
-        {/* Test Currency */}
-        <Select
-          onSelect={(i: any) => handleExChange(listquotes[i.row])}
-          value={currency}
-          placeholder="Select Currency"
-        >
-          {listquotes.map((quote, index) => (
-            <SelectItem key={index} title={quote} />
-          ))}
-        </Select>
-        <Text>
-          {currency} {exchangeRate}
-        </Text>
-
-        <Text style={{ fontSize: 20, textAlign: "center", padding: 10 }}>
-          {t("welcome")}
-        </Text>
-        <Button
-          onPress={() => setVisible(true)}
-          title={t("change-language")}
-          color="green"
-        />
-      </SafeAreaView>
-
-      <View>
-        <CustomDateRange />
-      </View>
+      </TouchableOpacity> */}
 
       <View style={styles.container}>
-        <ScrollView>
+        <ScrollView ref={(ref: any) => setRef(ref)}>
+          <TouchableOpacity
+            onPress={() => setVisible(true)}
+            style={{ position: "absolute", top: 20, left: 20, zIndex: 100 }}
+          >
+            <Image
+              source={require("../assets/menu.png")}
+              style={{ width: 30, height: 30 }}
+            />
+          </TouchableOpacity>
+
+          {/* Menu Modal */}
+          <Modal visible={visible} onRequestClose={() => setVisible(false)}>
+            <View>
+              <View style={{ padding: 30 }}>
+                <TouchableOpacity
+                  onPress={() => setVisible(false)}
+                  style={{ alignSelf: "flex-start" }}
+                >
+                  <Image
+                    source={require("../assets/x.png")}
+                    style={{ width: 40, height: 40 }}
+                  />
+                </TouchableOpacity>
+              </View>
+              <View>
+                {/* Home */}
+                <TouchableOpacity
+                  style={styles.menuModalContainer}
+                  onPress={() => {
+                    setVisible(false);
+                    if (ref) {
+                      ref.scrollTo({ y: 0, animated: true });
+                    }
+                  }}
+                >
+                  <Entypo name="home" size={32} color="black" />
+                  <Text style={styles.menuModalText}>Home</Text>
+                </TouchableOpacity>
+                {/* Room Type */}
+                <TouchableOpacity
+                  style={styles.menuModalContainer}
+                  onPress={() => scrollTo(roomLayout)}
+                >
+                  <Ionicons name="bed" size={32} color="black" />
+                  <Text style={styles.menuModalText}>Room Type</Text>
+                </TouchableOpacity>
+                {/* Facilities & Services */}
+                <TouchableOpacity
+                  style={styles.menuModalContainer}
+                  onPress={() => scrollTo(facilitiesLayout)}
+                >
+                  <MaterialIcons name="room-service" size={32} color="black" />
+                  <Text style={styles.menuModalText}>
+                    Facilities & Services
+                  </Text>
+                </TouchableOpacity>
+                {/* Promotions */}
+                <TouchableOpacity
+                  style={styles.menuModalContainer}
+                  onPress={() => scrollTo(promotionsLayout)}
+                >
+                  <AntDesign name="gift" size={32} color="black" />
+                  <Text style={styles.menuModalText}>Promotions</Text>
+                </TouchableOpacity>
+                {/* Activity Schedule */}
+                <TouchableOpacity
+                  style={styles.menuModalContainer}
+                  onPress={() => scrollTo(activityLayout)}
+                >
+                  <MaterialIcons name="schedule" size={32} color="black" />
+                  <Text style={styles.menuModalText}>Activity Schedule</Text>
+                </TouchableOpacity>
+                {/* Gallery */}
+                <TouchableOpacity
+                  style={styles.menuModalContainer}
+                  onPress={() => scrollTo(galleryLayout)}
+                >
+                  <Entypo name="images" size={32} color="black" />
+                  <Text style={styles.menuModalText}>Gallery</Text>
+                </TouchableOpacity>
+                {/* Nearby Attraction */}
+                <TouchableOpacity
+                  style={styles.menuModalContainer}
+                  onPress={() => scrollTo(nearbyLayout)}
+                >
+                  <MaterialCommunityIcons
+                    name="google-nearby"
+                    size={32}
+                    color="black"
+                  />
+                  <Text style={styles.menuModalText}>Nearby Attraction</Text>
+                </TouchableOpacity>
+                {/* Language */}
+                <View style={styles.menuModalContainer}>
+                  <MaterialIcons name="language" size={32} color="black" />
+                  <Text style={styles.menuModalText}>Language</Text>
+                  <Select
+                    onSelect={(i: any) => {
+                      changeLng(["en", "th"][i.row]);
+                      setLng(["English", "ไทย"][i.row]);
+                    }}
+                    value={lng}
+                    placeholder="Select Currency"
+                    style={{ width: 130 }}
+                  >
+                    {Object.keys(languageResources).map((lng, index) => (
+                      <SelectItem
+                        key={index}
+                        title={(languagesList as any)[lng].nativeName}
+                      />
+                    ))}
+                  </Select>
+                </View>
+                {/* Currency */}
+                <View style={styles.menuModalContainer}>
+                  <MaterialIcons
+                    name="currency-exchange"
+                    size={32}
+                    color="black"
+                  />
+                  <Text style={styles.menuModalText}>Currency</Text>
+                  <Select
+                    onSelect={(i: any) => handleExChange(listquotes[i.row])}
+                    value={currency}
+                    placeholder="Select Currency"
+                    style={{ width: 110 }}
+                  >
+                    {listquotes.map((quote, index) => (
+                      <SelectItem key={index} title={quote} />
+                    ))}
+                  </Select>
+                </View>
+                {/* Test lng & currency */}
+                {/* <Text>{t("welcome")}</Text>
+                <Text>
+                  {currency} {exchangeRate}
+                </Text> */}
+              </View>
+            </View>
+          </Modal>
+
           <ImageBackground
             source={banner}
             style={styles.bannerImage}
@@ -280,6 +403,14 @@ export default function Landing({ navigation }: any) {
           </LandingBigCard>
           <View></View>
           {/* add slider */}
+
+          {/* setRoomLayout */}
+          <View
+            onLayout={(event: any) => {
+              setRoomLayout(event.nativeEvent.layout);
+            }}
+          ></View>
+
           <View style={styles.sectionMargin}>
             <AppText styles={styles.sectionText}>Room Type</AppText>
             <View style={{ flexDirection: "row", gap: 8 }}>
@@ -382,6 +513,14 @@ export default function Landing({ navigation }: any) {
               />
             </View>
           </View>
+
+          {/* setFacilitiesLayout */}
+          <View
+            onLayout={(event: any) => {
+              setFacilitiesLayout(event.nativeEvent.layout);
+            }}
+          ></View>
+
           <LandingBigCard style={styles.bigCard}>
             <View
               style={{
@@ -408,6 +547,7 @@ export default function Landing({ navigation }: any) {
               }}
             />
           </LandingBigCard>
+
           <LandingBigCard style={styles.bigCard}>
             <Image
               source={bigCard3_gym}
@@ -432,6 +572,14 @@ export default function Landing({ navigation }: any) {
               </AppText>
             </View>
           </LandingBigCard>
+
+          {/* setPromotionsLayout */}
+          <View
+            onLayout={(event: any) => {
+              setPromotionsLayout(event.nativeEvent.layout);
+            }}
+          ></View>
+
           <View style={styles.sectionMargin}>
             <AppText styles={styles.sectionText}>Promotions</AppText>
             <View style={{ flexDirection: "row", gap: 8 }}>
@@ -491,6 +639,14 @@ export default function Landing({ navigation }: any) {
               />
             </View>
           </View>
+
+          {/* setActivityLayout */}
+          <View
+            onLayout={(event: any) => {
+              setActivityLayout(event.nativeEvent.layout);
+            }}
+          ></View>
+
           <View style={styles.sectionMargin}>
             <AppText styles={styles.sectionText}>Activity Schedule</AppText>
             <View style={{ flexDirection: "row", gap: 8 }}>
@@ -546,6 +702,14 @@ export default function Landing({ navigation }: any) {
               />
             </View>
           </View>
+
+          {/* setGalleryLayout */}
+          <View
+            onLayout={(event: any) => {
+              setGalleryLayout(event.nativeEvent.layout);
+            }}
+          ></View>
+
           <View style={{ flex: 1 }}>
             <Carousel
               loop
@@ -571,7 +735,7 @@ export default function Landing({ navigation }: any) {
                 </View>
               )}
             />
-            <CustomDateRange />
+            {/* <CustomDateRange />
             <TouchableOpacity
               onPress={() => {
                 const updatedBookingDetail: BookingDetail = {
@@ -587,8 +751,15 @@ export default function Landing({ navigation }: any) {
               }}
             >
               <Text style={{ height: 55 }}>Go To Search Result Page</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
+
+          {/* setNearbyLayout */}
+          <View
+            onLayout={(event: any) => {
+              setNearbyLayout(event.nativeEvent.layout);
+            }}
+          ></View>
 
           <View style={styles.sectionMargin}>
             <AppText styles={styles.sectionText}>Nearby Attraction</AppText>
@@ -672,5 +843,19 @@ const styles = StyleSheet.create({
   },
   bottomScrollSpace: {
     height: 40,
+  },
+  menuModalContainer: {
+    paddingHorizontal: 30,
+    paddingVertical: 15,
+    display: "flex",
+    flexDirection: "row",
+    columnGap: 20,
+    alignItems: "center",
+    borderBottomColor: "gray",
+    borderBottomWidth: 1,
+    borderStyle: "solid",
+  },
+  menuModalText: {
+    fontSize: 20,
   },
 });
