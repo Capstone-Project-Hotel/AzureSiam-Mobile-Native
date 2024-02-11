@@ -360,14 +360,6 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
         </View>
       </View>
 
-      <View
-        style={{
-          elevation: 50, // Adjust value for desired shadow intensity
-        }}
-      >
-        <Text>asds</Text>
-      </View>
-
       {/* Guest Detail */}
       <View style={styles.container}>
         <View>
