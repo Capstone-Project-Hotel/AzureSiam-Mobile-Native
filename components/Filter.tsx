@@ -10,11 +10,11 @@ export default function Filter() {
         <Text>Booking Detail</Text>
         <Text>Check-in date & Check-out date</Text>
         <Text>
-          {bookingDetail.startDate} - {bookingDetail.endDate}
+          {bookingDetail.startDate.toString()} - {bookingDetail.endDate.toString()}
         </Text>
-        <Text>Adults</Text>
-        <Text>Children</Text>
-        <Text>Code Promotion</Text>
+        <Text>Adults: {bookingDetail.adultNumber}</Text>
+        <Text>Children: {bookingDetail.childrenNumber}</Text>
+        <Text>Code Promotion: {bookingDetail.codePromotion}</Text>
         <Text>Room Type</Text>
         <Text>Standard</Text>
         <Text>Deluxe</Text>
