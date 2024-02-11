@@ -741,8 +741,8 @@ export default function Landing({ navigation }: any) {
               onPress={() => {
                 const updatedBookingDetail: BookingDetail = {
                   ...bookingDetail,
-                  startDate: "09-02-2024",
-                  endDate: "11-02-2024",
+                  startDate: "14/02/2024",
+                  endDate: "11/02/2024",
                   adultNumber: 1,
                   childrenNumber: 0,
                   codePromotion: "promo001",
