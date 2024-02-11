@@ -241,10 +241,10 @@ export default function Landing({ navigation }: any) {
           color="green"
         />
       </SafeAreaView>
-
+      {/* 
       <View>
         <CustomDateRange />
-      </View>
+      </View> */}
 
       <View style={styles.container}>
         <ScrollView>
@@ -574,15 +574,15 @@ export default function Landing({ navigation }: any) {
             {/* <CustomDateRange onDatesChange={(range: {startDate: Date,endDate: Date})}/> */}
             <TouchableOpacity
               onPress={() => {
-                // const updatedBookingDetail: BookingDetail = {
-                //   ...bookingDetail,
-                //   startDate: "09-02-2024",
-                //   endDate: "11-02-2024",
-                //   adultNumber: 1,
-                //   childrenNumber: 0,
-                //   codePromotion: "promo001",
-                // };
-                // setBookingDetail(updatedBookingDetail);
+                const updatedBookingDetail: BookingDetail = {
+                  ...bookingDetail,
+                  startDate: "14/02/2024",
+                  endDate: "11/02/2024",
+                  adultNumber: 1,
+                  childrenNumber: 0,
+                  codePromotion: "promo001",
+                };
+                setBookingDetail(updatedBookingDetail);
                 navigation.navigate("SearchResult");
               }}
             >
