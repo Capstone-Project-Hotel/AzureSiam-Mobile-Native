@@ -197,12 +197,6 @@ export default function Landing({ navigation }: any) {
     setVisibleL(false);
   };
 
-  const [fontsLoaded, fontError] = useFonts({
-    NotoSansThai: require("@/assets/fonts/NotoSansThai.ttf"),
-  });
-  if (!fontsLoaded) {
-    return <Text>LOADING...</Text>;
-  }
   const width = Dimensions.get("window").width; // ย้ายไป cosntant
 
   const [ref, setRef] = useState<any>(null);
@@ -219,14 +213,21 @@ export default function Landing({ navigation }: any) {
     }
   };
 
+  const [fontsLoaded, fontError] = useFonts({
+    NotoSansThai: require("@/assets/fonts/NotoSansThai.ttf"),
+  });
+  if (!fontsLoaded) {
+    return <Text>LOADING...</Text>;
+  }
+
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       {/* Go To ReservationAndGuestDetail Page Example */}
-      {/* <TouchableOpacity
+      <TouchableOpacity
         onPress={() => navigation.navigate("Reservation And Guest Detail")}
       >
         <Text style={{ height: 55 }}>Go To ReservationAndGuestDetail Page</Text>
-      </TouchableOpacity> */}
+      </TouchableOpacity>
 
       <View style={styles.container}>
         <ScrollView ref={(ref: any) => setRef(ref)}>
