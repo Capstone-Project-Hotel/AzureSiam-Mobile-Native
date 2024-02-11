@@ -2,6 +2,7 @@ import useStore from "@/hooks/useStore";
 import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
 import { format } from "date-fns";
 import { COLORS } from "@/constants";
+import Topbar from "@/components/Topbar";
 
 export default function BookingConfirmationPage() {
   const {
@@ -36,215 +37,218 @@ export default function BookingConfirmationPage() {
   }
 
   return (
-    <ScrollView
-      style={{
-        paddingLeft: 30,
-        paddingRight: 30,
-        paddingTop: 30,
-      }}
-    >
-      <View
+    <View>
+      <Topbar />
+      <ScrollView
         style={{
-          display: "flex",
-          flexDirection: "column",
-          rowGap: 20,
-          paddingBottom: 70,
+          paddingHorizontal: 30,
+          paddingTop: 30,
+          marginBottom: 80,
         }}
       >
-        {/* Booking ID */}
         <View
           style={{
             display: "flex",
             flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            height: 80,
+            rowGap: 20,
+            paddingBottom: 70,
           }}
         >
+          {/* Booking ID */}
           <View
             style={{
               display: "flex",
-              flexDirection: "row",
+              flexDirection: "column",
               justifyContent: "center",
               alignItems: "center",
-              columnGap: 10,
+              height: 80,
             }}
           >
-            <Image
-              source={{
-                uri: "https://cdn.discordapp.com/attachments/457166097230069773/1204333894019579934/image_3.png?ex=65d45a57&is=65c1e557&hm=329345ca2a8b26457da6ebd4d452986a65687a03fae0c6594b7a72f527e20dec&",
-              }}
-              style={{ width: 25, height: 25 }}
-            />
-            <Text style={{ fontSize: 24, color: `${COLORS.PRIMARY}` }}>
-              Your Booking is Successful
-            </Text>
-          </View>
-          <View>
-            <Text style={{ fontSize: 18, color: `${COLORS.PRIMARY}` }}>
-              Booking Id : {bookingDetail.bookingId}
-            </Text>
-          </View>
-        </View>
-
-        {/* Guest Detail */}
-        <View style={styles.container}>
-          <View>
-            <Text style={styles.mainText}>Guest Detail</Text>
-          </View>
-          <View>
-            {guests.map((guest, index) => {
-              return (
-                <View style={styles.inputContainer} key={index}>
-                  {/* First Name */}
-                  <View>
-                    <Text>First Name : {guest.firstName}</Text>
-                  </View>
-
-                  {/* Middle Name */}
-                  <View>
-                    <Text>
-                      Middle Name :{" "}
-                      {guest.middleName === "" ? "-" : guest.middleName}
-                    </Text>
-                  </View>
-
-                  {/* Last Name */}
-                  <View>
-                    <Text>Last Name : {guest.lastName}</Text>
-                  </View>
-
-                  {/* Gender */}
-                  <View>
-                    <Text>Gender : {guest.gender}</Text>
-                  </View>
-
-                  {/* Birth Date */}
-                  <View>
-                    <Text>
-                      Birth Date : {format(guest.birthDate, "dd/MM/yyyy")}
-                    </Text>
-                  </View>
-
-                  {/* Email */}
-                  <View>
-                    <Text>Email : {guest.email}</Text>
-                  </View>
-
-                  {/* Phone Number */}
-                  <View>
-                    <Text>Phone Number : {guest.phoneNumber}</Text>
-                  </View>
-
-                  {/* Country */}
-                  <View>
-                    <Text>Country : {guest.country}</Text>
-                  </View>
-
-                  {/* City */}
-                  <View>
-                    <Text>City : {guest.city}</Text>
-                  </View>
-
-                  {/* Zip code */}
-                  <View>
-                    <Text>Zip code : {guest.zipCode}</Text>
-                  </View>
-
-                  {/* Address */}
-                  <View>
-                    <Text>Address : {guest.address}</Text>
-                  </View>
-
-                  {/* ID , Passport Number , Driving Licence */}
-                  <View>
-                    <Text>
-                      {(idTypeToid as any)[guest["idType"]]} : {guest.id}
-                    </Text>
-                  </View>
-
-                  {/* HR Line */}
-                  {index !== guests.length - 1 && (
-                    <View
-                      style={{
-                        borderBottomColor: "black",
-                        borderBottomWidth: StyleSheet.hairlineWidth,
-                        marginTop: 2,
-                      }}
-                    />
-                  )}
-                </View>
-              );
-            })}
-          </View>
-        </View>
-
-        <View
-          style={{
-            borderBottomColor: "black",
-            borderBottomWidth: StyleSheet.hairlineWidth,
-            marginTop: 2,
-          }}
-        />
-
-        {/* Payment Detail */}
-        <View style={styles.container}>
-          <View>
-            <Text style={styles.mainText}>Payment Detail</Text>
-          </View>
-          <View style={styles.inputContainer}>
-            {/* Card Holder Name */}
-            <View>
-              <Text>Card Holder Name : {paymentDetail.cardHolderName}</Text>
-            </View>
-
-            {/* Card Number */}
             <View
-              style={{ display: "flex", flexDirection: "row", columnGap: 5 }}
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+                alignItems: "center",
+                columnGap: 10,
+              }}
             >
-              <View>
-                <Text>Card Number : {paymentDetail.cardNumber}</Text>
-              </View>
-              <View>
-                {cardType &&
-                Object.keys(cardTypeToCardImg).includes(cardType) ? (
-                  <Image
-                    source={{ uri: (cardTypeToCardImg as any)[cardType] }}
-                    alt="cardType"
-                    resizeMode="cover"
-                    style={{ height: 17, width: 30 }}
-                  />
-                ) : null}
-              </View>
+              <Image
+                source={{
+                  uri: "https://cdn.discordapp.com/attachments/457166097230069773/1204333894019579934/image_3.png?ex=65d45a57&is=65c1e557&hm=329345ca2a8b26457da6ebd4d452986a65687a03fae0c6594b7a72f527e20dec&",
+                }}
+                style={{ width: 25, height: 25 }}
+              />
+              <Text style={{ fontSize: 24, color: `${COLORS.PRIMARY}` }}>
+                Your Booking is Successful
+              </Text>
             </View>
-
-            {/* Exp Date */}
             <View>
-              <Text>Expiration Date : {paymentDetail.expDate}</Text>
-            </View>
-
-            {/* CVV */}
-            <View>
-              <Text>CVV : {paymentDetail.cvv}</Text>
+              <Text style={{ fontSize: 18, color: `${COLORS.PRIMARY}` }}>
+                Booking Id : {bookingDetail.bookingId}
+              </Text>
             </View>
           </View>
-        </View>
 
-        <View
-          style={{
-            borderBottomColor: "black",
-            borderBottomWidth: StyleSheet.hairlineWidth,
-            marginTop: 2,
-          }}
-        />
+          {/* Guest Detail */}
+          <View style={styles.container}>
+            <View>
+              <Text style={styles.mainText}>Guest Detail</Text>
+            </View>
+            <View>
+              {guests.map((guest, index) => {
+                return (
+                  <View style={styles.inputContainer} key={index}>
+                    {/* First Name */}
+                    <View>
+                      <Text>First Name : {guest.firstName}</Text>
+                    </View>
 
-        {/* Special Request */}
-        <View style={styles.container}>
-          <Text style={styles.mainText}>Special Request</Text>
-          <Text>{specialReq === "" ? "-" : specialReq}</Text>
+                    {/* Middle Name */}
+                    <View>
+                      <Text>
+                        Middle Name :{" "}
+                        {guest.middleName === "" ? "-" : guest.middleName}
+                      </Text>
+                    </View>
+
+                    {/* Last Name */}
+                    <View>
+                      <Text>Last Name : {guest.lastName}</Text>
+                    </View>
+
+                    {/* Gender */}
+                    <View>
+                      <Text>Gender : {guest.gender}</Text>
+                    </View>
+
+                    {/* Birth Date */}
+                    <View>
+                      <Text>
+                        Birth Date : {format(guest.birthDate, "dd/MM/yyyy")}
+                      </Text>
+                    </View>
+
+                    {/* Email */}
+                    <View>
+                      <Text>Email : {guest.email}</Text>
+                    </View>
+
+                    {/* Phone Number */}
+                    <View>
+                      <Text>Phone Number : {guest.phoneNumber}</Text>
+                    </View>
+
+                    {/* Country */}
+                    <View>
+                      <Text>Country : {guest.country}</Text>
+                    </View>
+
+                    {/* City */}
+                    <View>
+                      <Text>City : {guest.city}</Text>
+                    </View>
+
+                    {/* Zip code */}
+                    <View>
+                      <Text>Zip code : {guest.zipCode}</Text>
+                    </View>
+
+                    {/* Address */}
+                    <View>
+                      <Text>Address : {guest.address}</Text>
+                    </View>
+
+                    {/* ID , Passport Number , Driving Licence */}
+                    <View>
+                      <Text>
+                        {(idTypeToid as any)[guest["idType"]]} : {guest.id}
+                      </Text>
+                    </View>
+
+                    {/* HR Line */}
+                    {index !== guests.length - 1 && (
+                      <View
+                        style={{
+                          borderBottomColor: "black",
+                          borderBottomWidth: StyleSheet.hairlineWidth,
+                          marginTop: 2,
+                        }}
+                      />
+                    )}
+                  </View>
+                );
+              })}
+            </View>
+          </View>
+
+          <View
+            style={{
+              borderBottomColor: "black",
+              borderBottomWidth: StyleSheet.hairlineWidth,
+              marginTop: 2,
+            }}
+          />
+
+          {/* Payment Detail */}
+          <View style={styles.container}>
+            <View>
+              <Text style={styles.mainText}>Payment Detail</Text>
+            </View>
+            <View style={styles.inputContainer}>
+              {/* Card Holder Name */}
+              <View>
+                <Text>Card Holder Name : {paymentDetail.cardHolderName}</Text>
+              </View>
+
+              {/* Card Number */}
+              <View
+                style={{ display: "flex", flexDirection: "row", columnGap: 5 }}
+              >
+                <View>
+                  <Text>Card Number : {paymentDetail.cardNumber}</Text>
+                </View>
+                <View>
+                  {cardType &&
+                  Object.keys(cardTypeToCardImg).includes(cardType) ? (
+                    <Image
+                      source={{ uri: (cardTypeToCardImg as any)[cardType] }}
+                      alt="cardType"
+                      resizeMode="cover"
+                      style={{ height: 17, width: 30 }}
+                    />
+                  ) : null}
+                </View>
+              </View>
+
+              {/* Exp Date */}
+              <View>
+                <Text>Expiration Date : {paymentDetail.expDate}</Text>
+              </View>
+
+              {/* CVV */}
+              <View>
+                <Text>CVV : {paymentDetail.cvv}</Text>
+              </View>
+            </View>
+          </View>
+
+          <View
+            style={{
+              borderBottomColor: "black",
+              borderBottomWidth: StyleSheet.hairlineWidth,
+              marginTop: 2,
+            }}
+          />
+
+          {/* Special Request */}
+          <View style={styles.container}>
+            <Text style={styles.mainText}>Special Request</Text>
+            <Text>{specialReq === "" ? "-" : specialReq}</Text>
+          </View>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </View>
   );
 }
 

@@ -183,6 +183,7 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
         style={{
           paddingHorizontal: 30,
           paddingTop: 30,
+          marginBottom: 80,
         }}
       >
         <View>

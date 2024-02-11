@@ -1,12 +1,14 @@
-import { View, Image, Text } from "react-native";
+import { View, Image, Text, TouchableOpacity } from "react-native";
 import { Select, SelectItem } from "@ui-kitten/components";
 import i18next, { languageResources } from "../services/i18next";
 import useStore from "@/hooks/useStore";
 import languagesList from "../services/languagesList.json";
 import axios from "axios";
 import { COLORS } from "@/constants";
+import { useNavigation } from "@react-navigation/native";
 
-const Topbar = ({ scrollView }: any) => {
+const Topbar = () => {
+  const navigation = useNavigation();
   const { lng, setLng, currency, setCurrency, setExchangeRate } = useStore();
   const changeLng = (lng: any) => {
     i18next.changeLanguage(lng);
@@ -73,7 +75,8 @@ const Topbar = ({ scrollView }: any) => {
       }}
     >
       {/* Left */}
-      <View
+      <TouchableOpacity
+        onPress={() => navigation.navigate("Landing")}
         style={{
           display: "flex",
           flexDirection: "column",
@@ -92,7 +95,7 @@ const Topbar = ({ scrollView }: any) => {
         <View>
           <Text style={{ color: "white" }}>AzureSiam</Text>
         </View>
-      </View>
+      </TouchableOpacity>
       {/* Right */}
       <View
         style={{
