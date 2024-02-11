@@ -1,12 +1,10 @@
 import { Modal, Pressable, StyleSheet, Text, View } from "react-native";
 import React, { useState } from "react";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import { Entypo } from "@expo/vector-icons";
 import { COLORS } from "@/constants";
 import CustomDateRange from "./CustomDateRange";
 import useStore from "@/hooks/useStore";
 import { Button } from "@ui-kitten/components";
-import { format } from "date-fns";
 
 const BOTTOM_BAR_HEIGHT = 40;
 const TAB_ITEM_RADIUS = 30;
@@ -40,8 +38,7 @@ export default function TestBottomTab({
       >
         <View style={styles.calendarModalContainer}>
           <Button onPress={onModalClose}>Dismiss</Button>
-          <CustomDateRange
-          />
+          <CustomDateRange />
         </View>
       </Modal>
       <View style={styles.tabContainer}>
@@ -53,34 +50,28 @@ export default function TestBottomTab({
             size={styles.tabItem.borderRadius}
           />
         </View>
-        <View style={styles.tabItem}>
-          <AntDesign
-            name="calendar"
-            color={COLORS.PRIMARY}
-            onPress={() => {}}
-            size={styles.tabItem.borderRadius}
-          />
-        </View>
         <Pressable onPress={onClickCalendar}>
           <View style={styles.tabItem}>
             <AntDesign
               name="calendar"
               color={COLORS.PRIMARY}
-              // onPress={() => {}}
               size={styles.tabItem.borderRadius}
             />
           </View>
         </Pressable>
-        <View style={styles.tabItem}>
-          <AntDesign
-            name="info"
-            color={COLORS.PRIMARY}
-            onPress={() => {
-              contactUsHandler();
-            }}
-            size={styles.tabItem.borderRadius}
-          />
-        </View>
+        <Pressable
+          onPress={() => {
+            contactUsHandler();
+          }}
+        >
+          <View style={styles.tabItem}>
+            <AntDesign
+              name="info"
+              color={COLORS.PRIMARY}
+              size={styles.tabItem.borderRadius}
+            />
+          </View>
+        </Pressable>
       </View>
     </View>
   );
