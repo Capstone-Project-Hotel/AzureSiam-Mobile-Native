@@ -351,12 +351,12 @@ export default function Landing({ navigation }: any) {
                     size={32}
                     color="black"
                   />
-                  <Text style={styles.menuModalText}>Currency</Text>
+                  <Text style={styles.menuModalText}>{"Currency  "}</Text>
                   <Select
                     onSelect={(i: any) => handleExChange(listquotes[i.row])}
                     value={currency}
                     placeholder="Select Currency"
-                    style={{ width: 110 }}
+                    style={{ width: 130 }}
                   >
                     {listquotes.map((quote, index) => (
                       <SelectItem key={index} title={quote} />
