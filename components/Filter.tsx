@@ -1,33 +1,21 @@
 import React from "react";
-import { ScrollView, Text, TextInput, View } from "react-native";
+import { ScrollView, Text, View } from "react-native";
 import useStore from "@/hooks/useStore";
 
 export default function Filter() {
-  const { currency } = useStore();
+  const { bookingDetail, setBookingDetail } = useStore();
   return (
     <View>
       <ScrollView>
         <Text>Booking Detail</Text>
 
         <Text>Check-in date & Check-out date</Text>
+        <Text>
+          {bookingDetail.startDate} - {bookingDetail.endDate}
+        </Text>
         <Text>Adults</Text>
-        <TextInput
-          keyboardType="numeric"
-          placeholder="Enter numbers only"
-          placeholderTextColor="#999"
-        />
         <Text>Children</Text>
-        <TextInput
-          keyboardType="numeric"
-          placeholder="Enter numbers only"
-          placeholderTextColor="#999"
-        />
         <Text>Code Promotion</Text>
-        <TextInput
-          keyboardType="default"
-          placeholder="eg. valid"
-          placeholderTextColor="#999"
-        />
         <Text>Room Type</Text>
         <Text>Standard</Text>
         <Text>Deluxe</Text>
