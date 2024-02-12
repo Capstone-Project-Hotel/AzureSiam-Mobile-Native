@@ -61,6 +61,7 @@ interface Store {
   cardType: string;
   exchangeRate: number;
   currency: string;
+  lng: string;
   setBookingDetail: (bookingDetail: BookingDetail) => void;
   setGuests: (guests: Guest[]) => void;
   setPaymentDetail: (paymentDetail: PaymentDetail) => void;
@@ -68,6 +69,7 @@ interface Store {
   setCardType: (cardType: string) => void;
   setExchangeRate: (exchangeRate: number) => void;
   setCurrency: (currency: string) => void;
+  setLng: (lng: string) => void;
 }
 
 const useStore = create<Store>()(
@@ -81,6 +83,7 @@ const useStore = create<Store>()(
       exchangeRate: 1,
       currency: "THB",
       bookingId: "",
+      lng: "English",
       setBookingDetail: (bookingDetail: BookingDetail) =>
         set({ bookingDetail }),
       setGuests: (guests: Guest[]) => set({ guests }),
@@ -90,6 +93,7 @@ const useStore = create<Store>()(
       setCardType: (cardType: string) => set({ cardType }),
       setExchangeRate: (exchangeRate: number) => set({ exchangeRate }),
       setCurrency: (currency: string) => set({ currency }),
+      setLng: (lng: string) => set({ lng }),
     }),
     {
       name: "store",

@@ -21,6 +21,7 @@ import {
   TouchableWithoutFeedback,
   Image,
   TextInput,
+  Platform,
 } from "react-native";
 import PhoneInput from "react-native-phone-number-input";
 import { Country, State, City } from "country-state-city";
@@ -202,38 +203,163 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
           <Text style={styles.mainText}>Additional Services</Text>
         </View>
         <View
-          style={{ display: "flex", flexDirection: "row", gap: 10, flex: 2 }}
+          style={{ display: "flex", flexDirection: "column", gap: 10, flex: 2 }}
         >
           <View
             style={{
-              height: 150,
-              width: 150,
+              height: "auto",
+              width: "100%",
               display: "flex",
+              flexDirection: "row",
               alignItems: "center",
               justifyContent: "center",
-              borderColor: "black",
-              borderStyle: "solid",
-              borderWidth: 1,
             }}
           >
-            <Text>Services 1</Text>
+            <Image
+              source={{
+                uri: "https://cdn.discordapp.com/attachments/863762167340990494/1199360857935720530/image_32.png?ex=65c242d7&is=65afcdd7&hm=5fa7797322db7c00c453a1a1c6693ee3c5435fc146a53c4714ad50af0ca89006&",
+              }}
+              resizeMode="cover"
+              style={{
+                height: "100%",
+                width: "40%",
+              }}
+            />
+            <View
+              style={{
+                width: "60%",
+                height: "100%",
+                paddingHorizontal: 15,
+                paddingVertical: 5,
+                flex: 1,
+                rowGap: 10,
+              }}
+            >
+              <View>
+                <Text style={{ fontWeight: "bold" }}>
+                  Transportation [ Package ]
+                </Text>
+                <Text style={{ fontSize: 12 }}>- Max 4 persons per way </Text>
+              </View>
+              <View>
+                <Text style={{ textAlign: "center", fontWeight: "bold" }}>
+                  THB 299
+                </Text>
+              </View>
+              <View>
+                <Button
+                  style={{
+                    backgroundColor: bookingDetail.packageOne
+                      ? "white"
+                      : COLORS.PRIMARY,
+                    borderColor: COLORS.PRIMARY,
+                  }}
+                  appearance={bookingDetail.packageOne ? "outline" : "filled"}
+                  size="small"
+                  onPress={() =>
+                    setBookingDetail({
+                      ...bookingDetail,
+                      packageOne: !bookingDetail.packageOne,
+                    })
+                  }
+                >
+                  {(evaProps) => (
+                    <Text
+                      {...evaProps}
+                      style={{
+                        color: bookingDetail.packageOne
+                          ? COLORS.PRIMARY
+                          : "white",
+                        fontWeight: "bold",
+                        fontSize: 12,
+                      }}
+                    >
+                      {bookingDetail.packageOne ? "Remove" : "Add"}
+                    </Text>
+                  )}
+                </Button>
+              </View>
+            </View>
           </View>
           <View
             style={{
-              height: 150,
-              width: 150,
+              height: "auto",
+              width: "100%",
               display: "flex",
+              flexDirection: "row",
               alignItems: "center",
               justifyContent: "center",
-              borderColor: "black",
-              borderStyle: "solid",
-              borderWidth: 1,
             }}
           >
-            <Text>Services 2</Text>
+            <Image
+              source={{
+                uri: "https://cdn.discordapp.com/attachments/863762167340990494/1199360857692446740/cover.png?ex=65c242d7&is=65afcdd7&hm=b785dd4d923b8f7552f094c8abf6df8bb5f59e891d2b69d4afd479b2289a74be&",
+              }}
+              resizeMode="cover"
+              style={{
+                height: "100%",
+                width: "40%",
+              }}
+            />
+            <View
+              style={{
+                width: "60%",
+                height: "100%",
+                paddingHorizontal: 15,
+                paddingVertical: 5,
+                flex: 1,
+                rowGap: 10,
+              }}
+            >
+              <View>
+                <Text style={{ fontWeight: "bold" }}>
+                  Transportation [ Package ]
+                </Text>
+                <Text style={{ fontSize: 12 }}>- Max 6 persons per way </Text>
+              </View>
+              <View>
+                <Text style={{ textAlign: "center", fontWeight: "bold" }}>
+                  THB 499
+                </Text>
+              </View>
+              <View>
+                <Button
+                  style={{
+                    backgroundColor: bookingDetail.packageTwo
+                      ? "white"
+                      : COLORS.PRIMARY,
+                    borderColor: COLORS.PRIMARY,
+                  }}
+                  appearance={bookingDetail.packageTwo ? "outline" : "filled"}
+                  size="small"
+                  onPress={() =>
+                    setBookingDetail({
+                      ...bookingDetail,
+                      packageTwo: !bookingDetail.packageTwo,
+                    })
+                  }
+                >
+                  {(evaProps) => (
+                    <Text
+                      {...evaProps}
+                      style={{
+                        color: bookingDetail.packageTwo
+                          ? COLORS.PRIMARY
+                          : "white",
+                        fontWeight: "bold",
+                        fontSize: 12,
+                      }}
+                    >
+                      {bookingDetail.packageTwo ? "Remove" : "Add"}
+                    </Text>
+                  )}
+                </Button>
+              </View>
+            </View>
           </View>
         </View>
       </View>
+
       {/* Guest Detail */}
       <View style={styles.container}>
         <View>

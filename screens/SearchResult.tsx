@@ -33,6 +33,8 @@ export default function SearchResultPage({ navigation }: any) {
     "26/01/2024",
     "28/01/2024",
     "29/01/2024",
+    "14/02/2024",
+    "15/02/2024",
   ];
   const familyUnavailableDateList = ["25/01/2024", "26/01/2024", "28/01/2024"];
   const suiteUnavailableDateList = ["25/01/2024", "26/01/2024", "28/01/2024"];
