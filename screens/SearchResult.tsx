@@ -277,12 +277,12 @@ export default function SearchResultPage({ navigation }: any) {
     <View>
       <ScrollView>
         <Filter />
-        <SummaryCard
+        {/* <SummaryCard
           page="search-result"
           confirmBooking={() =>
             navigation.navigate("Reservation And Guest Detail")
           }
-        />
+        /> */}
         {mockRoomInformation.map((room, index) =>
           room.show === true ? (
             <RoomCard

@@ -192,7 +192,7 @@ export default function Landing({ navigation }: any) {
   if (!fontsLoaded) {
     return <Text>LOADING...</Text>;
   }
-  const width = Dimensions.get("window").width; // ย้ายไป cosntant
+  const width = Dimensions.get("window").width; // ย้ายไป constant
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
@@ -567,6 +567,9 @@ export default function Landing({ navigation }: any) {
           height={40}
           contactUsHandler={() => {
             navigation.navigate("ContactUs");
+          }}
+          searchResultHandler={() => {
+            navigation.navigate("SearchResult");
           }}
         />
         {/* <TestBottomTab/> */}

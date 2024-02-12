@@ -32,9 +32,11 @@ const LineBreak = (
 export default function TestBottomTab({
   height,
   contactUsHandler,
+  searchResultHandler,
 }: {
   height?: number;
   contactUsHandler: Function;
+  searchResultHandler: Function;
 }) {
   const { bookingDetail, setBookingDetail } = useStore();
   const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
@@ -132,7 +134,13 @@ export default function TestBottomTab({
                   ></TextInput>
                 </View>
               </View>
-              <Button>test</Button>
+              <Button
+                onPress={() => {
+                  searchResultHandler();
+                }}
+              >
+                Confirm
+              </Button>
             </View>
           </View>
         </Modal>
@@ -162,7 +170,7 @@ export default function TestBottomTab({
         >
           <View style={styles.tabItem}>
             <AntDesign
-              name="info"
+              name="contacts"
               color={COLORS.PRIMARY}
               size={styles.tabItem.borderRadius}
             />
