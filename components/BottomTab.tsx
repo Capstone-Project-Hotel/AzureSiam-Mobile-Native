@@ -1,15 +1,33 @@
-import { Modal, Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  KeyboardAvoidingView,
+  Modal,
+  Platform,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import React, { useState } from "react";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import { Entypo } from "@expo/vector-icons";
 import { COLORS } from "@/constants";
 import CustomDateRange from "./CustomDateRange";
 import useStore from "@/hooks/useStore";
-import { Button } from "@ui-kitten/components";
-import { format } from "date-fns";
+import { Button, Input } from "@ui-kitten/components";
+import AppText from "./AppText";
+import { Picker } from "@react-native-picker/picker";
+import { TextInput } from "react-native-gesture-handler";
 
 const BOTTOM_BAR_HEIGHT = 40;
 const TAB_ITEM_RADIUS = 30;
+const LineBreak = (
+  <View
+    style={{
+      height: 2,
+      backgroundColor: COLORS.BACKGROUND_1,
+      marginVertical: 16,
+    }}
+  />
+);
 
 export default function TestBottomTab({
   height,
@@ -28,34 +46,101 @@ export default function TestBottomTab({
     setIsDatePickerVisible(false);
   };
   const styles = getStyles(height);
-  // const handleCalendar = ()=>{
-  //   CustomDateRange
-  // }
   return (
     <View style={styles.container}>
-      <Modal
-        visible={isDatePickerVisible}
-        animationType="slide"
-        transparent={false}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        // keyboardVerticalOffset={100}
+        // style={{flex:1}}
       >
-        <View style={styles.calendarModalContainer}>
-          <Button onPress={onModalClose}>Dismiss</Button>
-          <CustomDateRange
-          />
-        </View>
-      </Modal>
+        <Modal
+          visible={isDatePickerVisible}
+          animationType="slide"
+          transparent={false}
+        >
+          <View style={styles.calendarModalContainer}>
+            <Button onPress={onModalClose}>Dismiss</Button>
+            <View style={styles.customDateRange}>
+              <CustomDateRange />
+            </View>
+            <View style={styles.calendarModalLowerContainer}>
+              {LineBreak}
+              <View style={styles.calendarModalSection}>
+                <AppText styles={styles.section}>Guest</AppText>
+                <View style={styles.inputContainer}>
+                  <AppText styles={styles.inputHeaderText}>Adults</AppText>
+                  <View style={styles.optionPicker}>
+                    <Picker
+                      selectedValue={bookingDetail.adultNumber}
+                      onValueChange={(itemValue, itemIndex) =>
+                        setBookingDetail({
+                          ...bookingDetail,
+                          adultNumber: itemValue,
+                        })
+                      }
+                    >
+                      <Picker.Item label="0" value={0} />
+                      <Picker.Item label="1" value={1} />
+                      <Picker.Item label="2" value={2} />
+                      <Picker.Item label="3" value={3} />
+                      <Picker.Item label="4" value={4} />
+                    </Picker>
+                  </View>
+                </View>
+                <View style={styles.inputContainer}>
+                  <AppText styles={styles.inputHeaderText}>Children</AppText>
+                  <View style={styles.optionPicker}>
+                    <Picker
+                      selectedValue={bookingDetail.childrenNumber}
+                      onValueChange={(itemValue, itemIndex) =>
+                        setBookingDetail({
+                          ...bookingDetail,
+                          childrenNumber: itemValue,
+                        })
+                      }
+                    >
+                      <Picker.Item label="0" value={0} />
+                      <Picker.Item label="1" value={1} />
+                      <Picker.Item label="2" value={2} />
+                      <Picker.Item label="3" value={3} />
+                      <Picker.Item label="4" value={4} />
+                    </Picker>
+                  </View>
+                </View>
+              </View>
+              {LineBreak}
+              <View style={styles.calendarModalSection}>
+                <AppText styles={styles.section}>Have a code?</AppText>
+              </View>
+              {LineBreak}
+              <View style={styles.calendarModalSection}>
+                <AppText styles={styles.section}>Guest</AppText>
+                <View style={styles.inputContainer}>
+                  <AppText styles={styles.inputHeaderText}>
+                    Code Promotion
+                  </AppText>
+                  <TextInput
+                    value={bookingDetail.codePromotion}
+                    onChangeText={(text) => {
+                      setBookingDetail({
+                        ...bookingDetail,
+                        codePromotion: text,
+                      });
+                    }}
+                    placeholder="enter"
+                    maxLength={10}
+                  ></TextInput>
+                </View>
+              </View>
+              <Button>test</Button>
+            </View>
+          </View>
+        </Modal>
+      </KeyboardAvoidingView>
       <View style={styles.tabContainer}>
         <View style={styles.tabItem}>
           <AntDesign
             name="home"
-            color={COLORS.PRIMARY}
-            onPress={() => {}}
-            size={styles.tabItem.borderRadius}
-          />
-        </View>
-        <View style={styles.tabItem}>
-          <AntDesign
-            name="calendar"
             color={COLORS.PRIMARY}
             onPress={() => {}}
             size={styles.tabItem.borderRadius}
@@ -66,21 +151,23 @@ export default function TestBottomTab({
             <AntDesign
               name="calendar"
               color={COLORS.PRIMARY}
-              // onPress={() => {}}
               size={styles.tabItem.borderRadius}
             />
           </View>
         </Pressable>
-        <View style={styles.tabItem}>
-          <AntDesign
-            name="info"
-            color={COLORS.PRIMARY}
-            onPress={() => {
-              contactUsHandler();
-            }}
-            size={styles.tabItem.borderRadius}
-          />
-        </View>
+        <Pressable
+          onPress={() => {
+            contactUsHandler();
+          }}
+        >
+          <View style={styles.tabItem}>
+            <AntDesign
+              name="info"
+              color={COLORS.PRIMARY}
+              size={styles.tabItem.borderRadius}
+            />
+          </View>
+        </Pressable>
       </View>
     </View>
   );
@@ -115,7 +202,39 @@ const getStyles = (height: number | undefined) => {
       alignItems: "center",
     },
     tabIcon: {},
-    calendarModalContainer: {},
+    calendarModalContainer: {
+      flexDirection: "column",
+      // paddingHorizontal: 8,
+    },
+    customDateRange: {
+      alignItems: "center",
+    },
+    calendarModalLowerContainer: {
+      paddingHorizontal: 24,
+    },
+    calendarModalSection: {
+      flexDirection: "column",
+    },
+    section: {
+      fontSize: 16,
+    },
+    inputContainer: {
+      paddingLeft: 16,
+      paddingRight: 16,
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "center",
+    },
+    inputHeaderText: {
+      fontSize: 16,
+    },
+    inputTextArea: {},
+    optionPicker: {
+      width: 120,
+      // height: 50,
+      borderColor: "grey",
+      borderWidth: 0.5,
+    },
   });
 };
 

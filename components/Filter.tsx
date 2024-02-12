@@ -21,7 +21,8 @@ export default function Filter() {
         />
         {/* <Icon name="minus-circle-outline" /> */}
         <Text>
-          {bookingDetail.startDate} - {bookingDetail.endDate}
+          {bookingDetail.startDate.toString()} -{" "}
+          {bookingDetail.endDate.toString()}
         </Text>
         <Text>Adults</Text>
         <Input

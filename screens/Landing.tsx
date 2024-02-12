@@ -196,56 +196,6 @@ export default function Landing({ navigation }: any) {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <TouchableOpacity
-        onPress={() => navigation.navigate("Reservation And Guest Detail")}
-      >
-        <Text style={{ height: 55 }}>Go To ReservationAndGuestDetail Page</Text>
-      </TouchableOpacity>
-      {/* Text lng */}
-      <SafeAreaView style={{ margin: 20 }}>
-        <Modal visible={visible} onRequestClose={() => setVisible(false)}>
-          <View>
-            <FlatList
-              style={{ padding: 30 }}
-              data={Object.keys(languageResources)}
-              renderItem={({ item }) => (
-                <TouchableOpacity onPress={() => changeLng(item)}>
-                  <Text style={{ fontSize: 20 }}>
-                    {(languagesList as any)[item].nativeName}
-                  </Text>
-                </TouchableOpacity>
-              )}
-            />
-          </View>
-        </Modal>
-        {/* Test Currency */}
-        <Select
-          onSelect={(i: any) => handleExChange(listquotes[i.row])}
-          value={currency}
-          placeholder="Select Currency"
-        >
-          {listquotes.map((quote, index) => (
-            <SelectItem key={index} title={quote} />
-          ))}
-        </Select>
-        <Text>
-          {currency} {exchangeRate}
-        </Text>
-
-        <Text style={{ fontSize: 20, textAlign: "center", padding: 10 }}>
-          {t("welcome")}
-        </Text>
-        <Button
-          onPress={() => setVisible(true)}
-          title={t("change-language")}
-          color="green"
-        />
-      </SafeAreaView>
-      {/* 
-      <View>
-        <CustomDateRange />
-      </View> */}
-
       <View style={styles.container}>
         <ScrollView>
           <ImageBackground

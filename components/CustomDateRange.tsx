@@ -140,7 +140,7 @@ export default function CustomDateRange() {
         max={maxDate}
         filter={filter}
       />
-      <View>
+      {/* <View>
         <Text>
           {`Start Date : ${
             bookingDetail.startDate
@@ -155,7 +155,7 @@ export default function CustomDateRange() {
               : " -"
           }`}
         </Text>
-      </View>
+      </View> */}
     </>
   );
 }
