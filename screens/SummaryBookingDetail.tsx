@@ -7,11 +7,12 @@ import Topbar from "@/components/Topbar";
 import { useTranslation } from "react-i18next";
 
 export default function SummaryBookingDetailPage({ navigation }: any) {
+  const { t } = useTranslation();
   const { guests, paymentDetail, specialReq, cardType } = useStore();
   const idTypeToid = {
-    id: "National ID",
-    passportNumber: "Passport Number",
-    drivingLicence: "Driving Licence",
+    id: t("national_id"),
+    passportNumber: t("passport_number"),
+    drivingLicence: t("driving_licence"),
   };
   const cardTypeToCardImg = {
     amex: "https://venturebeat.com/wp-content/uploads/2023/05/blue.jpg?fit=750%2C422&strip=all",
@@ -21,8 +22,6 @@ export default function SummaryBookingDetailPage({ navigation }: any) {
     discover:
       "https://swissuplabs.com/wordpress/wp-content/uploads/2016/04/free-icons-discover.png",
   };
-
-  const { t } = useTranslation();
 
   return (
     <View>
@@ -55,7 +54,7 @@ export default function SummaryBookingDetailPage({ navigation }: any) {
           {/* Guest Detail */}
           <View style={styles.container}>
             <View>
-              <Text style={styles.mainText}>Guest Detail</Text>
+              <Text style={styles.mainText}>{t("guest_detail_label")}</Text>
             </View>
             <View>
               {guests.map((guest, index) => {
@@ -63,62 +62,81 @@ export default function SummaryBookingDetailPage({ navigation }: any) {
                   <View style={styles.inputContainer} key={index}>
                     {/* First Name */}
                     <View>
-                      <Text>First Name : {guest.firstName}</Text>
+                      <Text>
+                        {t("first_name")} : {guest.firstName}
+                      </Text>
                     </View>
 
                     {/* Middle Name */}
                     <View>
                       <Text>
-                        Middle Name :{" "}
+                        {t("middle_name")} :{" "}
                         {guest.middleName === "" ? "-" : guest.middleName}
                       </Text>
                     </View>
 
                     {/* Last Name */}
                     <View>
-                      <Text>Last Name : {guest.lastName}</Text>
+                      <Text>
+                        {t("last_name")} : {guest.lastName}
+                      </Text>
                     </View>
 
                     {/* Gender */}
                     <View>
-                      <Text>Gender : {guest.gender}</Text>
+                      <Text>
+                        {t("gender")} : {t(guest.gender)}
+                      </Text>
                     </View>
 
                     {/* Birth Date */}
                     <View>
                       <Text>
-                        Birth Date : {format(guest.birthDate, "dd/MM/yyyy")}
+                        {t("birthdate")} :{" "}
+                        {format(guest.birthDate, "dd/MM/yyyy")}
                       </Text>
                     </View>
 
                     {/* Email */}
                     <View>
-                      <Text>Email : {guest.email}</Text>
+                      <Text>
+                        {t("email")} : {guest.email}
+                      </Text>
                     </View>
 
                     {/* Phone Number */}
                     <View>
-                      <Text>Phone Number : {guest.phoneNumber}</Text>
+                      <Text>
+                        {t("phone_number")} : {guest.phoneNumber}
+                      </Text>
                     </View>
 
                     {/* Country */}
                     <View>
-                      <Text>Country : {guest.country}</Text>
+                      <Text>
+                        {t("country")} : {guest.country}
+                      </Text>
                     </View>
 
                     {/* City */}
                     <View>
-                      <Text>City : {guest.city}</Text>
+                      <Text>
+                        {t("city")} : {guest.city}
+                      </Text>
                     </View>
 
                     {/* Zip code */}
                     <View>
-                      <Text>Zip code : {guest.zipCode}</Text>
+                      <Text>
+                        {t("zip_code")} : {guest.zipCode}
+                      </Text>
                     </View>
 
                     {/* Address */}
                     <View>
-                      <Text>Address : {guest.address}</Text>
+                      <Text>
+                        {t("address")} : {guest.address}
+                      </Text>
                     </View>
 
                     {/* ID , Passport Number , Driving Licence */}
@@ -155,12 +173,14 @@ export default function SummaryBookingDetailPage({ navigation }: any) {
           {/* Payment Detail */}
           <View style={styles.container}>
             <View>
-              <Text style={styles.mainText}>Payment Detail</Text>
+              <Text style={styles.mainText}>{t("payment_label")}</Text>
             </View>
             <View style={styles.inputContainer}>
               {/* Card Holder Name */}
               <View>
-                <Text>Card Holder Name : {paymentDetail.cardHolderName}</Text>
+                <Text>
+                  {t("card_holder")} : {paymentDetail.cardHolderName}
+                </Text>
               </View>
 
               {/* Card Number */}
@@ -168,7 +188,9 @@ export default function SummaryBookingDetailPage({ navigation }: any) {
                 style={{ display: "flex", flexDirection: "row", columnGap: 5 }}
               >
                 <View>
-                  <Text>Card Number : {paymentDetail.cardNumber}</Text>
+                  <Text>
+                    {t("card_number")} : {paymentDetail.cardNumber}
+                  </Text>
                 </View>
                 <View>
                   {cardType &&
@@ -185,12 +207,16 @@ export default function SummaryBookingDetailPage({ navigation }: any) {
 
               {/* Exp Date */}
               <View>
-                <Text>Expiration Date : {paymentDetail.expDate}</Text>
+                <Text>
+                  {t("expiration_date")} : {paymentDetail.expDate}
+                </Text>
               </View>
 
               {/* CVV */}
               <View>
-                <Text>CVV : {paymentDetail.cvv}</Text>
+                <Text>
+                  {t("cvv")} : {paymentDetail.cvv}
+                </Text>
               </View>
             </View>
           </View>
@@ -205,7 +231,7 @@ export default function SummaryBookingDetailPage({ navigation }: any) {
 
           {/* Special Request */}
           <View style={styles.container}>
-            <Text style={styles.mainText}>Special Request</Text>
+            <Text style={styles.mainText}>{t("special_request")}</Text>
             <Text>{specialReq === "" ? "-" : specialReq}</Text>
           </View>
         </View>
