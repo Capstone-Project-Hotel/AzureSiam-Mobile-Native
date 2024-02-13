@@ -4,6 +4,7 @@ import { format } from "date-fns";
 import { COLORS } from "@/constants";
 import Topbar from "@/components/Topbar";
 import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
 
 export default function BookingConfirmationPage(navigation: any) {
   const {
@@ -30,14 +31,16 @@ export default function BookingConfirmationPage(navigation: any) {
 
   const { t } = useTranslation();
 
-  if (bookingDetail.bookingId === "") {
-    const bookingId = Math.floor(100000 + Math.random() * 900000).toString();
-    const updatedBookingDetail = {
-      ...bookingDetail,
-      bookingId: bookingId,
-    };
-    setBookingDetail(updatedBookingDetail);
-  }
+  useEffect(() => {
+    if (bookingDetail.bookingId === "") {
+      const bookingId = Math.floor(100000 + Math.random() * 900000).toString();
+      const updatedBookingDetail = {
+        ...bookingDetail,
+        bookingId: bookingId,
+      };
+      setBookingDetail(updatedBookingDetail);
+    }
+  }, []);
 
   return (
     <View>

@@ -80,9 +80,13 @@ export default function Topbar({
     >
       {/* Left */}
       <TouchableOpacity
+<<<<<<< Updated upstream
         onPress={() => {
           landingHandler();
         }}
+=======
+        onPress={() => navigation.navigate("Landing" as never)}
+>>>>>>> Stashed changes
         style={{
           display: "flex",
           flexDirection: "column",
