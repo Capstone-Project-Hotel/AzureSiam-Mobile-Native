@@ -56,9 +56,9 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
   });
   const phoneInput = useRef<PhoneInput>(null);
   const idTypeToid = {
-    id: "National ID",
-    passportNumber: "Passport Number",
-    drivingLicence: "Driving Licence",
+    id: t("national_id"),
+    passportNumber: t("passport_number"),
+    drivingLicence: t("driving_licence"),
   };
   const emptyGuest: Guest = {
     firstName: "",
@@ -210,7 +210,7 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
         {/* Additional Services */}
         <View style={styles.container}>
           <View>
-            <Text style={styles.mainText}>Additional Services</Text>
+            <Text style={styles.mainText}>{t("additional_label")}</Text>
           </View>
           <View
             style={{
@@ -252,9 +252,9 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
               >
                 <View>
                   <Text style={{ fontWeight: "bold" }}>
-                    Transportation [ Package ]
+                    {t("service_name1")}
                   </Text>
-                  <Text style={{ fontSize: 12 }}>- Max 4 persons per way </Text>
+                  <Text style={{ fontSize: 12 }}>{t("service_unit1")}</Text>
                 </View>
                 <View>
                   <Text style={{ textAlign: "center", fontWeight: "bold" }}>
@@ -289,7 +289,9 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
                           fontSize: 12,
                         }}
                       >
-                        {bookingDetail.packageOne ? "Remove" : "Add"}
+                        {bookingDetail.packageOne
+                          ? t("remove_service")
+                          : t("add_service")}
                       </Text>
                     )}
                   </Button>
@@ -328,9 +330,9 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
               >
                 <View>
                   <Text style={{ fontWeight: "bold" }}>
-                    Transportation [ Package ]
+                    {t("service_name2")}
                   </Text>
-                  <Text style={{ fontSize: 12 }}>- Max 6 persons per way </Text>
+                  <Text style={{ fontSize: 12 }}>{t("service_unit2")}</Text>
                 </View>
                 <View>
                   <Text style={{ textAlign: "center", fontWeight: "bold" }}>
@@ -365,7 +367,9 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
                           fontSize: 12,
                         }}
                       >
-                        {bookingDetail.packageTwo ? "Remove" : "Add"}
+                        {bookingDetail.packageTwo
+                          ? t("remove_service")
+                          : t("add_service")}
                       </Text>
                     )}
                   </Button>
@@ -378,7 +382,7 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
         {/* Guest Detail */}
         <View style={styles.container}>
           <View>
-            <Text style={styles.mainText}>Guest Detail</Text>
+            <Text style={styles.mainText}>{t("guest_detail_label")}</Text>
           </View>
           <View>
             {guests.map((guest, index) => {
@@ -387,10 +391,11 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
                   {/* First Name */}
                   <View>
                     <Text>
-                      First Name <Text style={{ color: "red" }}>*</Text>
+                      {t("first_name")}
+                      <Text style={{ color: "red" }}> *</Text>
                     </Text>
                     <Input
-                      placeholder="First Name"
+                      placeholder={t("first_name")}
                       value={guest.firstName}
                       onChangeText={(nextValue) =>
                         handleInputChange(index, nextValue, "firstName")
@@ -400,9 +405,9 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
 
                   {/* Middle Name */}
                   <View>
-                    <Text>Middle Name</Text>
+                    <Text>{t("middle_name")}</Text>
                     <Input
-                      placeholder="Middle Name"
+                      placeholder={t("middle_name")}
                       value={guest.middleName}
                       onChangeText={(nextValue) =>
                         handleInputChange(index, nextValue, "middleName")
@@ -413,10 +418,11 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
                   {/* Last Name */}
                   <View>
                     <Text>
-                      Last Name <Text style={{ color: "red" }}>*</Text>
+                      {t("last_name")}
+                      <Text style={{ color: "red" }}> *</Text>
                     </Text>
                     <Input
-                      placeholder="Last Name"
+                      placeholder={t("last_name")}
                       value={guest.lastName}
                       onChangeText={(nextValue) =>
                         handleInputChange(index, nextValue, "lastName")
@@ -427,30 +433,32 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
                   {/* Gender */}
                   <View>
                     <Text>
-                      Gender <Text style={{ color: "red" }}>*</Text>
+                      {t("gender")}
+                      <Text style={{ color: "red" }}> *</Text>
                     </Text>
                     <Select
                       onSelect={(i: any) =>
                         handleInputChange(index, items[i.row], "gender")
                       }
                       value={guest.gender}
-                      placeholder="Select Gender"
+                      placeholder={t("gender_default")}
                     >
-                      <SelectItem title="Male" />
-                      <SelectItem title="Female" />
-                      <SelectItem title="Other" />
+                      <SelectItem title={t("male")} />
+                      <SelectItem title={t("female")} />
+                      <SelectItem title={t("other")} />
                     </Select>
                   </View>
 
                   {/* Birth Date */}
                   <View>
                     <Text>
-                      Birth Date <Text style={{ color: "red" }}>*</Text>
+                      {t("birthdate")}
+                      <Text style={{ color: "red" }}> *</Text>
                     </Text>
                     <Datepicker
                       min={addDays(new Date(), -999999)}
                       max={addDays(new Date(), 999999)}
-                      placeholder="Select Birth Date"
+                      placeholder={t("birthdate_default")}
                       date={guest.birthDate ? new Date(guest.birthDate) : null}
                       onSelect={(nextDate: any) => {
                         handleInputChange(index, nextDate, "birthDate");
@@ -462,10 +470,11 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
                   {/* Email */}
                   <View>
                     <Text>
-                      Email <Text style={{ color: "red" }}>*</Text>
+                      {t("email")}
+                      <Text style={{ color: "red" }}> *</Text>
                     </Text>
                     <Input
-                      placeholder="Email"
+                      placeholder={t("email")}
                       value={guest.email}
                       onChangeText={(nextValue) =>
                         handleInputChange(index, nextValue, "email")
@@ -476,9 +485,11 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
                   {/* Phone Number */}
                   <View>
                     <Text>
-                      Phone Number <Text style={{ color: "red" }}>*</Text>
+                      {t("phone_number")}
+                      <Text style={{ color: "red" }}> *</Text>
                     </Text>
                     <PhoneInput
+                      placeholder={t("phone_number")}
                       ref={phoneInput}
                       value={guest.phoneNumber}
                       defaultCode="TH"
@@ -499,7 +510,8 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
                   {/* Country */}
                   <View>
                     <Text>
-                      Country <Text style={{ color: "red" }}>*</Text>
+                      {t("country")}
+                      <Text style={{ color: "red" }}> *</Text>
                     </Text>
                     <Select
                       onSelect={(i: any) => {
@@ -507,7 +519,7 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
                         setCountryCode(countriesCode[i.row]);
                       }}
                       value={guest.country}
-                      placeholder="Select Country"
+                      placeholder={t("country_default")}
                     >
                       {Country.getAllCountries().map((country: any) => {
                         return (
@@ -519,13 +531,13 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
 
                   {/* City */}
                   <View>
-                    <Text>City</Text>
+                    <Text>{t("city")}</Text>
                     <Select
                       onSelect={(i: any) =>
                         handleInputChange(index, city[i.row], "city")
                       }
                       value={guest.city}
-                      placeholder="Select City"
+                      placeholder={t("city_default")}
                     >
                       {city.map((city: any) => {
                         return <SelectItem title={city} key={city} />;
@@ -536,10 +548,11 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
                   {/* Zip code */}
                   <View>
                     <Text>
-                      Zip code <Text style={{ color: "red" }}>*</Text>
+                      {t("zip_code")}
+                      <Text style={{ color: "red" }}> *</Text>
                     </Text>
                     <Input
-                      placeholder="Zip code"
+                      placeholder={t("zip_code")}
                       value={guest.zipCode}
                       onChangeText={(nextValue) =>
                         handleInputChange(index, nextValue, "zipCode")
@@ -550,10 +563,11 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
                   {/* Address */}
                   <View>
                     <Text>
-                      Address <Text style={{ color: "red" }}>*</Text>
+                      {t("address")}
+                      <Text style={{ color: "red" }}> *</Text>
                     </Text>
                     <Input
-                      placeholder="Address"
+                      placeholder={t("address")}
                       value={guest.address}
                       onChangeText={(nextValue) =>
                         handleInputChange(index, nextValue, "address")
@@ -564,8 +578,8 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
                   {/* ID , Passport Number , Driving Licence */}
                   <View>
                     <Text>
-                      ID , Passport Number , Driving Licence{" "}
-                      <Text style={{ color: "red" }}>*</Text>
+                      {t("id_card")}
+                      <Text style={{ color: "red" }}> *</Text>
                     </Text>
                     <View style={{ display: "flex", gap: 2 }}>
                       <Select
@@ -577,17 +591,17 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
                             ? (idTypeToid as any)[guest["idType"]]
                             : undefined
                         }
-                        placeholder="Select"
+                        placeholder={t("select")}
                       >
-                        <SelectItem title="National ID" />
-                        <SelectItem title="Passpport Number" />
-                        <SelectItem title="Driving Licence" />
+                        <SelectItem title={t("national_id")} />
+                        <SelectItem title={t("passport_number")} />
+                        <SelectItem title={t("driving_licence")} />
                       </Select>
                       <Input
                         placeholder={
                           guest.idType
                             ? (idTypeToid as any)[guest["idType"]]
-                            : "Number"
+                            : t("id_card_number")
                         }
                         value={guest.id}
                         onChangeText={(nextValue) =>
@@ -610,7 +624,7 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
                       <Text style={{ color: "red" }}>
                         -{" "}
                         <Text style={{ textDecorationLine: "underline" }}>
-                          Remove Guest
+                          {t("remove_guest")}
                         </Text>
                       </Text>
                     </TouchableOpacity>
@@ -633,23 +647,26 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
           <TouchableOpacity onPress={() => setGuests([...guests, emptyGuest])}>
             <Text style={{ color: `${COLORS.PRIMARY}` }}>
               +{" "}
-              <Text style={{ textDecorationLine: "underline" }}>Add Guest</Text>
+              <Text style={{ textDecorationLine: "underline" }}>
+                {t("add_guest")}
+              </Text>
             </Text>
           </TouchableOpacity>
         </View>
         {/* Payment Detail */}
         <View style={styles.container}>
           <View>
-            <Text style={styles.mainText}>Payment Detail</Text>
+            <Text style={styles.mainText}>{t("payment_label")}</Text>
           </View>
           <View style={styles.inputContainer}>
             {/* Card Holder Name */}
             <View>
               <Text>
-                Card Holder Name <Text style={{ color: "red" }}>*</Text>
+                {t("card_holder")}
+                <Text style={{ color: "red" }}> *</Text>
               </Text>
               <Input
-                placeholder="Card Holder Name"
+                placeholder={t("card_holder")}
                 value={paymentDetail.cardHolderName}
                 onChangeText={(nextValue) =>
                   handlePaymentInputChange(nextValue, "cardHolderName")
@@ -668,7 +685,8 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
               >
                 <View>
                   <Text>
-                    Card Number <Text style={{ color: "red" }}>*</Text>
+                    {t("card_number")}
+                    <Text style={{ color: "red" }}> *</Text>
                   </Text>
                 </View>
                 <View style={{ display: "flex", flexDirection: "row" }}>
@@ -735,7 +753,7 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
                 </View>
               </View>
               <Input
-                placeholder="Card Number"
+                placeholder={t("card_number")}
                 value={paymentDetail.cardNumber}
                 onChangeText={(nextValue) => {
                   handlePaymentInputChange(nextValue, "cardNumber");
@@ -757,11 +775,12 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
             {/* Exp Date */}
             <View>
               <Text>
-                Expiration Date <Text style={{ color: "red" }}>*</Text>
+                {t("expiration_date")}
+                <Text style={{ color: "red" }}> *</Text>
               </Text>
               <Input
                 accessoryRight={<Icon name="calendar" />}
-                placeholder="Expiration Date"
+                placeholder={t("expiration_date")}
                 value={paymentDetail.expDate}
                 onChangeText={(nextValue) =>
                   handlePaymentInputChange(nextValue, "expDate")
@@ -772,12 +791,13 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
             {/* CVV */}
             <View>
               <Text>
-                CVV <Text style={{ color: "red" }}>*</Text>
+                {t("cvv")}
+                <Text style={{ color: "red" }}> *</Text>
               </Text>
               <Input
                 secureTextEntry={secureTextEntry}
                 accessoryRight={renderIcon}
-                placeholder="CVV"
+                placeholder={t("cvv")}
                 value={paymentDetail.cvv}
                 onChangeText={(nextValue) =>
                   handlePaymentInputChange(nextValue, "cvv")
@@ -789,7 +809,7 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
         {/* Special Request */}
         <View style={styles.container}>
           <View>
-            <Text style={styles.mainText}>Special Request</Text>
+            <Text style={styles.mainText}>{t("special_request")}</Text>
           </View>
           <TextInput
             editable
@@ -810,24 +830,16 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
         {/* Cancellation Policy */}
         <View style={styles.container}>
           <View>
-            <Text style={styles.mainText}>Cancellation Policy</Text>
+            <Text style={styles.mainText}>{t("cancel_policy")}</Text>
           </View>
           <View>
             <Text style={styles.text}>
-              For individual bookings of less than 5 rooms, and bookings not
-              considered a group, the following cancellation policy applies:
+              {t("cancel_policy_description_header")}
             </Text>
             <Text style={styles.text}></Text>
-            <Text style={styles.text}>
-              If cancelled up to 48 hours before arrival no fee will be charged.
-            </Text>
-            <Text style={styles.text}>
-              If cancelled less than 48 hours before arrival, or in case of a
-              no-show, 100% of the first night will be charged.
-            </Text>
-            <Text style={styles.text}>
-              If you are a no-show, 100% of the first night will be charged.
-            </Text>
+            <Text style={styles.text}>{t("cancel_policy_description")}</Text>
+            <Text style={styles.text}>{t("cancel_policy_description2")}</Text>
+            <Text style={styles.text}>{t("cancel_policy_description3")}</Text>
           </View>
         </View>
         {/* PDPA */}
@@ -846,7 +858,7 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
             <View
               style={{ padding: 10, display: "flex", flexDirection: "row" }}
             >
-              <Text style={styles.label}>I have read and agree to the </Text>
+              <Text style={styles.label}>{t("terms_condition")}</Text>
               <TouchableOpacity onPress={() => setVisible(true)}>
                 <Text
                   style={[
@@ -857,7 +869,7 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
                     },
                   ]}
                 >
-                  Terms and Conditions and Privacy Policy
+                  {t("terms_condition_2")}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -873,40 +885,19 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
             <Text
               style={{ fontSize: 15, fontWeight: "bold", marginBottom: 10 }}
             >
-              Terms and Conditions and Privacy Policy
+              {t("terms_condition_2")}
             </Text>
             <View style={{ display: "flex", rowGap: 10, marginBottom: 10 }}>
-              <Text style={styles.modalText}>
-                1) Advanced deposit payment will be charged at time of
-                reservation.
-              </Text>
-              <Text style={styles.modalText}>
-                2) All reservations must be guaranteed with a valid credit card.
-              </Text>
-              <Text style={styles.modalText}>
-                3) Amendment or Cancellation must be made in written notice to
-                provided email or contact form in the website.
-              </Text>
-              <Text style={styles.modalText}>
-                4) Rates are charged in Thai Baht. Therefore, the amount shown
-                on monthly statement in other currencies sent to you by the
-                respective credit card company might be slightly different from
-                our quoted price due to exchange rate variations.
-              </Text>
-              <Text style={styles.modalText}>
-                5) Children more than 10 years old need to have an extra bed.
-              </Text>
-              <Text style={styles.modalText}>
-                6) Children under 10 years old sharing existing bed with parents
-                are free of charge maximum 2 persons only.
-              </Text>
-              <Text style={styles.modalText}>
-                7) Maximum 1 extra person in each room type is allowed with an
-                extra charge.
-              </Text>
+              <Text style={styles.modalText}>1) {t("terms_condition_d1")}</Text>
+              <Text style={styles.modalText}>2) {t("terms_condition_d2")}</Text>
+              <Text style={styles.modalText}>3) {t("terms_condition_d3")}</Text>
+              <Text style={styles.modalText}>4) {t("terms_condition_d4")}</Text>
+              <Text style={styles.modalText}>5) {t("terms_condition_d5")}</Text>
+              <Text style={styles.modalText}>6) {t("terms_condition_d6")}</Text>
+              <Text style={styles.modalText}>7) {t("terms_condition_d7")}</Text>
             </View>
             <Button size="small" onPress={() => setVisible(false)}>
-              Close
+              {t("close")}
             </Button>
           </Card>
         </Modal>

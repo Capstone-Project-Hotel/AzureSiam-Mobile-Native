@@ -5,7 +5,6 @@ import useStore from "@/hooks/useStore";
 import languagesList from "../services/languagesList.json";
 import axios from "axios";
 import { COLORS } from "@/constants";
-import { useNavigation } from "@react-navigation/native";
 
 export default function Topbar({
   landingHandler,
