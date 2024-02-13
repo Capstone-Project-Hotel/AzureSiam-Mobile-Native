@@ -286,34 +286,45 @@ export default function SearchResultPage({ navigation }: any) {
       />
       <ScrollView>
         {/* Go To ReservationAndGuestDetail Page Example */}
-        <Filter />
+        <Filter t={t} />
         {/* <SummaryCard
           page="search-result"
           confirmBooking={() =>
             navigation.navigate("Reservation And Guest Detail")
           }
         /> */}
-        {mockRoomInformation.map((room, index) =>
-          room.show === true ? (
-            <RoomCard
-              key={index}
-              roomName={room.roomName}
-              maxGuest={room.maxGuest}
-              bedType={room.bedType}
-              roomSize={room.roomSize}
-              roomPrice={room.roomPrice * reducedRate}
-              roomImage={room.roomImage}
-              roomAmenities={room.roomAmenities}
-              roomDetail={room.roomDetail}
-              roomType={room.roomType}
-              t={t}
-              // isAvailable={true}
-              // disabledDate={}
-            />
-          ) : null
-        )}
+        <View
+          style={{
+            marginVertical: 50,
+            display: "flex",
+            flexDirection: "column",
+            rowGap: 15,
+            alignItems: "center",
+          }}
+        >
+          {mockRoomInformation.map((room, index) =>
+            room.show === true ? (
+              <RoomCard
+                key={index}
+                roomName={room.roomName}
+                maxGuest={room.maxGuest}
+                bedType={room.bedType}
+                roomSize={room.roomSize}
+                roomPrice={room.roomPrice * reducedRate}
+                roomImage={room.roomImage}
+                roomAmenities={room.roomAmenities}
+                roomDetail={room.roomDetail}
+                roomType={room.roomType}
+                t={t}
+                // isAvailable={true}
+                // disabledDate={}
+              />
+            ) : null
+          )}
+        </View>
       </ScrollView>
       <SummaryBar
+        t={t}
         reservationAndGuestDetailHandler={() => {
           navigation.navigate("Reservation And Guest Detail");
         }}

@@ -28,6 +28,7 @@ import { Country, State, City } from "country-state-city";
 import { addDays } from "date-fns";
 import Topbar from "@/components/Topbar";
 import { useTranslation } from "react-i18next";
+import SummaryBar from "@/components/SummaryBar";
 
 export default function ReservationAndGuestDetailPage({ navigation }: any) {
   const {
@@ -179,7 +180,7 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
   }, [countryCode]);
 
   return (
-    <View>
+    <View style={{ marginBottom: 120 }}>
       <Topbar
         landingHandler={() => {
           navigation.navigate("Landing");
@@ -910,6 +911,12 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
           </Card>
         </Modal>
       </ScrollView>
+      <SummaryBar
+        t={t}
+        reservationAndGuestDetailHandler={() => {
+          navigation.navigate("SummaryBookingDetail");
+        }}
+      />
     </View>
   );
 }

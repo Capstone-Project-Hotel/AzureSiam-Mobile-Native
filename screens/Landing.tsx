@@ -368,7 +368,7 @@ export default function Landing({ navigation }: any) {
               }}
             >
               <AppText styles={styles.landingBigCardTitle}>
-                AzureSiam Hotel and Spa
+                {t("hotel")}
               </AppText>
               <AppText styles={styles.landingBigCardDescription}>
                 Welcome to AzureSiam Hotel, an urban retreat seamlessly blending

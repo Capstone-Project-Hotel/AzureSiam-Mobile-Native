@@ -3,8 +3,10 @@ import { View, Text, TouchableOpacity } from "react-native";
 
 export default function SummaryBar({
   reservationAndGuestDetailHandler,
+  t,
 }: {
   reservationAndGuestDetailHandler: Function;
+  t: any;
 }) {
   const { currency, bookingDetail, exchangeRate } = useStore();
 
@@ -71,13 +73,13 @@ export default function SummaryBar({
   return (
     <View>
       <Text>
-        {currency} {totalPrice} Total
+        {currency} {totalPrice} {t("total")}
       </Text>
       <Text>
         {totalRooms} room(s) {totalGuests} guest(s)
       </Text>
       <TouchableOpacity onPress={() => reservationAndGuestDetailHandler()}>
-        <Text style={{ height: 55 }}>Go To ReservationAndGuestDetail Page</Text>
+        <Text style={{ height: 55 }}>Go To Next Page</Text>
       </TouchableOpacity>
     </View>
   );
