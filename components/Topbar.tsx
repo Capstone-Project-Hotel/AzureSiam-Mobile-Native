@@ -5,14 +5,12 @@ import useStore from "@/hooks/useStore";
 import languagesList from "../services/languagesList.json";
 import axios from "axios";
 import { COLORS } from "@/constants";
-import { useNavigation } from "@react-navigation/native";
 
 export default function Topbar({
   landingHandler,
 }: {
   landingHandler: Function;
 }) {
-  const navigation = useNavigation();
   const { lng, setLng, currency, setCurrency, setExchangeRate } = useStore();
   const changeLng = (lng: any) => {
     i18next.changeLanguage(lng);
@@ -81,7 +79,9 @@ export default function Topbar({
     >
       {/* Left */}
       <TouchableOpacity
-        onPress={() => navigation.navigate("Landing" as never)}
+        onPress={() => {
+          landingHandler();
+        }}
         style={{
           display: "flex",
           flexDirection: "column",
