@@ -27,6 +27,7 @@ import PhoneInput from "react-native-phone-number-input";
 import { Country, State, City } from "country-state-city";
 import { addDays } from "date-fns";
 import Topbar from "@/components/Topbar";
+import { useTranslation } from "react-i18next";
 
 export default function ReservationAndGuestDetailPage({ navigation }: any) {
   const {
@@ -41,6 +42,8 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
     cardType,
     setCardType,
   } = useStore();
+
+  const { t } = useTranslation();
 
   const items = ["Male", "Female", "Other"];
   const items2 = ["id", "passportNumber", "drivingLicence"];

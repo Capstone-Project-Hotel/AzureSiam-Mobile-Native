@@ -1,7 +1,11 @@
 import useStore from "@/hooks/useStore";
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 
-export default function SummaryBar() {
+export default function SummaryBar({
+  reservationAndGuestDetailHandler,
+}: {
+  reservationAndGuestDetailHandler: Function;
+}) {
   const { currency, bookingDetail, exchangeRate } = useStore();
 
   let reducedRate = 1;
@@ -72,6 +76,9 @@ export default function SummaryBar() {
       <Text>
         {totalRooms} room(s) {totalGuests} guest(s)
       </Text>
+      <TouchableOpacity onPress={() => reservationAndGuestDetailHandler()}>
+        <Text style={{ height: 55 }}>Go To ReservationAndGuestDetail Page</Text>
+      </TouchableOpacity>
     </View>
   );
 }

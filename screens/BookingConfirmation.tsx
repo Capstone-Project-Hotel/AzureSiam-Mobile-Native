@@ -3,8 +3,9 @@ import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
 import { format } from "date-fns";
 import { COLORS } from "@/constants";
 import Topbar from "@/components/Topbar";
+import { useTranslation } from "react-i18next";
 
-export default function BookingConfirmationPage() {
+export default function BookingConfirmationPage(navigation: any) {
   const {
     guests,
     paymentDetail,
@@ -27,6 +28,8 @@ export default function BookingConfirmationPage() {
       "https://swissuplabs.com/wordpress/wp-content/uploads/2016/04/free-icons-discover.png",
   };
 
+  const { t } = useTranslation();
+
   if (bookingDetail.bookingId === "") {
     const bookingId = Math.floor(100000 + Math.random() * 900000).toString();
     const updatedBookingDetail = {
@@ -38,7 +41,11 @@ export default function BookingConfirmationPage() {
 
   return (
     <View>
-      <Topbar />
+      <Topbar
+        landingHandler={() => {
+          navigation.navigate("Landing");
+        }}
+      />
       <ScrollView
         style={{
           paddingHorizontal: 30,
@@ -228,7 +235,7 @@ export default function BookingConfirmationPage() {
 
               {/* CVV */}
               <View>
-                <Text>CVV : {paymentDetail.cvv}</Text>
+                <Text> {t("cvv")} : •••</Text>
               </View>
             </View>
           </View>

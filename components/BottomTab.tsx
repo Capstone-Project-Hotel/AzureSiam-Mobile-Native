@@ -5,6 +5,7 @@ import {
   Pressable,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from "react-native";
 import React, { useState } from "react";
@@ -33,10 +34,14 @@ export default function BottomTab({
   height,
   contactUsHandler,
   searchResultHandler,
+  setVisible,
+  ref,
 }: {
   height?: number;
   contactUsHandler: Function;
   searchResultHandler: Function;
+  setVisible: any;
+  ref: any;
 }) {
   const {
     bookingDetail,
@@ -216,14 +221,20 @@ export default function BottomTab({
         </Modal>
       </KeyboardAvoidingView>
       <View style={styles.tabContainer}>
-        <View style={styles.tabItem}>
+        <TouchableOpacity
+          style={styles.tabItem}
+          onPress={() => {
+            if (ref) {
+              ref.scrollTo({ y: 0, animated: true });
+            }
+          }}
+        >
           <AntDesign
             name="home"
             color={COLORS.PRIMARY}
-            onPress={() => {}}
             size={styles.tabItem.borderRadius}
           />
-        </View>
+        </TouchableOpacity>
         <Pressable
           onPress={() => {
             onClickCalendar();

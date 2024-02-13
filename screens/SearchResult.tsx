@@ -278,7 +278,7 @@ export default function SearchResultPage({ navigation }: any) {
   let reducedRate = 1;
 
   return (
-    <View>
+    <View style={{ marginBottom: 120 }}>
       <Topbar
         landingHandler={() => {
           navigation.navigate("Landing");
@@ -286,13 +286,6 @@ export default function SearchResultPage({ navigation }: any) {
       />
       <ScrollView>
         {/* Go To ReservationAndGuestDetail Page Example */}
-        <TouchableOpacity
-          onPress={() => navigation.navigate("Reservation And Guest Detail")}
-        >
-          <Text style={{ height: 55 }}>
-            Go To ReservationAndGuestDetail Page
-          </Text>
-        </TouchableOpacity>
         <Filter />
         {/* <SummaryCard
           page="search-result"
@@ -300,7 +293,6 @@ export default function SearchResultPage({ navigation }: any) {
             navigation.navigate("Reservation And Guest Detail")
           }
         /> */}
-        <SummaryBar />
         {mockRoomInformation.map((room, index) =>
           room.show === true ? (
             <RoomCard
@@ -321,6 +313,11 @@ export default function SearchResultPage({ navigation }: any) {
           ) : null
         )}
       </ScrollView>
+      <SummaryBar
+        reservationAndGuestDetailHandler={() => {
+          navigation.navigate("Reservation And Guest Detail");
+        }}
+      />
     </View>
   );
 }

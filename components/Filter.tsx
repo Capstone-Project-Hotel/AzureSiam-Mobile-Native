@@ -10,6 +10,7 @@ import {
   SelectItem,
   IndexPath,
 } from "@ui-kitten/components";
+import { format } from "date-fns";
 
 export default function Filter() {
   const { bookingDetail, setBookingDetail, currency } = useStore();
@@ -54,8 +55,8 @@ export default function Filter() {
 
               const updatedBookingDetail = {
                 ...bookingDetail,
-                startDate: formattedStartDate,
-                endDate: formattedEndDate,
+                startDate: startDate,
+                endDate: endDate,
               };
               setBookingDetail(updatedBookingDetail);
             }
@@ -63,8 +64,8 @@ export default function Filter() {
         />
         {/* <Icon name="minus-circle-outline" /> */}
         <Text>
-          {bookingDetail.startDate.toString()} -{" "}
-          {bookingDetail.endDate.toString()}
+          {format(bookingDetail.startDate, "dd/MM/yyyy")} -{" "}
+          {format(bookingDetail.endDate, "dd/MM/yyyy")}
         </Text>
         <Text>Adults</Text>
         <Input
@@ -118,7 +119,6 @@ export default function Filter() {
             setBookingDetail(updatedBookingDetail);
           }}
         />
-        1
         {/* {bookingDetail.codePromotion == "valid001" ? (
           <Text>Discount 20%</Text>
         ) : (

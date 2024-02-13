@@ -55,7 +55,7 @@ export default function RoomCard({
             style={{ width: 100, height: 100 }}
           />
         </View>
-        <View>
+        <View style={{ marginRight: 50, marginTop: 20 }}>
           <Text>{maxGuest}</Text>
           <Text>{bedType}</Text>
           <Text>{roomSize}</Text>

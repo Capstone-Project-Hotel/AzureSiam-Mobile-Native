@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, ScrollView, Image } from "react-native";
 import { format } from "date-fns";
 import { COLORS } from "@/constants";
 import Topbar from "@/components/Topbar";
+import { useTranslation } from "react-i18next";
 
 export default function SummaryBookingDetailPage({ navigation }: any) {
   const { guests, paymentDetail, specialReq, cardType } = useStore();
@@ -21,9 +22,15 @@ export default function SummaryBookingDetailPage({ navigation }: any) {
       "https://swissuplabs.com/wordpress/wp-content/uploads/2016/04/free-icons-discover.png",
   };
 
+  const { t } = useTranslation();
+
   return (
     <View>
-      <Topbar />
+      <Topbar
+        landingHandler={() => {
+          navigation.navigate("Landing");
+        }}
+      />
       <ScrollView
         style={{
           paddingHorizontal: 30,

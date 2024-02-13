@@ -26,7 +26,7 @@ export default function SmallModalCard({
   const handleClose = () => setIsModalOpen(false);
   return (
     <>
-      <Pressable onPressOut={handleOpen}>{cardContent}</Pressable>
+      <TouchableOpacity onPress={handleOpen}>{cardContent}</TouchableOpacity>
       <Modal animationType="slide" transparent={false} visible={isModalOpen}>
         <TouchableOpacity style={{ flex: 1 }} onPress={handleClose}>
           <View style={[styles.modalContent, modalContentStyle]}>

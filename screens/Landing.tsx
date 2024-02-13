@@ -768,6 +768,7 @@ export default function Landing({ navigation }: any) {
           <View style={styles.bottomScrollSpace}></View>
         </ScrollView>
         <BottomTab
+          ref={ref}
           height={40}
           contactUsHandler={() => {
             navigation.navigate("ContactUs");
@@ -775,8 +776,8 @@ export default function Landing({ navigation }: any) {
           searchResultHandler={() => {
             navigation.navigate("SearchResult");
           }}
+          setVisible={undefined}
         />
-        {/* <TestBottomTab/> */}
         <StatusBar style="auto" />
       </View>
     </GestureHandlerRootView>

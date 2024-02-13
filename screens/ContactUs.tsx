@@ -2,9 +2,12 @@ import AppText from "@/components/AppText";
 import { COLORS, SCREEN } from "@/constants";
 import { AntDesign } from "@expo/vector-icons";
 import { Fontisto } from "@expo/vector-icons";
+import { useTranslation } from "react-i18next";
 import { Image, StyleSheet, View } from "react-native";
 
 export default function ContactUsPage() {
+  const { t } = useTranslation();
+
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
@@ -84,7 +87,7 @@ const styles = StyleSheet.create({
     paddingRight: 12,
   },
   googleMapContainer: {
-    flex: 4
+    flex: 4,
     // maxHeight: 120,
     // borderColor: "red",
     // borderWidth: 4,

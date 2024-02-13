@@ -22,8 +22,8 @@ interface Guest {
   }
   
   interface BookingDetail {
-    startDate: string;
-    endDate:string;
+    startDate: any;
+    endDate: any;
     adultNumber: number;
     childrenNumber: number;
     codePromotion: string;
