@@ -1,6 +1,7 @@
+import { COLORS } from "@/constants";
 import useStore from "@/hooks/useStore";
 import { Button } from "@ui-kitten/components";
-import { View, Text } from "react-native";
+import { View, Text, Image } from "react-native";
 
 export default function RoomCard({
   roomName,
@@ -32,25 +33,39 @@ export default function RoomCard({
   const { bookingDetail, setBookingDetail } = useStore();
 
   const handleBookNowClick = (roomType: string) => {
-    // Create the updatedBookingDetail object with the new room number
     const updatedBookingDetail = {
       ...bookingDetail,
       [`${roomType}RoomNumber`]: 1,
     };
-    // disable
-    // console.log(updatedBookingDetail);
-
-    // Set the updated bookingDetail
     setBookingDetail(updatedBookingDetail);
   };
   return (
-    <View>
-      <Text>{roomName}</Text>
-      <Text>{maxGuest}</Text>
-      <Text>{bedType}</Text>
-      <Text>{roomSize}</Text>
-      <Text>{roomPrice}</Text>
-      <Button onPress={() => handleBookNowClick(roomType)}>
+    <View style={{ backgroundColor: COLORS.BACKGROUND_1 }}>
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
+      >
+        <View>
+          <Text style={{ fontSize: 20 }}>{roomName}</Text>
+          <Image
+            source={{ uri: roomImage }}
+            style={{ width: 100, height: 100 }}
+          />
+        </View>
+        <View>
+          <Text>{maxGuest}</Text>
+          <Text>{bedType}</Text>
+          <Text>{roomSize}</Text>
+          <Text>{roomPrice}</Text>
+        </View>
+      </View>
+      <Button
+        onPress={() => handleBookNowClick(roomType)}
+        style={{ width: 120, height: 50 }}
+      >
         {t("book_now")}
       </Button>
     </View>

@@ -127,7 +127,6 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
       "email",
       "phoneNumber",
       "country",
-      "city",
       "zipCode",
       "address",
       "id",
@@ -178,7 +177,11 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
 
   return (
     <View>
-      <Topbar />
+      <Topbar
+        landingHandler={() => {
+          navigation.navigate("Landing");
+        }}
+      />
       <ScrollView
         style={{
           paddingHorizontal: 30,
@@ -512,9 +515,7 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
 
                   {/* City */}
                   <View>
-                    <Text>
-                      City <Text style={{ color: "red" }}>*</Text>
-                    </Text>
+                    <Text>City</Text>
                     <Select
                       onSelect={(i: any) =>
                         handleInputChange(index, city[i.row], "city")

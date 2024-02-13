@@ -4,8 +4,10 @@ import { useTranslation } from "react-i18next";
 import dayjs from "dayjs";
 import useStore from "@/hooks/useStore";
 import RoomCard from "@/components/RoomCard";
-import { View } from "react-native";
+import { TouchableOpacity, View, Text } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
+import Topbar from "@/components/Topbar";
+import SummaryBar from "@/components/SummaryBar";
 dayjs().format();
 
 export default function SearchResultPage({ navigation }: any) {
@@ -277,7 +279,20 @@ export default function SearchResultPage({ navigation }: any) {
 
   return (
     <View>
+      <Topbar
+        landingHandler={() => {
+          navigation.navigate("Landing");
+        }}
+      />
       <ScrollView>
+        {/* Go To ReservationAndGuestDetail Page Example */}
+        <TouchableOpacity
+          onPress={() => navigation.navigate("Reservation And Guest Detail")}
+        >
+          <Text style={{ height: 55 }}>
+            Go To ReservationAndGuestDetail Page
+          </Text>
+        </TouchableOpacity>
         <Filter />
         {/* <SummaryCard
           page="search-result"
@@ -285,6 +300,7 @@ export default function SearchResultPage({ navigation }: any) {
             navigation.navigate("Reservation And Guest Detail")
           }
         /> */}
+        <SummaryBar />
         {mockRoomInformation.map((room, index) =>
           room.show === true ? (
             <RoomCard

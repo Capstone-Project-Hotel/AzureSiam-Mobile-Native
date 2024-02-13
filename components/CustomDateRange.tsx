@@ -104,6 +104,13 @@ export default function CustomDateRange() {
 
     if (nextRange.startDate?.toString() !== nextRange.endDate?.toString()) {
       setRange(nextRange);
+
+      let startDate = new Date(nextRange.startDate);
+      let endDate = new Date(nextRange.endDate);
+
+      const formattedStartDate = startDate.toLocaleDateString("en-GB");
+      const formattedEndDate = endDate.toLocaleDateString("en-GB");
+
       setBookingDetail({
         ...bookingDetail,
         startDate: nextRange.startDate,
