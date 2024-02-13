@@ -19,12 +19,9 @@ import {
 import LandingBigCard from "@/components/LandingBigCard";
 import { useFonts } from "expo-font";
 import AppText from "@/components/AppText";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import SmallModalCard from "@/components/SmallModalCard";
 import Card from "@/components/Card";
-// import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-// import Button from "@ant-design/react-native/lib/button";
-// import { Carousel } from "@ant-design/react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import Carousel from "react-native-reanimated-carousel";
 import BottomTab from "@/components/BottomTab";
@@ -85,7 +82,6 @@ const gallery = [
 import i18next, { languageResources } from "../services/i18next";
 import { useTranslation } from "react-i18next";
 import languagesList from "../services/languagesList.json";
-import CustomDateRange from "@/components/CustomDateRange";
 import { Select, SelectItem } from "@ui-kitten/components";
 
 const promotions = {
@@ -151,19 +147,11 @@ const listquotes = [
 
 export default function Landing({ navigation }: any) {
   // Test lng
+
   const [visible, setVisible] = useState(false);
   const [visibleL, setVisibleL] = useState(false);
   const { t } = useTranslation();
-  const {
-    bookingDetail,
-    setBookingDetail,
-    setCurrency,
-    setExchangeRate,
-    currency,
-    exchangeRate,
-    lng,
-    setLng,
-  } = useStore();
+  const { setCurrency, setExchangeRate, currency, lng, setLng } = useStore();
 
   const handleExChange = async (value: string) => {
     try {
@@ -223,11 +211,11 @@ export default function Landing({ navigation }: any) {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       {/* Go To ReservationAndGuestDetail Page Example */}
-      <TouchableOpacity
+      {/* <TouchableOpacity
         onPress={() => navigation.navigate("Reservation And Guest Detail")}
       >
         <Text style={{ height: 55 }}>Go To ReservationAndGuestDetail Page</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       <View style={styles.container}>
         <ScrollView ref={(ref: any) => setRef(ref)}>
           <TouchableOpacity

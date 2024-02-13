@@ -29,7 +29,7 @@ const LineBreak = (
   />
 );
 
-export default function TestBottomTab({
+export default function BottomTab({
   height,
   contactUsHandler,
   searchResultHandler,
@@ -38,10 +38,79 @@ export default function TestBottomTab({
   contactUsHandler: Function;
   searchResultHandler: Function;
 }) {
-  const { bookingDetail, setBookingDetail } = useStore();
+  const {
+    bookingDetail,
+    setBookingDetail,
+    setCardType,
+    setGuests,
+    setPaymentDetail,
+    setSpecialReq,
+  } = useStore();
   const [isDatePickerVisible, setIsDatePickerVisible] = useState(false);
   const onClickCalendar = () => {
     setIsDatePickerVisible(true);
+  };
+
+  const handleNewBooking = () => {
+    const emptyGuest: Guest = {
+      firstName: "",
+      middleName: "",
+      lastName: "",
+      gender: "",
+      birthDate: "",
+      email: "",
+      phoneNumber: "",
+      country: "",
+      city: "",
+      zipCode: "",
+      address: "",
+      id: "",
+      idType: "",
+    };
+
+    setGuests([emptyGuest]);
+
+    const emptyPaymentDetail: PaymentDetail = {
+      cardHolderName: "",
+      cardNumber: "",
+      expDate: "",
+      cvv: "",
+    };
+
+    setPaymentDetail(emptyPaymentDetail);
+
+    const emptyBookingDetail: BookingDetail = {
+      startDate: "",
+      endDate: "",
+      adultNumber: 1,
+      childrenNumber: 0,
+      codePromotion: "",
+      standardRoomNumber: 0,
+      deluxeRoomNumber: 0,
+      familyRoomNumber: 0,
+      suiteRoomNumber: 0,
+      executiveRoomNumber: 0,
+      packageOne: false,
+      packageTwo: false,
+      isCheckedPDPA: false,
+      bookingId: "",
+      showStandard: true,
+      showDeluxe: true,
+      showFamily: true,
+      showSuite: true,
+      showExecutive: true,
+      showOnlyBalcony: false,
+      showOnlyDinnerPlan: false,
+      showOnlyJacuzzi: false,
+      showBelowOption1: false,
+      showBelowOption2: false,
+      showBelowOption3: false,
+    };
+
+    setBookingDetail(emptyBookingDetail);
+    setCardType("");
+    setSpecialReq("");
+    console.log("new store");
   };
 
   const onModalClose = () => {
@@ -137,6 +206,7 @@ export default function TestBottomTab({
               <Button
                 onPress={() => {
                   searchResultHandler();
+                  onModalClose();
                 }}
               >
                 Confirm
@@ -154,7 +224,12 @@ export default function TestBottomTab({
             size={styles.tabItem.borderRadius}
           />
         </View>
-        <Pressable onPress={onClickCalendar}>
+        <Pressable
+          onPress={() => {
+            onClickCalendar();
+            handleNewBooking();
+          }}
+        >
           <View style={styles.tabItem}>
             <AntDesign
               name="calendar"

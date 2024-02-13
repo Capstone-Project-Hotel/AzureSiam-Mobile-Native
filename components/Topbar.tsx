@@ -7,12 +7,16 @@ import axios from "axios";
 import { COLORS } from "@/constants";
 import { useNavigation } from "@react-navigation/native";
 
-const Topbar = () => {
-  const navigation = useNavigation();
+export default function Topbar({
+  landingHandler,
+}: {
+  landingHandler: Function;
+}) {
   const { lng, setLng, currency, setCurrency, setExchangeRate } = useStore();
   const changeLng = (lng: any) => {
     i18next.changeLanguage(lng);
   };
+
   const listquotes = [
     "SGD",
     "MYR",
@@ -76,7 +80,9 @@ const Topbar = () => {
     >
       {/* Left */}
       <TouchableOpacity
-        onPress={() => navigation.navigate("Landing")}
+        onPress={() => {
+          landingHandler();
+        }}
         style={{
           display: "flex",
           flexDirection: "column",
@@ -141,6 +147,4 @@ const Topbar = () => {
       </View>
     </View>
   );
-};
-
-export default Topbar;
+}
