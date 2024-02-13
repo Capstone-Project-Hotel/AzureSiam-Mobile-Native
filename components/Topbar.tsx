@@ -12,6 +12,7 @@ export default function Topbar({
 }: {
   landingHandler: Function;
 }) {
+  const navigation = useNavigation();
   const { lng, setLng, currency, setCurrency, setExchangeRate } = useStore();
   const changeLng = (lng: any) => {
     i18next.changeLanguage(lng);
@@ -80,13 +81,7 @@ export default function Topbar({
     >
       {/* Left */}
       <TouchableOpacity
-<<<<<<< Updated upstream
-        onPress={() => {
-          landingHandler();
-        }}
-=======
         onPress={() => navigation.navigate("Landing" as never)}
->>>>>>> Stashed changes
         style={{
           display: "flex",
           flexDirection: "column",
