@@ -16,7 +16,8 @@ import useStore from "@/hooks/useStore";
 import { Button, Input } from "@ui-kitten/components";
 import AppText from "./AppText";
 import { Picker } from "@react-native-picker/picker";
-import { TextInput } from "react-native-gesture-handler";
+import { ScrollView, TextInput } from "react-native-gesture-handler";
+import { useTranslation } from "react-i18next";
 
 const BOTTOM_BAR_HEIGHT = 40;
 const TAB_ITEM_RADIUS = 30;
@@ -34,14 +35,12 @@ export default function BottomTab({
   height,
   contactUsHandler,
   searchResultHandler,
-  setVisible,
-  ref,
+  refProp,
 }: {
   height?: number;
   contactUsHandler: Function;
   searchResultHandler: Function;
-  setVisible: any;
-  ref: any;
+  refProp: any;
 }) {
   const {
     bookingDetail,
@@ -55,6 +54,7 @@ export default function BottomTab({
   const onClickCalendar = () => {
     setIsDatePickerVisible(true);
   };
+  const { t } = useTranslation();
 
   const handleNewBooking = () => {
     const emptyGuest: Guest = {
@@ -124,108 +124,112 @@ export default function BottomTab({
   const styles = getStyles(height);
   return (
     <View style={styles.container}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        // keyboardVerticalOffset={100}
-        // style={{flex:1}}
+      <Modal
+        visible={isDatePickerVisible}
+        animationType="slide"
+        transparent={false}
       >
-        <Modal
-          visible={isDatePickerVisible}
-          animationType="slide"
-          transparent={false}
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          // keyboardVerticalOffset={100}
+          style={{ flex: 1 }}
         >
-          <View style={styles.calendarModalContainer}>
-            <Button onPress={onModalClose}>Dismiss</Button>
-            <View style={styles.customDateRange}>
-              <CustomDateRange />
-            </View>
-            <View style={styles.calendarModalLowerContainer}>
-              {LineBreak}
-              <View style={styles.calendarModalSection}>
-                <AppText styles={styles.section}>Guest</AppText>
-                <View style={styles.inputContainer}>
-                  <AppText styles={styles.inputHeaderText}>Adults</AppText>
-                  <View style={styles.optionPicker}>
-                    <Picker
-                      selectedValue={bookingDetail.adultNumber}
-                      onValueChange={(itemValue, itemIndex) =>
-                        setBookingDetail({
-                          ...bookingDetail,
-                          adultNumber: itemValue,
-                        })
-                      }
-                    >
-                      <Picker.Item label="0" value={0} />
-                      <Picker.Item label="1" value={1} />
-                      <Picker.Item label="2" value={2} />
-                      <Picker.Item label="3" value={3} />
-                      <Picker.Item label="4" value={4} />
-                    </Picker>
+          <ScrollView>
+            <View style={styles.calendarModalContainer}>
+              <Button onPress={onModalClose}>{t("return")}</Button>
+              <View style={styles.customDateRange}>
+                <CustomDateRange />
+              </View>
+              <View style={styles.calendarModalLowerContainer}>
+                {LineBreak}
+                <View style={styles.calendarModalSection}>
+                  <AppText styles={styles.section}>{t("guest")}</AppText>
+                  <View style={styles.inputContainer}>
+                    <AppText styles={styles.inputHeaderText}>
+                      {t("adults")}
+                    </AppText>
+                    <View style={styles.optionPicker}>
+                      <Picker
+                        selectedValue={bookingDetail.adultNumber}
+                        onValueChange={(itemValue, itemIndex) =>
+                          setBookingDetail({
+                            ...bookingDetail,
+                            adultNumber: itemValue,
+                          })
+                        }
+                      >
+                        <Picker.Item label="0" value={0} />
+                        <Picker.Item label="1" value={1} />
+                        <Picker.Item label="2" value={2} />
+                        <Picker.Item label="3" value={3} />
+                        <Picker.Item label="4" value={4} />
+                      </Picker>
+                    </View>
+                  </View>
+                  <View style={styles.inputContainer}>
+                    <AppText styles={styles.inputHeaderText}>
+                      {t("children")}
+                    </AppText>
+                    <View style={styles.optionPicker}>
+                      <Picker
+                        selectedValue={bookingDetail.childrenNumber}
+                        onValueChange={(itemValue, itemIndex) =>
+                          setBookingDetail({
+                            ...bookingDetail,
+                            childrenNumber: itemValue,
+                          })
+                        }
+                      >
+                        <Picker.Item label="0" value={0} />
+                        <Picker.Item label="1" value={1} />
+                        <Picker.Item label="2" value={2} />
+                        <Picker.Item label="3" value={3} />
+                        <Picker.Item label="4" value={4} />
+                      </Picker>
+                    </View>
                   </View>
                 </View>
-                <View style={styles.inputContainer}>
-                  <AppText styles={styles.inputHeaderText}>Children</AppText>
-                  <View style={styles.optionPicker}>
-                    <Picker
-                      selectedValue={bookingDetail.childrenNumber}
-                      onValueChange={(itemValue, itemIndex) =>
+                {LineBreak}
+                <View style={styles.calendarModalSection}>
+                  <AppText styles={styles.section}>{t("have_code")}</AppText>
+                  <View style={styles.inputContainer}>
+                    <AppText styles={styles.inputHeaderText}>
+                      {t("code")}
+                    </AppText>
+                    <TextInput
+                      value={bookingDetail.codePromotion}
+                      onChangeText={(text) => {
                         setBookingDetail({
                           ...bookingDetail,
-                          childrenNumber: itemValue,
-                        })
-                      }
-                    >
-                      <Picker.Item label="0" value={0} />
-                      <Picker.Item label="1" value={1} />
-                      <Picker.Item label="2" value={2} />
-                      <Picker.Item label="3" value={3} />
-                      <Picker.Item label="4" value={4} />
-                    </Picker>
+                          codePromotion: text,
+                        });
+                      }}
+                      placeholder="enter"
+                      maxLength={10}
+                    ></TextInput>
                   </View>
                 </View>
+                <Button
+                  onPress={() => {
+                    searchResultHandler();
+                    onModalClose();
+                  }}
+                  style={{ marginTop: 16 }}
+                >
+                  {t("confirm")}
+                </Button>
               </View>
-              {LineBreak}
-              <View style={styles.calendarModalSection}>
-                <AppText styles={styles.section}>Have a code?</AppText>
-              </View>
-              {LineBreak}
-              <View style={styles.calendarModalSection}>
-                <AppText styles={styles.section}>Guest</AppText>
-                <View style={styles.inputContainer}>
-                  <AppText styles={styles.inputHeaderText}>
-                    Code Promotion
-                  </AppText>
-                  <TextInput
-                    value={bookingDetail.codePromotion}
-                    onChangeText={(text) => {
-                      setBookingDetail({
-                        ...bookingDetail,
-                        codePromotion: text,
-                      });
-                    }}
-                    placeholder="enter"
-                    maxLength={10}
-                  ></TextInput>
-                </View>
-              </View>
-              <Button
-                onPress={() => {
-                  searchResultHandler();
-                  onModalClose();
-                }}
-              >
-                Confirm
-              </Button>
             </View>
-          </View>
-        </Modal>
-      </KeyboardAvoidingView>
+          </ScrollView>
+        </KeyboardAvoidingView>
+      </Modal>
+
       <View style={styles.tabContainer}>
         <TouchableOpacity
           style={styles.tabItem}
           onPress={() => {
-            if (ref) {
-              ref.scrollTo({ y: 0, animated: true });
+            if (refProp) {
+              refProp.scrollTo({ y: 0, animated: true });
             }
           }}
         >
@@ -311,6 +315,7 @@ const getStyles = (height: number | undefined) => {
     },
     section: {
       fontSize: 16,
+      marginBottom: 4,
     },
     inputContainer: {
       paddingLeft: 16,

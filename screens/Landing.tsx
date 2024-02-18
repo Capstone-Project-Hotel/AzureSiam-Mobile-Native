@@ -47,6 +47,11 @@ const bigCard1_History = {
 const rooms = {
   standard: {
     uri: "https://cdn.discordapp.com/attachments/457166097230069773/1186386766119305258/cover.jpg",
+    images: [
+      "https://image-tc.galaxy.tf/wijpeg-4xrh8wkeksa0lb2jjhjyb6bxk/sandman-signature-saskatoon-south-hotel-corp-king-sofa-bed-w-euro-shower-bath-2_wide.jpg?crop=0%2C84%2C1600%2C900&width=1140",
+      "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTrmFKkPaYE9q1hzcjDppcp_QYSJlZG8JnSF0_FUOtTT2loh4kA",
+      "https://cdn.discordapp.com/attachments/457166097230069773/1186386766119305258/cover.jpg"
+    ],
   },
   deluxe: {
     uri: "https://cdn.discordapp.com/attachments/457166097230069773/1186387436901781634/cover_1.jpg",
@@ -83,6 +88,7 @@ import i18next, { languageResources } from "../services/i18next";
 import { useTranslation } from "react-i18next";
 import languagesList from "../services/languagesList.json";
 import { Select, SelectItem } from "@ui-kitten/components";
+import { SCREEN } from "@/constants";
 
 const promotions = {
   fifty: {
@@ -254,7 +260,7 @@ export default function Landing({ navigation }: any) {
                   }}
                 >
                   <Entypo name="home" size={32} color="black" />
-                  <Text style={styles.menuModalText}>Home</Text>
+                  <Text style={styles.menuModalText}>{t("home")}</Text>
                 </TouchableOpacity>
                 {/* Room Type */}
                 <TouchableOpacity
@@ -262,7 +268,7 @@ export default function Landing({ navigation }: any) {
                   onPress={() => scrollTo(roomLayout)}
                 >
                   <Ionicons name="bed" size={32} color="black" />
-                  <Text style={styles.menuModalText}>Room Type</Text>
+                  <Text style={styles.menuModalText}>{t("room_type")}</Text>
                 </TouchableOpacity>
                 {/* Facilities & Services */}
                 <TouchableOpacity
@@ -270,9 +276,7 @@ export default function Landing({ navigation }: any) {
                   onPress={() => scrollTo(facilitiesLayout)}
                 >
                   <MaterialIcons name="room-service" size={32} color="black" />
-                  <Text style={styles.menuModalText}>
-                    Facilities & Services
-                  </Text>
+                  <Text style={styles.menuModalText}>{t("facilities")}</Text>
                 </TouchableOpacity>
                 {/* Promotions */}
                 <TouchableOpacity
@@ -280,7 +284,7 @@ export default function Landing({ navigation }: any) {
                   onPress={() => scrollTo(promotionsLayout)}
                 >
                   <AntDesign name="gift" size={32} color="black" />
-                  <Text style={styles.menuModalText}>Promotions</Text>
+                  <Text style={styles.menuModalText}>{t("promotions")}</Text>
                 </TouchableOpacity>
                 {/* Activity Schedule */}
                 <TouchableOpacity
@@ -288,7 +292,9 @@ export default function Landing({ navigation }: any) {
                   onPress={() => scrollTo(activityLayout)}
                 >
                   <MaterialIcons name="schedule" size={32} color="black" />
-                  <Text style={styles.menuModalText}>Activity Schedule</Text>
+                  <Text style={styles.menuModalText}>
+                    {t("activity_schedule")}
+                  </Text>
                 </TouchableOpacity>
                 {/* Gallery */}
                 <TouchableOpacity
@@ -296,7 +302,7 @@ export default function Landing({ navigation }: any) {
                   onPress={() => scrollTo(galleryLayout)}
                 >
                   <Entypo name="images" size={32} color="black" />
-                  <Text style={styles.menuModalText}>Gallery</Text>
+                  <Text style={styles.menuModalText}>{t("gallery")}</Text>
                 </TouchableOpacity>
                 {/* Nearby Attraction */}
                 <TouchableOpacity
@@ -308,12 +314,16 @@ export default function Landing({ navigation }: any) {
                     size={32}
                     color="black"
                   />
-                  <Text style={styles.menuModalText}>Nearby Attraction</Text>
+                  <Text style={styles.menuModalText}>
+                    {t("nearby_attraction")}
+                  </Text>
                 </TouchableOpacity>
                 {/* Language */}
                 <View style={styles.menuModalContainer}>
                   <MaterialIcons name="language" size={32} color="black" />
-                  <Text style={styles.menuModalText}>Language</Text>
+                  <Text style={styles.menuModalText}>
+                    {t("change-language")}
+                  </Text>
                   <Select
                     onSelect={(i: any) => {
                       changeLng(["en", "th"][i.row]);
@@ -338,7 +348,7 @@ export default function Landing({ navigation }: any) {
                     size={32}
                     color="black"
                   />
-                  <Text style={styles.menuModalText}>{"Currency  "}</Text>
+                  <Text style={styles.menuModalText}>{t("currency")}</Text>
                   <Select
                     onSelect={(i: any) => handleExChange(listquotes[i.row])}
                     value={currency}
@@ -371,8 +381,7 @@ export default function Landing({ navigation }: any) {
                 {t("hotel")}
               </AppText>
               <AppText styles={styles.landingBigCardDescription}>
-                Welcome to AzureSiam Hotel, an urban retreat seamlessly blending
-                modern with timeless allure.
+                {t("history_description")}
               </AppText>
             </View>
             <Image
@@ -395,33 +404,88 @@ export default function Landing({ navigation }: any) {
           ></View>
 
           <View style={styles.sectionMargin}>
-            <AppText styles={styles.sectionText}>Room Type</AppText>
+            <AppText styles={styles.sectionText}>{t("room_type")}</AppText>
             <View style={{ flexDirection: "row", gap: 8 }}>
               <SmallModalCard
                 cardContent={
-                  <Card name="Standard Room" image={rooms.standard.uri} />
+                  <Card name={t("std_title")} image={rooms.standard.uri} />
                 }
                 modalContent={
                   <>
-                    <AppText styles={styles.modalTitle}>Standard Room</AppText>
+                    <AppText styles={styles.modalTitle}>
+                      {t("std_title")}
+                    </AppText>
                     <AppText styles={styles.modalDescription}>
-                      The room is designed to meet fundamental criteria for
-                      comfort, functionality, and aesthetics. This room is
-                      equipped with essential amenities necessary for a
-                      comfortable stay or specific purposes, ensuring a
-                      standardized level of quality. It may feature standard
-                      furniture, basic technology, and necessary facilities,
-                      making it suitable for a wide range of users or purposes.
+                      {t("standard_room_desc")}
                     </AppText>
                     <FlatList
                       data={[
-                        { key: "- Mini Fridge" },
-                        { key: "- Hairdryer" },
-                        { key: "- Television" },
-                        { key: "- Air Conditioned" },
-                        { key: "- Wireless Internet" },
-                        { key: "- Desk" },
-                        { key: "- Bath" },
+                        { key: `- ${t("mini_fridge")}` },
+                        { key: `- ${t("hairdryer")}` },
+                        { key: `- ${t("television")}` },
+                        { key: `- ${t("air_conditioner")}` },
+                        { key: `- ${t("wireless_internet")}` },
+                        { key: `- ${t("desk")}` },
+                        { key: `- ${t("bath")}` },
+                      ]}
+                      renderItem={({ item }) => (
+                        <Text style={styles.listText}>{item.key}</Text>
+                      )}
+                    />
+                    <Carousel
+                      loop
+                      width={width}
+                      height={width / 2}
+                      autoPlay={true}
+                      mode="parallax"
+                      data={rooms.standard.images}
+                      scrollAnimationDuration={1000}
+                      // onSnapToItem={(index) => console.log('current index:', index)}
+                      renderItem={({ index }) => (
+                        <View
+                          style={{
+                            flex: 1,
+                            borderWidth: 1,
+                            justifyContent: "center",
+                          }}
+                        >
+                          <Image
+                            source={{uri:rooms.standard.images[index]}}
+                            style={styles.carouselImage}
+                          />
+                        </View>
+                      )}
+                    />
+                    {/* <Image
+                      source={{ uri: rooms.standard.images[0] }}
+                      style={styles.modalImage}
+                    /> */}
+                  </>
+                }
+              />
+              <SmallModalCard
+                cardContent={
+                  <Card name={t("dlx_title")} image={rooms.deluxe.uri} />
+                }
+                modalContent={
+                  <>
+                    <AppText styles={styles.modalTitle}>
+                      {t("dlx_title")}
+                    </AppText>
+                    <AppText styles={styles.modalDescription}>
+                      {t("deluxe_room_desc")}
+                    </AppText>
+                    <FlatList
+                      data={[
+                        { key: `- ${t("mini_fridge")}` },
+                        { key: `- ${t("hairdryer")}` },
+                        { key: `- ${t("television")}` },
+                        { key: `- ${t("air_conditioner")}` },
+                        { key: `- ${t("wireless_internet")}` },
+                        { key: `- ${t("desk")}` },
+                        { key: `- ${t("bath")}` },
+                        { key: `- ${t("cable")}` },
+                        { key: `- ${t("balcony")}` },
                       ]}
                       renderItem={({ item }) => (
                         <Text style={styles.listText}>{item.key}</Text>
@@ -432,60 +496,27 @@ export default function Landing({ navigation }: any) {
               />
               <SmallModalCard
                 cardContent={
-                  <Card name="Deluxe Room" image={rooms.deluxe.uri} />
+                  <Card name={t("fml_title")} image={rooms.family.uri} />
                 }
                 modalContent={
                   <>
-                    <AppText styles={styles.modalTitle}>Deluxe Room</AppText>
+                    <AppText styles={styles.modalTitle}>
+                      {t("fml_title")}
+                    </AppText>
                     <AppText styles={styles.modalDescription}>
-                      An upgraded version of the standard room, the deluxe room
-                      offers more space and often features enhanced furnishings,
-                      better views, and additional amenities such as a balcony
-                      or a seating area. It provides a touch of luxury for
-                      guests looking for a bit more comfort.
+                      {t("family_room_desc")}
                     </AppText>
                     <FlatList
                       data={[
-                        { key: "- Mini Fridge" },
-                        { key: "- Hairdryer" },
-                        { key: "- Television" },
-                        { key: "- Air Conditioned" },
-                        { key: "- Wireless Internet" },
-                        { key: "- Desk" },
-                        { key: "- Cable/Satellite TV" },
-                        { key: "- Balcony" },
-                      ]}
-                      renderItem={({ item }) => (
-                        <Text style={styles.listText}>{item.key}</Text>
-                      )}
-                    />
-                  </>
-                }
-              />
-              <SmallModalCard
-                cardContent={
-                  <Card name="Family Room" image={rooms.family.uri} />
-                }
-                modalContent={
-                  <>
-                    <AppText styles={styles.modalTitle}>Family Room</AppText>
-                    <AppText styles={styles.modalDescription}>
-                      Specifically designed for families, these rooms often
-                      feature extra sleeping space such as bunk beds or a
-                      pull-out sofa. Family rooms provide the convenience of
-                      staying together in one room while ensuring everyone has a
-                      comfortable place to sleep.
-                    </AppText>
-                    <FlatList
-                      data={[
-                        { key: "- Compact Fridge" },
-                        { key: "- Hairdryer" },
-                        { key: "- Television" },
-                        { key: "- Air Conditioned" },
-                        { key: "- Wireless Internet" },
-                        { key: "- Desk" },
-                        { key: "- Cable/Satellite TV" },
-                        { key: "- Balcony" },
+                        { key: `- ${t("compact_fridge")}` },
+                        { key: `- ${t("hairdryer")}` },
+                        { key: `- ${t("television")}` },
+                        { key: `- ${t("air_conditioner")}` },
+                        { key: `- ${t("wireless_internet")}` },
+                        { key: `- ${t("desk")}` },
+                        { key: `- ${t("bath")}` },
+                        { key: `- ${t("cable")}` },
+                        { key: `- ${t("balcony")}` },
                       ]}
                       renderItem={({ item }) => (
                         <Text style={styles.listText}>{item.key}</Text>
@@ -513,12 +544,10 @@ export default function Landing({ navigation }: any) {
               }}
             >
               <AppText styles={styles.landingBigCardTitle}>
-                TranquilHaven Spa
+                {t("spa_title")}
               </AppText>
               <AppText styles={styles.landingBigCardDescription}>
-                AzureSiam Spa: A holistic haven for mind, body, and soul. Our
-                skilled therapists offer tailored treatments for ultimate
-                relaxation.
+                {t("spa_description")}
               </AppText>
             </View>
             <Image
@@ -547,11 +576,11 @@ export default function Landing({ navigation }: any) {
                 marginRight: 16,
               }}
             >
-              <AppText styles={styles.landingBigCardTitle}>Indoor Gym</AppText>
+              <AppText styles={styles.landingBigCardTitle}>
+                {t("gym_title")}
+              </AppText>
               <AppText styles={styles.landingBigCardDescription}>
-                Elevate your stay with our state-of-the-art indoor gym facility.
-                Whether you're a fitness enthusiast or looking to maintain your
-                workout routine while traveling.
+                {t("gym_description")}
               </AppText>
             </View>
           </LandingBigCard>
@@ -564,58 +593,55 @@ export default function Landing({ navigation }: any) {
           ></View>
 
           <View style={styles.sectionMargin}>
-            <AppText styles={styles.sectionText}>Promotions</AppText>
+            <AppText styles={styles.sectionText}>{t("promotions")}</AppText>
             <View style={{ flexDirection: "row", gap: 8 }}>
               <SmallModalCard
                 cardContent={
-                  <Card name="50% Sale" image={promotions.fifty.uri} />
+                  <Card name={t("fifty_title")} image={promotions.fifty.uri} />
                 }
                 modalContent={
                   <>
-                    <AppText styles={styles.modalTitle}>50% Sale</AppText>
+                    <AppText styles={styles.modalTitle}>
+                      {t("fifty_title")}
+                    </AppText>
                     <AppText styles={styles.modalDescription}>
-                      Embrace luxury for less with our 50% off hotel room sale!
-                      Enjoy a comfortable and stylish stay at half the price.
-                      Whether it's a spontaneous trip or a planned escape, this
-                      limited-time offer lets you indulge in quality
-                      accommodation without breaking the bank. Book now and
-                      elevate your travel experience with unbeatable savings!
+                      {t("fifty_description")}
                     </AppText>
                   </>
                 }
               />
               <SmallModalCard
                 cardContent={
-                  <Card name="Monday Sale" image={promotions.monday.uri} />
+                  <Card
+                    name={t("monday_title")}
+                    image={promotions.monday.uri}
+                  />
                 }
                 modalContent={
                   <>
-                    <AppText styles={styles.modalTitle}>Monday Sale</AppText>
+                    <AppText styles={styles.modalTitle}>
+                      {t("monday_title")}
+                    </AppText>
                     <AppText styles={styles.modalDescription}>
-                      Elevate your Mondays with our exclusive hotel room sale!
-                      Enjoy unbeatable discounts for a premium stay without the
-                      premium price. Perfect for business or leisure, seize this
-                      opportunity to turn your Monday into a memorable
-                      experience. Book now and make your week start on a high
-                      note!
+                      {t("monday_description")}
                     </AppText>
                   </>
                 }
               />
               <SmallModalCard
                 cardContent={
-                  <Card name="Friday Sale" image={promotions.friday.uri} />
+                  <Card
+                    name={t("friday_title")}
+                    image={promotions.friday.uri}
+                  />
                 }
                 modalContent={
                   <>
-                    <AppText styles={styles.modalTitle}>Friday Sale</AppText>
+                    <AppText styles={styles.modalTitle}>
+                      {t("friday_title")}
+                    </AppText>
                     <AppText styles={styles.modalDescription}>
-                      Kick off your weekend with our Friday Sale on hotel rooms!
-                      Enjoy exclusive discounts for a perfect blend of comfort
-                      and savings. Whether it's a romantic getaway or a
-                      spontaneous escape, make your Friday night special without
-                      breaking the bank. Book now for unbeatable savings and
-                      elevate your weekend stay!
+                      {t("friday_description")}
                     </AppText>
                   </>
                 }
@@ -631,54 +657,51 @@ export default function Landing({ navigation }: any) {
           ></View>
 
           <View style={styles.sectionMargin}>
-            <AppText styles={styles.sectionText}>Activity Schedule</AppText>
+            <AppText styles={styles.sectionText}>
+              {t("activity_schedule")}
+            </AppText>
             <View style={{ flexDirection: "row", gap: 8 }}>
               <SmallModalCard
                 cardContent={
-                  <Card name="Swimming Pool" image={schedule.swim.uri} />
+                  <Card name={t("swim_title")} image={schedule.swim.uri} />
                 }
                 modalContent={
                   <>
-                    <AppText styles={styles.modalTitle}>Swimming Pool</AppText>
+                    <AppText styles={styles.modalTitle}>
+                      {t("swim_title")}
+                    </AppText>
                     <AppText styles={styles.modalDescription}>
-                      Dive into versatility with pool activities! Whether it's a
-                      leisurely swim, family fun, or a focused workout, the pool
-                      caters to all interests. From water aerobics to
-                      competitive training, it's a refreshing and social space
-                      for relaxation, family time, or beating the heat.
+                      {t("swim_description")}
                     </AppText>
                   </>
                 }
               />
               <SmallModalCard
                 cardContent={
-                  <Card name="Meditation" image={schedule.medi.uri} />
+                  <Card name={t("medi_title")} image={schedule.medi.uri} />
                 }
                 modalContent={
                   <>
-                    <AppText styles={styles.modalTitle}>Meditation</AppText>
+                    <AppText styles={styles.modalTitle}>
+                      {t("medi_title")}
+                    </AppText>
                     <AppText styles={styles.modalDescription}>
-                      Meditation promotes mindfulness and inner peace. By
-                      focusing on breath or the present moment in a quiet space,
-                      it reduces stress, enhances well-being, and fosters mental
-                      clarity—a valuable tool for daily life challenges.
+                      {t("medi_description")}
                     </AppText>
                   </>
                 }
               />
               <SmallModalCard
                 cardContent={
-                  <Card name="Rock Climbing" image={schedule.rock.uri} />
+                  <Card name={t("rock_title")} image={schedule.rock.uri} />
                 }
                 modalContent={
                   <>
-                    <AppText styles={styles.modalTitle}>Rock Climbing</AppText>
+                    <AppText styles={styles.modalTitle}>
+                      {t("rock_title")}
+                    </AppText>
                     <AppText styles={styles.modalDescription}>
-                      Rock climbing is a meditative pursuit, combining physical
-                      challenge with mental focus. Whether indoors or outdoors,
-                      the rhythmic breath and intense concentration turn the
-                      climb into a moving meditation, offering a unique and
-                      invigorating form of mindfulness.
+                      {t("rock_description")}
                     </AppText>
                   </>
                 }
@@ -745,20 +768,22 @@ export default function Landing({ navigation }: any) {
           ></View>
 
           <View style={styles.sectionMargin}>
-            <AppText styles={styles.sectionText}>Nearby Attraction</AppText>
+            <AppText styles={styles.sectionText}>
+              {t("nearby_attraction")}
+            </AppText>
             <View style={{ flexDirection: "row", gap: 8 }}>
               <Card
-                name="Siam Paragon"
+                name={t("siam_title")}
                 image={attractions.paragon.uri}
                 url={attractions.paragon.loc}
               />
               <Card
-                name="Samyan Mitrtown"
+                name={t("samyan_title")}
                 image={attractions.samyan.uri}
                 url={attractions.samyan.loc}
               />
               <Card
-                name="Central World"
+                name={t("central_title")}
                 image={attractions.central.uri}
                 url={attractions.central.loc}
               />
@@ -768,15 +793,14 @@ export default function Landing({ navigation }: any) {
           <View style={styles.bottomScrollSpace}></View>
         </ScrollView>
         <BottomTab
-          ref={ref}
+          refProp={ref}
           height={40}
           contactUsHandler={() => {
-            navigation.navigate("ContactUs");
+            navigation.navigate("Contact Us");
           }}
           searchResultHandler={() => {
             navigation.navigate("SearchResult");
           }}
-          setVisible={undefined}
         />
         <StatusBar style="auto" />
       </View>
@@ -844,5 +868,11 @@ const styles = StyleSheet.create({
   },
   menuModalText: {
     fontSize: 20,
+  },
+  modalImage: {
+    width: SCREEN.WIDTH * 0.4,
+    // height: "auto",
+    // resizeMode: "center",
+    aspectRatio: 1.25,
   },
 });
