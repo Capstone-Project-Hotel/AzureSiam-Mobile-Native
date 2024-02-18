@@ -50,7 +50,7 @@ const rooms = {
     images: [
       "https://image-tc.galaxy.tf/wijpeg-4xrh8wkeksa0lb2jjhjyb6bxk/sandman-signature-saskatoon-south-hotel-corp-king-sofa-bed-w-euro-shower-bath-2_wide.jpg?crop=0%2C84%2C1600%2C900&width=1140",
       "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTrmFKkPaYE9q1hzcjDppcp_QYSJlZG8JnSF0_FUOtTT2loh4kA",
-      "https://cdn.discordapp.com/attachments/457166097230069773/1186386766119305258/cover.jpg"
+      "https://cdn.discordapp.com/attachments/457166097230069773/1186386766119305258/cover.jpg",
     ],
   },
   deluxe: {
@@ -88,7 +88,7 @@ import i18next, { languageResources } from "../services/i18next";
 import { useTranslation } from "react-i18next";
 import languagesList from "../services/languagesList.json";
 import { Select, SelectItem } from "@ui-kitten/components";
-import { SCREEN } from "@/constants";
+import { DEVICE } from "@/constants";
 
 const promotions = {
   fifty: {
@@ -223,17 +223,25 @@ export default function Landing({ navigation }: any) {
         <Text style={{ height: 55 }}>Go To ReservationAndGuestDetail Page</Text>
       </TouchableOpacity> */}
       <View style={styles.container}>
+        <TouchableOpacity
+          onPress={() => setVisible(true)}
+          style={{
+            position: "absolute",
+            top: 20,
+            left: 20,
+            zIndex: 100,
+            elevation: 10,
+            // shadowColor: "rgba(0, 0, 0, 0.25)",
+            // shadowOffset: { width: 1, height: 1 },
+            // shadowRadius: 8,
+          }}
+        >
+          <Image
+            source={require("../assets/menu.png")}
+            style={{ width: 30, height: 30 }}
+          />
+        </TouchableOpacity>
         <ScrollView ref={(ref: any) => setRef(ref)}>
-          <TouchableOpacity
-            onPress={() => setVisible(true)}
-            style={{ position: "absolute", top: 20, left: 20, zIndex: 100 }}
-          >
-            <Image
-              source={require("../assets/menu.png")}
-              style={{ width: 30, height: 30 }}
-            />
-          </TouchableOpacity>
-
           {/* Menu Modal */}
           <Modal visible={visible} onRequestClose={() => setVisible(false)}>
             <View>
@@ -450,7 +458,7 @@ export default function Landing({ navigation }: any) {
                           }}
                         >
                           <Image
-                            source={{uri:rooms.standard.images[index]}}
+                            source={{ uri: rooms.standard.images[index] }}
                             style={styles.carouselImage}
                           />
                         </View>
@@ -870,9 +878,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   modalImage: {
-    width: SCREEN.WIDTH * 0.4,
-    // height: "auto",
-    // resizeMode: "center",
+    width: DEVICE.WIDTH * 0.4,
     aspectRatio: 1.25,
   },
 });

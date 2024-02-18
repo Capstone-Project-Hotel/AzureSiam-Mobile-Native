@@ -13,6 +13,21 @@ import {
 import { format } from "date-fns";
 import { COLORS } from "@/constants";
 
+const getSelectValue = (
+  selectedIndexPaths: IndexPath[] | IndexPath,
+  data: string[]
+) => {
+  if (Array.isArray(selectedIndexPaths)) {
+    // multiSelect
+    return selectedIndexPaths
+      .map((indexPath) => data[indexPath.row])
+      .join(", ");
+  } else {
+    // singleSelect
+    return data[selectedIndexPaths.row];
+  }
+};
+
 export default function Filter({ t }: any) {
   const { bookingDetail, setBookingDetail, currency } = useStore();
 
@@ -35,6 +50,16 @@ export default function Filter({ t }: any) {
   const [selectedIndexForPrice, setSelectedIndexForPrice] = React.useState<
     IndexPath | IndexPath[]
   >(new IndexPath(0));
+
+  const roomTypes: string[] = [
+    t("std_title"),
+    t("dlx_title"),
+    t("fml_title"),
+    t("ex_title"),
+    t("s_title"),
+  ];
+  const roomFeatures: string[] = [t("balcony"), t("dinner"), t("jacuzzi")];
+  // const roomPrices: string[] = [t("price_not_exceeding")+` `, t("price_not_exceeding"), t("price_not_exceeding")];
 
   return (
     <View
@@ -151,13 +176,12 @@ export default function Filter({ t }: any) {
           style={{ width: 400 }}
           multiSelect={true}
           selectedIndex={selectedIndexForRoomTypes}
-          onSelect={(index: IndexPath[]) => setSelectedIndexForRoomTypes(index)}
+          onSelect={(index: any) => setSelectedIndexForRoomTypes(index)}
+          value={getSelectValue(selectedIndexForRoomTypes, roomTypes)}
         >
-          <SelectItem title="Standard" />
-          <SelectItem title="Deluxe" />
-          <SelectItem title="Family" />
-          <SelectItem title="Suite" />
-          <SelectItem title="Executive" />
+          {roomTypes.map((item, index) => (
+            <SelectItem key={index} title={item} />
+          ))}
         </Select>
         <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>
           {t("room_feature")}
@@ -166,13 +190,15 @@ export default function Filter({ t }: any) {
           style={{ width: 300 }}
           multiSelect={true}
           selectedIndex={selectedIndexForRoomFeatures}
-          onSelect={(index: IndexPath[]) =>
-            setSelectedIndexForRoomFeatures(index)
-          }
+          onSelect={(index: any) => setSelectedIndexForRoomFeatures(index)}
+          value={getSelectValue(selectedIndexForRoomFeatures, roomFeatures)}
         >
-          <SelectItem title="Balcony" />
+          {roomFeatures.map((item, index) => (
+            <SelectItem key={index} title={item} />
+          ))}
+          {/* <SelectItem title="Balcony" />
           <SelectItem title="Dinner Plans" />
-          <SelectItem title="Jacuzzi" />
+          <SelectItem title="Jacuzzi" /> */}
         </Select>
         <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>
           {t("price")}
