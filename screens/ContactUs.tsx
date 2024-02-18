@@ -1,5 +1,5 @@
 import AppText from "@/components/AppText";
-import { COLORS, SCREEN } from "@/constants";
+import { COLORS, DEVICE } from "@/constants";
 import { AntDesign } from "@expo/vector-icons";
 import { Fontisto } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     // borderWidth: 4,
   },
   imageHorizontal: {
-    width: SCREEN.WIDTH,
+    width: DEVICE.WIDTH,
     // resizeMode: "contain",
     aspectRatio: 1.5,
   },

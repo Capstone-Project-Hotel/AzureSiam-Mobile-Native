@@ -115,7 +115,6 @@ export default function BottomTab({
     setBookingDetail(emptyBookingDetail);
     setCardType("");
     setSpecialReq("");
-    console.log("new store");
   };
 
   const onModalClose = () => {
@@ -129,6 +128,16 @@ export default function BottomTab({
         animationType="slide"
         transparent={false}
       >
+        <AntDesign
+          name="closecircleo"
+          style={{
+            alignSelf: "flex-end",
+            paddingHorizontal: 24,
+            paddingBottom: 8,
+          }}
+          size={40}
+          onPress={onModalClose}
+        />
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
           // keyboardVerticalOffset={100}
@@ -136,7 +145,8 @@ export default function BottomTab({
         >
           <ScrollView>
             <View style={styles.calendarModalContainer}>
-              <Button onPress={onModalClose}>{t("return")}</Button>
+              {/* <AntDesign name="close" style={{alignSelf: "flex-end"}} size={40} onPress={onModalClose}/> */}
+              {/* <Button onPress={onModalClose}>{t("return")}</Button> */}
               <View style={styles.customDateRange}>
                 <CustomDateRange />
               </View>
