@@ -46,62 +46,6 @@ export default function SearchResultPage({ navigation }: any) {
     "28/01/2024",
   ];
 
-  // eslint-disable-next-line arrow-body-style
-  // const standardDisabledDate: DatePickerProps["disabledDate"] = (current) => {
-  //   const disabledDates = standardUnavailableDateList.map((dateString) =>
-  //     dayjs(dateString, "DD/MM/YYYY")
-  //   );
-  //   return (
-  //     current &&
-  //     (current < dayjs().endOf("day") ||
-  //       disabledDates.some((date) => current.isSame(date, "day")))
-  //   );
-  // };
-
-  // const deluxeDisabledDate: DatePickerProps["disabledDate"] = (current) => {
-  //   const disabledDates = deluxeUnavailableDateList.map((dateString) =>
-  //     dayjs(dateString, "DD/MM/YYYY")
-  //   );
-  //   return (
-  //     current &&
-  //     (current < dayjs().endOf("day") ||
-  //       disabledDates.some((date) => current.isSame(date, "day")))
-  //   );
-  // };
-
-  // const familyDisabledDate: DatePickerProps["disabledDate"] = (current) => {
-  //   const disabledDates = familyUnavailableDateList.map((dateString) =>
-  //     dayjs(dateString, "DD/MM/YYYY")
-  //   );
-  //   return (
-  //     current &&
-  //     (current < dayjs().endOf("day") ||
-  //       disabledDates.some((date) => current.isSame(date, "day")))
-  //   );
-  // };
-
-  // const suiteDisabledDate: DatePickerProps["disabledDate"] = (current) => {
-  //   const disabledDates = suiteUnavailableDateList.map((dateString) =>
-  //     dayjs(dateString, "DD/MM/YYYY")
-  //   );
-  //   return (
-  //     current &&
-  //     (current < dayjs().endOf("day") ||
-  //       disabledDates.some((date) => current.isSame(date, "day")))
-  //   );
-  // };
-
-  // const executiveDisabledDate: DatePickerProps["disabledDate"] = (current) => {
-  //   const disabledDates = executiveUnavailableDateList.map((dateString) =>
-  //     dayjs(dateString, "DD/MM/YYYY")
-  //   );
-  //   return (
-  //     current &&
-  //     (current < dayjs().endOf("day") ||
-  //       disabledDates.some((date) => current.isSame(date, "day")))
-  //   );
-  // };
-
   const mockStandardRoomInformation = {
     roomName: t("std_title"),
     maxGuest: 1,
@@ -287,12 +231,6 @@ export default function SearchResultPage({ navigation }: any) {
       <ScrollView>
         {/* Go To ReservationAndGuestDetail Page Example */}
         <Filter t={t} />
-        {/* <SummaryCard
-          page="search-result"
-          confirmBooking={() =>
-            navigation.navigate("Reservation And Guest Detail")
-          }
-        /> */}
         <View
           style={{
             marginVertical: 50,
