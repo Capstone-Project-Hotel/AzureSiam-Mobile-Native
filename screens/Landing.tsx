@@ -47,6 +47,11 @@ const bigCard1_History = {
 const rooms = {
   standard: {
     uri: "https://cdn.discordapp.com/attachments/457166097230069773/1186386766119305258/cover.jpg",
+    images: [
+      "https://image-tc.galaxy.tf/wijpeg-4xrh8wkeksa0lb2jjhjyb6bxk/sandman-signature-saskatoon-south-hotel-corp-king-sofa-bed-w-euro-shower-bath-2_wide.jpg?crop=0%2C84%2C1600%2C900&width=1140",
+      "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTrmFKkPaYE9q1hzcjDppcp_QYSJlZG8JnSF0_FUOtTT2loh4kA",
+      "https://cdn.discordapp.com/attachments/457166097230069773/1186386766119305258/cover.jpg"
+    ],
   },
   deluxe: {
     uri: "https://cdn.discordapp.com/attachments/457166097230069773/1186387436901781634/cover_1.jpg",
@@ -83,6 +88,7 @@ import i18next, { languageResources } from "../services/i18next";
 import { useTranslation } from "react-i18next";
 import languagesList from "../services/languagesList.json";
 import { Select, SelectItem } from "@ui-kitten/components";
+import { SCREEN } from "@/constants";
 
 const promotions = {
   fifty: {
@@ -270,9 +276,7 @@ export default function Landing({ navigation }: any) {
                   onPress={() => scrollTo(facilitiesLayout)}
                 >
                   <MaterialIcons name="room-service" size={32} color="black" />
-                  <Text style={styles.menuModalText}>
-                    {t("facilities")}
-                  </Text>
+                  <Text style={styles.menuModalText}>{t("facilities")}</Text>
                 </TouchableOpacity>
                 {/* Promotions */}
                 <TouchableOpacity
@@ -288,7 +292,9 @@ export default function Landing({ navigation }: any) {
                   onPress={() => scrollTo(activityLayout)}
                 >
                   <MaterialIcons name="schedule" size={32} color="black" />
-                  <Text style={styles.menuModalText}>{t("activity_schedule")}</Text>
+                  <Text style={styles.menuModalText}>
+                    {t("activity_schedule")}
+                  </Text>
                 </TouchableOpacity>
                 {/* Gallery */}
                 <TouchableOpacity
@@ -308,12 +314,16 @@ export default function Landing({ navigation }: any) {
                     size={32}
                     color="black"
                   />
-                  <Text style={styles.menuModalText}>{t("nearby_attraction")}</Text>
+                  <Text style={styles.menuModalText}>
+                    {t("nearby_attraction")}
+                  </Text>
                 </TouchableOpacity>
                 {/* Language */}
                 <View style={styles.menuModalContainer}>
                   <MaterialIcons name="language" size={32} color="black" />
-                  <Text style={styles.menuModalText}>{t("change-language")}</Text>
+                  <Text style={styles.menuModalText}>
+                    {t("change-language")}
+                  </Text>
                   <Select
                     onSelect={(i: any) => {
                       changeLng(["en", "th"][i.row]);
@@ -402,7 +412,9 @@ export default function Landing({ navigation }: any) {
                 }
                 modalContent={
                   <>
-                    <AppText styles={styles.modalTitle}>{t("std_title")}</AppText>
+                    <AppText styles={styles.modalTitle}>
+                      {t("std_title")}
+                    </AppText>
                     <AppText styles={styles.modalDescription}>
                       {t("standard_room_desc")}
                     </AppText>
@@ -420,6 +432,34 @@ export default function Landing({ navigation }: any) {
                         <Text style={styles.listText}>{item.key}</Text>
                       )}
                     />
+                    <Carousel
+                      loop
+                      width={width}
+                      height={width / 2}
+                      autoPlay={true}
+                      mode="parallax"
+                      data={rooms.standard.images}
+                      scrollAnimationDuration={1000}
+                      // onSnapToItem={(index) => console.log('current index:', index)}
+                      renderItem={({ index }) => (
+                        <View
+                          style={{
+                            flex: 1,
+                            borderWidth: 1,
+                            justifyContent: "center",
+                          }}
+                        >
+                          <Image
+                            source={{uri:rooms.standard.images[index]}}
+                            style={styles.carouselImage}
+                          />
+                        </View>
+                      )}
+                    />
+                    {/* <Image
+                      source={{ uri: rooms.standard.images[0] }}
+                      style={styles.modalImage}
+                    /> */}
                   </>
                 }
               />
@@ -429,7 +469,9 @@ export default function Landing({ navigation }: any) {
                 }
                 modalContent={
                   <>
-                    <AppText styles={styles.modalTitle}>{t("dlx_title")}</AppText>
+                    <AppText styles={styles.modalTitle}>
+                      {t("dlx_title")}
+                    </AppText>
                     <AppText styles={styles.modalDescription}>
                       {t("deluxe_room_desc")}
                     </AppText>
@@ -458,7 +500,9 @@ export default function Landing({ navigation }: any) {
                 }
                 modalContent={
                   <>
-                    <AppText styles={styles.modalTitle}>{t("fml_title")}</AppText>
+                    <AppText styles={styles.modalTitle}>
+                      {t("fml_title")}
+                    </AppText>
                     <AppText styles={styles.modalDescription}>
                       {t("family_room_desc")}
                     </AppText>
@@ -532,7 +576,9 @@ export default function Landing({ navigation }: any) {
                 marginRight: 16,
               }}
             >
-              <AppText styles={styles.landingBigCardTitle}>{t("gym_title")}</AppText>
+              <AppText styles={styles.landingBigCardTitle}>
+                {t("gym_title")}
+              </AppText>
               <AppText styles={styles.landingBigCardDescription}>
                 {t("gym_description")}
               </AppText>
@@ -555,7 +601,9 @@ export default function Landing({ navigation }: any) {
                 }
                 modalContent={
                   <>
-                    <AppText styles={styles.modalTitle}>{t("fifty_title")}</AppText>
+                    <AppText styles={styles.modalTitle}>
+                      {t("fifty_title")}
+                    </AppText>
                     <AppText styles={styles.modalDescription}>
                       {t("fifty_description")}
                     </AppText>
@@ -564,11 +612,16 @@ export default function Landing({ navigation }: any) {
               />
               <SmallModalCard
                 cardContent={
-                  <Card name={t("monday_title")} image={promotions.monday.uri} />
+                  <Card
+                    name={t("monday_title")}
+                    image={promotions.monday.uri}
+                  />
                 }
                 modalContent={
                   <>
-                    <AppText styles={styles.modalTitle}>{t("monday_title")}</AppText>
+                    <AppText styles={styles.modalTitle}>
+                      {t("monday_title")}
+                    </AppText>
                     <AppText styles={styles.modalDescription}>
                       {t("monday_description")}
                     </AppText>
@@ -577,11 +630,16 @@ export default function Landing({ navigation }: any) {
               />
               <SmallModalCard
                 cardContent={
-                  <Card name={t("friday_title")} image={promotions.friday.uri} />
+                  <Card
+                    name={t("friday_title")}
+                    image={promotions.friday.uri}
+                  />
                 }
                 modalContent={
                   <>
-                    <AppText styles={styles.modalTitle}>{t("friday_title")}</AppText>
+                    <AppText styles={styles.modalTitle}>
+                      {t("friday_title")}
+                    </AppText>
                     <AppText styles={styles.modalDescription}>
                       {t("friday_description")}
                     </AppText>
@@ -599,7 +657,9 @@ export default function Landing({ navigation }: any) {
           ></View>
 
           <View style={styles.sectionMargin}>
-            <AppText styles={styles.sectionText}>{t("activity_schedule")}</AppText>
+            <AppText styles={styles.sectionText}>
+              {t("activity_schedule")}
+            </AppText>
             <View style={{ flexDirection: "row", gap: 8 }}>
               <SmallModalCard
                 cardContent={
@@ -607,7 +667,9 @@ export default function Landing({ navigation }: any) {
                 }
                 modalContent={
                   <>
-                    <AppText styles={styles.modalTitle}>{t("swim_title")}</AppText>
+                    <AppText styles={styles.modalTitle}>
+                      {t("swim_title")}
+                    </AppText>
                     <AppText styles={styles.modalDescription}>
                       {t("swim_description")}
                     </AppText>
@@ -620,7 +682,9 @@ export default function Landing({ navigation }: any) {
                 }
                 modalContent={
                   <>
-                    <AppText styles={styles.modalTitle}>{t("medi_title")}</AppText>
+                    <AppText styles={styles.modalTitle}>
+                      {t("medi_title")}
+                    </AppText>
                     <AppText styles={styles.modalDescription}>
                       {t("medi_description")}
                     </AppText>
@@ -633,7 +697,9 @@ export default function Landing({ navigation }: any) {
                 }
                 modalContent={
                   <>
-                    <AppText styles={styles.modalTitle}>{t("rock_title")}</AppText>
+                    <AppText styles={styles.modalTitle}>
+                      {t("rock_title")}
+                    </AppText>
                     <AppText styles={styles.modalDescription}>
                       {t("rock_description")}
                     </AppText>
@@ -702,7 +768,9 @@ export default function Landing({ navigation }: any) {
           ></View>
 
           <View style={styles.sectionMargin}>
-            <AppText styles={styles.sectionText}>{t("nearby_attraction")}</AppText>
+            <AppText styles={styles.sectionText}>
+              {t("nearby_attraction")}
+            </AppText>
             <View style={{ flexDirection: "row", gap: 8 }}>
               <Card
                 name={t("siam_title")}
@@ -800,5 +868,11 @@ const styles = StyleSheet.create({
   },
   menuModalText: {
     fontSize: 20,
+  },
+  modalImage: {
+    width: SCREEN.WIDTH * 0.4,
+    // height: "auto",
+    // resizeMode: "center",
+    aspectRatio: 1.25,
   },
 });
