@@ -34,14 +34,12 @@ export default function BottomTab({
   height,
   contactUsHandler,
   searchResultHandler,
-  setVisible,
-  ref,
+  refProp,
 }: {
   height?: number;
   contactUsHandler: Function;
   searchResultHandler: Function;
-  setVisible: any;
-  ref: any;
+  refProp: any;
 }) {
   const {
     bookingDetail,
@@ -224,8 +222,8 @@ export default function BottomTab({
         <TouchableOpacity
           style={styles.tabItem}
           onPress={() => {
-            if (ref) {
-              ref.scrollTo({ y: 0, animated: true });
+            if (refProp) {
+              refProp.scrollTo({ y: 0, animated: true });
             }
           }}
         >
