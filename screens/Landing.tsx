@@ -728,12 +728,11 @@ export default function Landing({ navigation }: any) {
           refProp={ref}
           height={40}
           contactUsHandler={() => {
-            navigation.navigate("ContactUs");
+            navigation.navigate("Contact Us");
           }}
           searchResultHandler={() => {
             navigation.navigate("SearchResult");
           }}
-          setVisible={undefined}
         />
         <StatusBar style="auto" />
       </View>

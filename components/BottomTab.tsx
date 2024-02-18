@@ -34,13 +34,11 @@ export default function BottomTab({
   height,
   contactUsHandler,
   searchResultHandler,
-  setVisible,
   refProp,
 }: {
   height?: number;
   contactUsHandler: Function;
   searchResultHandler: Function;
-  setVisible: any;
   refProp: any;
 }) {
   const {
