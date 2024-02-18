@@ -1,4 +1,4 @@
-import { StatusBar } from "expo-status-bar";
+// import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
   Text,
@@ -15,6 +15,7 @@ import {
   Modal,
   Button,
   TouchableHighlight,
+  StatusBar
 } from "react-native";
 import LandingBigCard from "@/components/LandingBigCard";
 import { useFonts } from "expo-font";
@@ -88,7 +89,7 @@ import i18next, { languageResources } from "../services/i18next";
 import { useTranslation } from "react-i18next";
 import languagesList from "../services/languagesList.json";
 import { Select, SelectItem } from "@ui-kitten/components";
-import { DEVICE } from "@/constants";
+import { COLORS, DEVICE } from "@/constants";
 
 const promotions = {
   fifty: {
@@ -222,6 +223,13 @@ export default function Landing({ navigation }: any) {
       >
         <Text style={{ height: 55 }}>Go To ReservationAndGuestDetail Page</Text>
       </TouchableOpacity> */}
+      <StatusBar
+        animated={true}
+        backgroundColor={COLORS.PRIMARY}
+        // barStyle={statusBarStyle}
+        // showHideTransition={statusBarTransition}
+        hidden={true}
+      />
       <View style={styles.container}>
         <TouchableOpacity
           onPress={() => setVisible(true)}
@@ -231,8 +239,9 @@ export default function Landing({ navigation }: any) {
             left: 20,
             zIndex: 100,
             elevation: 10,
-            // shadowColor: "rgba(0, 0, 0, 0.25)",
-            // shadowOffset: { width: 1, height: 1 },
+            shadowColor: "black",
+            shadowOffset: { width: -1, height: 1 },
+            // backgroundColor: "transparent"
             // shadowRadius: 8,
           }}
         >
@@ -441,11 +450,12 @@ export default function Landing({ navigation }: any) {
                       )}
                     />
                     <Carousel
+                      style={{}}
                       loop
                       width={width}
                       height={width / 2}
                       autoPlay={true}
-                      mode="parallax"
+                      // mode=""
                       data={rooms.standard.images}
                       scrollAnimationDuration={1000}
                       // onSnapToItem={(index) => console.log('current index:', index)}
@@ -810,8 +820,8 @@ export default function Landing({ navigation }: any) {
             navigation.navigate("SearchResult");
           }}
         />
-        <StatusBar style="auto" />
       </View>
+      
     </GestureHandlerRootView>
   );
 }
@@ -859,6 +869,8 @@ const styles = StyleSheet.create({
   },
   carouselImage: {
     flex: 1,
+    borderColor: "black",
+    borderWidth: 0
   },
   bottomScrollSpace: {
     height: 40,
