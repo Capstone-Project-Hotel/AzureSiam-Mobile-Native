@@ -22,7 +22,7 @@ export default function Filter({ t }: any) {
   });
 
   const [selectedIndexForRoomTypes, setSelectedIndexForRoomTypes] =
-    React.useState<IndexPath[]>([
+    React.useState<IndexPath | IndexPath[]>([
       new IndexPath(0),
       new IndexPath(1),
       new IndexPath(2),
@@ -30,7 +30,7 @@ export default function Filter({ t }: any) {
       new IndexPath(4),
     ]);
   const [selectedIndexForRoomFeatures, setSelectedIndexForRoomFeatures] =
-    React.useState<IndexPath[]>([]);
+    React.useState<IndexPath | IndexPath[]>([]);
 
   const [selectedIndexForPrice, setSelectedIndexForPrice] = React.useState<
     IndexPath | IndexPath[]
@@ -151,7 +151,9 @@ export default function Filter({ t }: any) {
           style={{ width: 400 }}
           multiSelect={true}
           selectedIndex={selectedIndexForRoomTypes}
-          onSelect={(index: IndexPath[]) => setSelectedIndexForRoomTypes(index)}
+          onSelect={(index: IndexPath[] | IndexPath) =>
+            setSelectedIndexForRoomTypes(index)
+          }
         >
           <SelectItem title="Standard" />
           <SelectItem title="Deluxe" />
@@ -166,7 +168,7 @@ export default function Filter({ t }: any) {
           style={{ width: 300 }}
           multiSelect={true}
           selectedIndex={selectedIndexForRoomFeatures}
-          onSelect={(index: IndexPath[]) =>
+          onSelect={(index: IndexPath[] | IndexPath) =>
             setSelectedIndexForRoomFeatures(index)
           }
         >
@@ -180,7 +182,9 @@ export default function Filter({ t }: any) {
         <Select
           style={{ width: 300 }}
           selectedIndex={selectedIndexForPrice}
-          onSelect={(index: IndexPath[]) => setSelectedIndexForPrice(index)}
+          onSelect={(index: IndexPath[] | IndexPath) =>
+            setSelectedIndexForPrice(index)
+          }
         >
           <SelectItem title="Any price is acceptable" />
           <SelectItem title="Not exceeding THB 1,500" />
