@@ -29,7 +29,8 @@ const getSelectValue = (
 };
 
 export default function Filter({ t }: any) {
-  const { bookingDetail, setBookingDetail, currency } = useStore();
+  const { bookingDetail, setBookingDetail, currency, exchangeRate } =
+    useStore();
 
   const [range, setRange] = React.useState<CalendarRange<string>>({
     startDate: bookingDetail.startDate,
@@ -59,7 +60,15 @@ export default function Filter({ t }: any) {
     t("s_title"),
   ];
   const roomFeatures: string[] = [t("balcony"), t("dinner"), t("jacuzzi")];
-  // const roomPrices: string[] = [t("price_not_exceeding")+` `, t("price_not_exceeding"), t("price_not_exceeding")];
+  const roomPrices: string[] = [
+    t("price_default"),
+    t("price_not_exceeding") +
+      ` ${currency} ${(1500 * exchangeRate).toFixed(2)}`,
+    t("price_not_exceeding") +
+      ` ${currency} ${(2000 * exchangeRate).toFixed(2)}`,
+    t("price_not_exceeding") +
+      ` ${currency} ${(2500 * exchangeRate).toFixed(2)}`,
+  ];
 
   return (
     <View
@@ -176,7 +185,22 @@ export default function Filter({ t }: any) {
           style={{ width: 400 }}
           multiSelect={true}
           selectedIndex={selectedIndexForRoomTypes}
-          onSelect={(index: any) => setSelectedIndexForRoomTypes(index)}
+          onSelect={(index: any) => {
+            setSelectedIndexForRoomTypes(index);
+            let selectBoolean = [false, false, false, false, false];
+            for (let i = 0; i < index.length; i++) {
+              selectBoolean[index[i]["row"]] = true;
+            }
+            const updatedBookingDetail = {
+              ...bookingDetail,
+              showStandard: selectBoolean[0],
+              showDeluxe: selectBoolean[1],
+              showFamily: selectBoolean[2],
+              showSuite: selectBoolean[3],
+              showExecutive: selectBoolean[4],
+            };
+            setBookingDetail(updatedBookingDetail);
+          }}
           value={getSelectValue(selectedIndexForRoomTypes, roomTypes)}
         >
           {roomTypes.map((item, index) => (
@@ -189,16 +213,27 @@ export default function Filter({ t }: any) {
         <Select
           style={{ width: 300 }}
           multiSelect={true}
+          placeholder={t("select_feature")}
           selectedIndex={selectedIndexForRoomFeatures}
-          onSelect={(index: any) => setSelectedIndexForRoomFeatures(index)}
+          onSelect={(index: any) => {
+            setSelectedIndexForRoomFeatures(index);
+            let selectBoolean = [false, false, false];
+            for (let i = 0; i < index.length; i++) {
+              selectBoolean[index[i]["row"]] = true;
+            }
+            const updatedBookingDetail = {
+              ...bookingDetail,
+              showOnlyBalcony: selectBoolean[0],
+              showOnlyDinnerPlan: selectBoolean[1],
+              showOnlyJacuzzi: selectBoolean[2],
+            };
+            setBookingDetail(updatedBookingDetail);
+          }}
           value={getSelectValue(selectedIndexForRoomFeatures, roomFeatures)}
         >
           {roomFeatures.map((item, index) => (
             <SelectItem key={index} title={item} />
           ))}
-          {/* <SelectItem title="Balcony" />
-          <SelectItem title="Dinner Plans" />
-          <SelectItem title="Jacuzzi" /> */}
         </Select>
         <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>
           {t("price")}
@@ -206,14 +241,24 @@ export default function Filter({ t }: any) {
         <Select
           style={{ width: 300 }}
           selectedIndex={selectedIndexForPrice}
-          onSelect={(index: IndexPath[] | IndexPath) =>
-            setSelectedIndexForPrice(index)
-          }
+          onSelect={(index: any) => {
+            setSelectedIndexForPrice(index);
+            let selectBoolean = [false, false, false, false];
+            selectBoolean[index["row"]] = true;
+
+            const updatedBookingDetail = {
+              ...bookingDetail,
+              showBelowOption1: selectBoolean[1],
+              showBelowOption2: selectBoolean[2],
+              showBelowOption3: selectBoolean[3],
+            };
+            setBookingDetail(updatedBookingDetail);
+          }}
+          value={getSelectValue(selectedIndexForPrice, roomPrices)}
         >
-          <SelectItem title="Any price is acceptable" />
-          <SelectItem title="Not exceeding THB 1,500" />
-          <SelectItem title="Not exceeding THB 2,000" />
-          <SelectItem title="Not exceeding THB 2,500" />
+          {roomPrices.map((item, index) => (
+            <SelectItem key={index} title={item} />
+          ))}
         </Select>
       </ScrollView>
     </View>

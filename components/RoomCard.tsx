@@ -33,6 +33,8 @@ export default function RoomCard({
   const { bookingDetail, setBookingDetail, currency, exchangeRate } =
     useStore();
 
+  const img = roomImage;
+
   const handleBookNowClick = (roomType: string) => {
     const updatedBookingDetail = {
       ...bookingDetail,
@@ -40,6 +42,7 @@ export default function RoomCard({
     };
     setBookingDetail(updatedBookingDetail);
   };
+
   return (
     <View
       style={{
@@ -59,7 +62,7 @@ export default function RoomCard({
         <View>
           <Text style={{ fontSize: 18 }}>{roomName}</Text>
           <Image
-            source={{ uri: roomImage }}
+            source={require("assets/dlxroom.jpg")}
             style={{ width: 100, height: 100 }}
           />
         </View>
