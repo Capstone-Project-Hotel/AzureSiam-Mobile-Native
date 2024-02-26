@@ -14,7 +14,7 @@
     },
     "assetBundlePatterns": ["**/*"],
     "bundler": "metro",
-    "platforms": ["ios", "android", "web"],
+    "platforms": ["ios", "android"],
     "ios": {
       "supportsTablet": true
     },
@@ -23,9 +23,6 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       }
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
     },
     "plugins": [
       [
