@@ -28,7 +28,7 @@ export default function App() {
             <Stack.Screen
               name="ContactUs"
               component={ContactUsPage}
-              options={{ headerShown: false }}
+              // options={{ headerShown: false }}
             />
             <Stack.Screen
               name="SearchResult"
@@ -43,12 +43,12 @@ export default function App() {
             <Stack.Screen
               name="Summary Booking Detail"
               component={SummaryBookingDetailPage}
-              options={{ headerShown: false }}
+              // options={{ headerShown: false }}
             />
             <Stack.Screen
               name="Booking Confirmation"
               component={BookingConfirmationPage}
-              options={{ headerShown: false }}
+              // options={{ headerShown: false }}
             />
           </Stack.Navigator>
         </NavigationContainer>

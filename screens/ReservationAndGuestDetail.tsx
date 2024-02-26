@@ -795,6 +795,7 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
                 accessoryRight={renderIcon}
                 placeholder={t("cvv")}
                 value={paymentDetail.cvv}
+                maxLength={3}
                 onChangeText={(nextValue) =>
                   handlePaymentInputChange(nextValue, "cvv")
                 }

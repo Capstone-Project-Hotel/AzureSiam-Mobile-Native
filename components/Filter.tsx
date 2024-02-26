@@ -79,8 +79,6 @@ export default function Filter({ t }: any) {
       }}
     >
       <ScrollView>
-        {/* <Icon name="plus-circle-outline" /> */}
-        {/* <Icon name="minus-circle-outline" /> */}
         <Text style={{ color: "white", fontSize: 16, fontWeight: "bold" }}>
           {t("booking_detail")}
         </Text>
