@@ -134,6 +134,7 @@ export default function BottomTab({
             alignSelf: "flex-end",
             paddingHorizontal: 24,
             paddingBottom: 8,
+            paddingTop: 8,
           }}
           size={40}
           onPress={onModalClose}
@@ -158,7 +159,27 @@ export default function BottomTab({
                     <AppText styles={styles.inputHeaderText}>
                       {t("adults")}
                     </AppText>
-                    <View style={styles.optionPicker}>
+                    <TextInput
+                      keyboardType="numeric"
+                      value={bookingDetail.adultNumber.toString()}
+                      onChangeText={(text) => {
+                        setBookingDetail({
+                          ...bookingDetail,
+                          adultNumber: Number(text.replace(/[^0-9]/g,"")),
+                        });
+                      }}
+                      placeholder="1"
+                      maxLength={2}
+                      onBlur={() => {
+                        if (bookingDetail.adultNumber == 0) {
+                          setBookingDetail({
+                            ...bookingDetail,
+                            adultNumber: 1,
+                          });
+                        }
+                      }}
+                    ></TextInput>
+                    {/* <View style={styles.optionPicker}>
                       <Picker
                         selectedValue={bookingDetail.adultNumber}
                         onValueChange={(itemValue, itemIndex) =>
@@ -174,13 +195,25 @@ export default function BottomTab({
                         <Picker.Item label="3" value={3} />
                         <Picker.Item label="4" value={4} />
                       </Picker>
-                    </View>
+                    </View> */}
                   </View>
                   <View style={styles.inputContainer}>
                     <AppText styles={styles.inputHeaderText}>
                       {t("children")}
                     </AppText>
-                    <View style={styles.optionPicker}>
+                    <TextInput
+                      keyboardType="numeric"
+                      value={bookingDetail.childrenNumber.toString()}
+                      onChangeText={(text) => {
+                        setBookingDetail({
+                          ...bookingDetail,
+                          childrenNumber: Number(text.replace(/[^0-9]/g, "")),
+                        });
+                      }}
+                      placeholder="0"
+                      maxLength={2}
+                    ></TextInput>
+                    {/* <View style={styles.optionPicker}>
                       <Picker
                         selectedValue={bookingDetail.childrenNumber}
                         onValueChange={(itemValue, itemIndex) =>
@@ -196,7 +229,7 @@ export default function BottomTab({
                         <Picker.Item label="3" value={3} />
                         <Picker.Item label="4" value={4} />
                       </Picker>
-                    </View>
+                    </View> */}
                   </View>
                 </View>
                 {LineBreak}
@@ -330,6 +363,7 @@ const getStyles = (height: number | undefined) => {
     inputContainer: {
       paddingLeft: 16,
       paddingRight: 16,
+      paddingBottom: 4,
       flexDirection: "row",
       justifyContent: "space-between",
       alignItems: "center",

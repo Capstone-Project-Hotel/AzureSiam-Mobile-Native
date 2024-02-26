@@ -1014,7 +1014,7 @@ export default function Landing({ navigation }: any) {
           refProp={ref}
           height={40}
           contactUsHandler={() => {
-            navigation.navigate("Contact Us");
+            navigation.navigate("ContactUs");
           }}
           searchResultHandler={() => {
             navigation.navigate("SearchResult");
@@ -1095,17 +1095,19 @@ const styles = StyleSheet.create({
   listRoomFeatures: {
     marginBottom: 8,
   },
-  centerScreenModal: {},
   centerScreenModalStyle:{
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "rgba(0,0,0,0.5)",
+
   },
   centerScreenModalContentStyle:{
     width: "75%",
     borderRadius: 8,
-    borderWidth: 10,
+    borderWidth: 2,
+    // paddingTop: 8,
+    paddingHorizontal: 8,
     borderColor: COLORS.WHITE,
     backgroundColor: COLORS.WHITE,
   }
