@@ -24,8 +24,7 @@
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png",
-      "version": "14.0.0"
+      "favicon": "./assets/favicon.png"
     },
     "plugins": [
       [
