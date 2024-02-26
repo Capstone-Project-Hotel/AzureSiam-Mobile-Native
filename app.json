@@ -12,9 +12,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
@@ -25,17 +23,17 @@
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "version": "14.0.0"
     },
     "plugins": [
       [
         "expo-font",
         {
-          "fonts": [
-            "./assets/fonts/NotoSansThai.ttf"
-          ]
+          "fonts": ["./assets/fonts/NotoSansThai.ttf"]
         }
       ]
-    ]
+    ],
+    "platforms": ["ios", "android"]
   }
 }
