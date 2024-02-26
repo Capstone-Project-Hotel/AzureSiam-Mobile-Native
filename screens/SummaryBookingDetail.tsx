@@ -5,6 +5,7 @@ import { format } from "date-fns";
 import { COLORS } from "@/constants";
 import Topbar from "@/components/Topbar";
 import { useTranslation } from "react-i18next";
+import SummaryCard from "@/components/SummaryCard";
 
 export default function SummaryBookingDetailPage({ navigation }: any) {
   const { t } = useTranslation();
@@ -45,14 +46,10 @@ export default function SummaryBookingDetailPage({ navigation }: any) {
             paddingBottom: 70,
           }}
         >
-          <View>
-            <Button onPress={() => navigation.navigate("Booking Confirmation")}>
-              Confirm
-            </Button>
-          </View>
-
           {/* Guest Detail */}
           <View style={styles.container}>
+            {/* Booking Detail */}
+            <SummaryCard t={t} />
             <View>
               <Text style={styles.mainText}>{t("guest_detail_label")}</Text>
             </View>
@@ -233,6 +230,12 @@ export default function SummaryBookingDetailPage({ navigation }: any) {
           <View style={styles.container}>
             <Text style={styles.mainText}>{t("special_request")}</Text>
             <Text>{specialReq === "" ? "-" : specialReq}</Text>
+          </View>
+          <SummaryCard t={t} />
+          <View>
+            <Button onPress={() => navigation.navigate("Booking Confirmation")}>
+              {t("check_out")}
+            </Button>
           </View>
         </View>
       </ScrollView>

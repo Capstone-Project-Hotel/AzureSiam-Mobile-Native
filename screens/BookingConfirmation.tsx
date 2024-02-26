@@ -5,8 +5,9 @@ import { COLORS } from "@/constants";
 import Topbar from "@/components/Topbar";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
+import SummaryCard from "@/components/SummaryCard";
 
-export default function BookingConfirmationPage(navigation: any) {
+export default function BookingConfirmationPage({ navigation }: any) {
   const {
     guests,
     paymentDetail,
@@ -74,6 +75,8 @@ export default function BookingConfirmationPage(navigation: any) {
               height: 80,
             }}
           >
+            {/* Booking Detail */}
+            <SummaryCard t={t} />
             <View
               style={{
                 display: "flex",

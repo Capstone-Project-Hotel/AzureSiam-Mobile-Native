@@ -4,11 +4,13 @@ import { useTranslation } from "react-i18next";
 import dayjs from "dayjs";
 import useStore from "@/hooks/useStore";
 import RoomCard from "@/components/RoomCard";
-import { TouchableOpacity, View, Text } from "react-native";
+import { TouchableOpacity, View, Text, StatusBar } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import Topbar from "@/components/Topbar";
 import SummaryBar from "@/components/SummaryBar";
+import { COLORS } from "@/constants";
 dayjs().format();
+import stdroom from "assets/stdroom.jpg";
 
 export default function SearchResultPage({ navigation }: any) {
   const { bookingDetail } = useStore();
@@ -25,11 +27,7 @@ export default function SearchResultPage({ navigation }: any) {
   };
 
   // const generatedDates = generateDateList(startDateFormat, endDateFormat);
-  const standardUnavailableDateList = [
-    "25/01/2024",
-    "26/01/2024",
-    "28/01/2024",
-  ];
+  const standardUnavailableDateList = ["01/03/2024", "04/03/2024"];
   const deluxeUnavailableDateList = [
     "25/01/2024",
     "26/01/2024",
@@ -52,8 +50,7 @@ export default function SearchResultPage({ navigation }: any) {
     bedType: t("single_bed"),
     roomSize: 16,
     roomPrice: 1200,
-    roomImage:
-      "https://cdn.discordapp.com/attachments/457166097230069773/1186386766119305258/cover.jpg?ex=65930fc7&is=65809ac7&hm=81597f4a64012d760e9c97c217db3cae2617d4f37183b609a89429cc3562fd42&",
+    roomImage: "/assets/stdroom.jpg",
     roomAmenities: [
       t("television"),
       t("air_conditioner"),
@@ -223,6 +220,13 @@ export default function SearchResultPage({ navigation }: any) {
 
   return (
     <View style={{ marginBottom: 120 }}>
+      <StatusBar
+        animated={true}
+        backgroundColor={COLORS.PRIMARY}
+        // barStyle={statusBarStyle}
+        // showHideTransition={statusBarTransition}
+        hidden={true}
+      />
       <Topbar
         landingHandler={() => {
           navigation.navigate("Landing");
@@ -263,9 +267,12 @@ export default function SearchResultPage({ navigation }: any) {
       </ScrollView>
       <SummaryBar
         t={t}
+        page={"search-result"}
         reservationAndGuestDetailHandler={() => {
           navigation.navigate("Reservation And Guest Detail");
         }}
+        summaryBookingDetailHandler={() => {}}
+        isDisabledConfirm={false}
       />
     </View>
   );

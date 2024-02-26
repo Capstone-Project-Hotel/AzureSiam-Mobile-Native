@@ -20,20 +20,35 @@ export default function App() {
       <ApplicationProvider {...eva} theme={eva.light}>
         <NavigationContainer>
           <Stack.Navigator>
-            <Stack.Screen name="Landing" component={LandingPage} options={{headerShown: false}}/>
-            <Stack.Screen name="ContactUs" component={ContactUsPage} />
-            <Stack.Screen name="SearchResult" component={SearchResultPage} />
+            <Stack.Screen
+              name="Landing"
+              component={LandingPage}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="ContactUs"
+              component={ContactUsPage}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="SearchResult"
+              component={SearchResultPage}
+              // options={{ headerShown: false }}
+            />
             <Stack.Screen
               name="Reservation And Guest Detail"
               component={ReservationAndGuestDetailPage}
+              // options={{ headerShown: false }}
             />
             <Stack.Screen
               name="Summary Booking Detail"
               component={SummaryBookingDetailPage}
+              options={{ headerShown: false }}
             />
             <Stack.Screen
               name="Booking Confirmation"
               component={BookingConfirmationPage}
+              options={{ headerShown: false }}
             />
           </Stack.Navigator>
         </NavigationContainer>

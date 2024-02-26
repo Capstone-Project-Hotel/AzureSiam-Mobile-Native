@@ -15,7 +15,7 @@ import {
   Modal,
   Button,
   TouchableHighlight,
-  StatusBar
+  StatusBar,
 } from "react-native";
 import LandingBigCard from "@/components/LandingBigCard";
 import { useFonts } from "expo-font";
@@ -382,7 +382,7 @@ export default function Landing({ navigation }: any) {
           </Modal>
 
           <ImageBackground
-            source={banner}
+            source={require("assets/landing.png")}
             style={styles.bannerImage}
           ></ImageBackground>
           <LandingBigCard style={styles.bigCard}>
@@ -814,14 +814,13 @@ export default function Landing({ navigation }: any) {
           refProp={ref}
           height={40}
           contactUsHandler={() => {
-            navigation.navigate("Contact Us");
+            navigation.navigate("ContactUs");
           }}
           searchResultHandler={() => {
             navigation.navigate("SearchResult");
           }}
         />
       </View>
-      
     </GestureHandlerRootView>
   );
 }
@@ -870,7 +869,7 @@ const styles = StyleSheet.create({
   carouselImage: {
     flex: 1,
     borderColor: "black",
-    borderWidth: 0
+    borderWidth: 0,
   },
   bottomScrollSpace: {
     height: 40,
