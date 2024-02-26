@@ -231,7 +231,7 @@ export default function SummaryBookingDetailPage({ navigation }: any) {
             <Text style={styles.mainText}>{t("special_request")}</Text>
             <Text>{specialReq === "" ? "-" : specialReq}</Text>
           </View>
-          <SummaryCard t={t} />
+
           <View>
             <Button onPress={() => navigation.navigate("Booking Confirmation")}>
               {t("check_out")}

@@ -6,6 +6,7 @@ import Topbar from "@/components/Topbar";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
 import SummaryCard from "@/components/SummaryCard";
+import { AntDesign } from "@expo/vector-icons";
 
 export default function BookingConfirmationPage({ navigation }: any) {
   const {
@@ -75,8 +76,6 @@ export default function BookingConfirmationPage({ navigation }: any) {
               height: 80,
             }}
           >
-            {/* Booking Detail */}
-            <SummaryCard t={t} />
             <View
               style={{
                 display: "flex",
@@ -86,12 +85,7 @@ export default function BookingConfirmationPage({ navigation }: any) {
                 columnGap: 10,
               }}
             >
-              <Image
-                source={{
-                  uri: "https://cdn.discordapp.com/attachments/457166097230069773/1204333894019579934/image_3.png?ex=65d45a57&is=65c1e557&hm=329345ca2a8b26457da6ebd4d452986a65687a03fae0c6594b7a72f527e20dec&",
-                }}
-                style={{ width: 25, height: 25 }}
-              />
+              <AntDesign name="checkcircle" size={24} color="green" />
               <Text style={{ fontSize: 24, color: `${COLORS.PRIMARY}` }}>
                 {t("successful_booking")}
               </Text>
@@ -102,6 +96,9 @@ export default function BookingConfirmationPage({ navigation }: any) {
               </Text>
             </View>
           </View>
+
+          {/* Booking Detail */}
+          <SummaryCard t={t} />
 
           {/* Guest Detail */}
           <View style={styles.container}>

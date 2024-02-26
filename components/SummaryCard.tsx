@@ -2,7 +2,9 @@ import { View, Text, TouchableOpacity } from "react-native";
 import useStore from "@/hooks/useStore";
 import { Button } from "@ui-kitten/components";
 import AppText from "./AppText";
+import AntDesign from "@expo/vector-icons/AntDesign";
 import { EvilIcons } from "@expo/vector-icons";
+import { Octicons } from "@expo/vector-icons";
 
 export default function SummaryCard({ t }: { t: any }) {
   const { bookingDetail, setBookingDetail, currency, exchangeRate } =
@@ -84,8 +86,41 @@ export default function SummaryCard({ t }: { t: any }) {
   const totalGuests = bookingDetail.adultNumber + bookingDetail.childrenNumber;
   const totalPrice = subTotal + serviceCharge + taxesAndFees;
 
+  let startDate = bookingDetail.startDate
+    .toString()
+    .split(" ")
+    .slice(0, 4)
+    .join(" ");
+
+  let endDate = bookingDetail.endDate
+    .toString()
+    .split(" ")
+    .slice(0, 4)
+    .join(" ");
+
   return (
     <View>
+      <Text>{t("booking_detail")}</Text>
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "row",
+        }}
+      >
+        <AntDesign name="calendar" size={24} color="black" />
+        <AppText styles={{ fontSize: 20 }}>
+          {" "}
+          {startDate} - {endDate}
+        </AppText>
+      </View>
+      <View style={{ display: "flex", flexDirection: "row" }}>
+        <Octicons name="person" size={24} color="black" />
+        <AppText styles={{ fontSize: 20 }}>
+          {" "}
+          {bookingDetail.adultNumber} {t("adults")}{" "}
+          {bookingDetail.childrenNumber} {t("children")}
+        </AppText>
+      </View>
       <View style={{ flex: 1, height: 2, backgroundColor: "gray" }} />
       {bookingDetail.standardRoomNumber != 0 ? (
         <View>
@@ -241,21 +276,6 @@ export default function SummaryCard({ t }: { t: any }) {
       <Text>{t("edit_service")}</Text>
       {bookingDetail.packageOne ? (
         <View>
-          <AppText>{t("service_name1")}</AppText>
-          <TouchableOpacity
-            onPress={() => {
-              const updatedBookingDetail = {
-                ...bookingDetail,
-                packageOne: false,
-              };
-              setBookingDetail(updatedBookingDetail);
-            }}
-          >
-            <View style={{ display: "flex", flexDirection: "row" }}>
-              <EvilIcons name="trash" size={24} color="black" />
-              <AppText>{t("remove")}</AppText>
-            </View>
-          </TouchableOpacity>
           <View
             style={{
               display: "flex",
@@ -276,41 +296,133 @@ export default function SummaryCard({ t }: { t: any }) {
         </View>
       ) : null}
       {bookingDetail.packageTwo ? (
-        <View>
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
           <AppText>{t("service_name2")}</AppText>
-          <TouchableOpacity
-            onPress={() => {
-              const updatedBookingDetail = {
-                ...bookingDetail,
-                packageTwo: false,
-              };
-              setBookingDetail(updatedBookingDetail);
-            }}
-          >
-            <View style={{ display: "flex", flexDirection: "row" }}>
-              <EvilIcons name="trash" size={24} color="black" />
-              <AppText>{t("remove")}</AppText>
-            </View>
-          </TouchableOpacity>
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-            }}
-          >
-            <AppText>{t("service_name2")}</AppText>
-            <AppText styles={{ fontSize: 12 }}>
-              {currency}{" "}
-              {new Intl.NumberFormat("th-TH", {
-                style: "decimal",
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-              }).format(499)}
-            </AppText>
-          </View>
+          <AppText styles={{ fontSize: 12 }}>
+            {currency}{" "}
+            {new Intl.NumberFormat("th-TH", {
+              style: "decimal",
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            }).format(499)}
+          </AppText>
         </View>
       ) : null}
+      <View style={{ flex: 1, height: 2, backgroundColor: "gray" }} />
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
+      >
+        <Text>{t("monday_and_friday_sale")}</Text>
+        <Text style={{ fontSize: 20 }}>
+          {" "}
+          {currency}{" "}
+          {new Intl.NumberFormat("th-TH", {
+            style: "decimal",
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          }).format(mondayAndFridaySale)}
+        </Text>
+      </View>
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
+      >
+        <Text>{t("saturday_additional_cost")}</Text>
+        <Text style={{ fontSize: 20 }}>
+          {" "}
+          {currency}{" "}
+          {new Intl.NumberFormat("th-TH", {
+            style: "decimal",
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          }).format(saturdayAdditionalCost)}
+        </Text>
+      </View>
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
+      >
+        <Text>{t("sub_total")}</Text>
+        <Text style={{ fontSize: 20 }}>
+          {" "}
+          {currency}{" "}
+          {new Intl.NumberFormat("th-TH", {
+            style: "decimal",
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          }).format(subTotal)}
+        </Text>
+      </View>
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
+      >
+        <Text>{t("service_charge")} (10%)</Text>
+        <Text style={{ fontSize: 20 }}>
+          {" "}
+          {currency}{" "}
+          {new Intl.NumberFormat("th-TH", {
+            style: "decimal",
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          }).format(serviceCharge)}
+        </Text>
+      </View>
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
+      >
+        <Text>{t("taxes_and_fees")} (7%)</Text>
+        <Text style={{ fontSize: 20 }}>
+          {" "}
+          {currency}{" "}
+          {new Intl.NumberFormat("th-TH", {
+            style: "decimal",
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          }).format(taxesAndFees)}
+        </Text>
+      </View>
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
+      >
+        <Text>{t("total")}</Text>
+        <Text style={{ fontSize: 20 }}>
+          {" "}
+          {currency}{" "}
+          {new Intl.NumberFormat("th-TH", {
+            style: "decimal",
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          }).format(totalPrice)}
+        </Text>
+      </View>
     </View>
   );
 }

@@ -917,23 +917,40 @@ export default function SummaryBar({
                 }).format(totalPrice)}
               </Text>
             </View>
-            <Button
-              onPress={() => reservationAndGuestDetailHandler()}
-              style={{
-                backgroundColor: COLORS.SECONDARY,
-                borderColor: "transparent",
-              }}
-              disabled={
-                bookingDetail.standardRoomNumber +
-                  bookingDetail.deluxeRoomNumber * 2 +
-                  bookingDetail.familyRoomNumber * 4 +
-                  bookingDetail.suiteRoomNumber * 2 +
-                  bookingDetail.executiveRoomNumber * 4 <
-                bookingDetail.adultNumber + bookingDetail.childrenNumber
-              }
-            >
-              <Text style={{ height: 55, color: "white" }}>Confirm</Text>
-            </Button>
+            {page == "search-result" ? (
+              <Button
+                onPress={() => reservationAndGuestDetailHandler()}
+                style={{
+                  backgroundColor: COLORS.SECONDARY,
+                  borderColor: "transparent",
+                }}
+                disabled={
+                  bookingDetail.standardRoomNumber +
+                    bookingDetail.deluxeRoomNumber * 2 +
+                    bookingDetail.familyRoomNumber * 4 +
+                    bookingDetail.suiteRoomNumber * 2 +
+                    bookingDetail.executiveRoomNumber * 4 <
+                  bookingDetail.adultNumber + bookingDetail.childrenNumber
+                }
+              >
+                <Text style={{ height: 55, color: "white" }}>
+                  {t("confirm")}
+                </Text>
+              </Button>
+            ) : (
+              <Button
+                onPress={() => summaryBookingDetailHandler()}
+                style={{
+                  backgroundColor: COLORS.SECONDARY,
+                  borderColor: "transparent",
+                }}
+                disabled={isDisabledConfirm || !bookingDetail.isCheckedPDPA}
+              >
+                <Text style={{ height: 55, color: "white" }}>
+                  {t("confirm")}
+                </Text>
+              </Button>
+            )}
           </ScrollView>
         </Modal>
       ) : (
