@@ -27,6 +27,7 @@
     "expo-font": "~11.10.3",
     "expo-linking": "~6.2.2",
     "expo-status-bar": "~1.11.1",
+    "expo-updates": "~0.24.11",
     "i18next": "23.8.2",
     "moment": "2.30.1",
     "react": "18.2.0",
@@ -34,11 +35,13 @@
     "react-native": "0.73.4",
     "react-native-calendar-picker": "8.0.1",
     "react-native-gesture-handler": "~2.14.0",
+    "react-native-maps": "^1.10.3",
     "react-native-phone-number-input": "2.1.0",
     "react-native-reanimated": "~3.6.2",
     "react-native-reanimated-carousel": "3.5.1",
     "react-native-scroll-into-view": "^2.0.2",
     "react-native-svg": "14.1.0",
+    "react-native-webview": "^13.8.1",
     "zustand": "4.5.0"
   },
   "devDependencies": {

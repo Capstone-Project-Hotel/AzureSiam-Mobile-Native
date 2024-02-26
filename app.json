@@ -22,7 +22,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.ponrawoot.azuresiamproject"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -36,6 +37,17 @@
           ]
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "799ccc02-3fd0-4ada-8201-7742eb2b7792"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/799ccc02-3fd0-4ada-8201-7742eb2b7792"
+    }
   }
 }
