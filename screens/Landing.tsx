@@ -15,7 +15,7 @@ import {
   Modal,
   Button,
   TouchableHighlight,
-  StatusBar
+  StatusBar,
 } from "react-native";
 import LandingBigCard from "@/components/LandingBigCard";
 import { useFonts } from "expo-font";
@@ -56,9 +56,32 @@ const rooms = {
   },
   deluxe: {
     uri: "https://cdn.discordapp.com/attachments/457166097230069773/1186387436901781634/cover_1.jpg",
+    images: [
+      "https://www.botanicserviceroom.com/uploads/images/rooms/1580916590qf79ctC5yT.jpeg",
+      "https://lebua.com/wp-content/uploads/2019/07/02.-LST_-Suites-City-View.jpg",
+    ],
   },
   family: {
     uri: "https://cdn.discordapp.com/attachments/457166097230069773/1186387586516791326/cover_2.jpg",
+    images: [
+      "https://media-cdn.tripadvisor.com/media/photo-s/0b/16/99/02/bathroom-of-the-family.jpg",
+      "https://1.bp.blogspot.com/-QC4aWXP3BJw/VNnTWYJ9LgI/AAAAAAAAg9A/9S6vPwcsaOQ/s1600/1.jpg",
+    ],
+  },
+  suite: {
+    uri: "https://drive.google.com/uc?export=download&id=14poEWNuJlDvqWRX_xcg8tFeQrDwrlOpF",
+    images: [
+      "https://d2e5ushqwiltxm.cloudfront.net/wp-content/uploads/sites/219/2020/02/11095044/3.-Rooms-Suites-details-1.-Superior-Room.jpg",
+      "https://d2e5ushqwiltxm.cloudfront.net/wp-content/uploads/sites/219/2020/03/31105553/26.jpg",
+    ],
+  },
+  executive: {
+    uri: "https://drive.google.com/uc?export=download&id=1jyPl3qhga00wJ8eWcyXB131K0k0e3aed",
+    images: [
+      "https://drive.google.com/uc?export=download&id=1jyPl3qhga00wJ8eWcyXB131K0k0e3aed",
+      "https://drive.google.com/uc?export=download&id=1GPzWaZZwOtOQupH_ABnWE9H8n8utPq1Z",
+      "https://discoveryprimeademo.hotelpropeller.com/files/2017/02/Executive_Suite_2.jpg",
+    ],
   },
 };
 
@@ -93,7 +116,7 @@ import { COLORS, DEVICE } from "@/constants";
 
 const promotions = {
   fifty: {
-    uri: "https://cdn.discordapp.com/attachments/457166097230069773/1186562459033686056/image_14.jpg",
+    uri: "https://drive.google.com/uc?export=download&id=1fXV15J0-1KagxpubVsR4SSp8Pv4otrmX",
   },
   monday: {
     uri: "https://cdn.discordapp.com/attachments/457166097230069773/1186562459331477626/cover_3.jpg",
@@ -422,7 +445,13 @@ export default function Landing({ navigation }: any) {
 
           <View style={styles.sectionMargin}>
             <AppText styles={styles.sectionText}>{t("room_type")}</AppText>
-            <View style={{ flexDirection: "row", gap: 8 }}>
+            <View
+              style={{
+                flexDirection: "row",
+                gap: 8,
+                flexWrap: "wrap",
+              }}
+            >
               <SmallModalCard
                 cardContent={
                   <Card name={t("std_title")} image={rooms.standard.uri} />
@@ -448,17 +477,15 @@ export default function Landing({ navigation }: any) {
                       renderItem={({ item }) => (
                         <Text style={styles.listText}>{item.key}</Text>
                       )}
+                      style={styles.listRoomFeatures}
                     />
                     <Carousel
-                      style={{}}
                       loop
-                      width={width}
+                      width={width - 16}
                       height={width / 2}
                       autoPlay={true}
-                      // mode=""
                       data={rooms.standard.images}
                       scrollAnimationDuration={1000}
-                      // onSnapToItem={(index) => console.log('current index:', index)}
                       renderItem={({ index }) => (
                         <View
                           style={{
@@ -508,6 +535,29 @@ export default function Landing({ navigation }: any) {
                       renderItem={({ item }) => (
                         <Text style={styles.listText}>{item.key}</Text>
                       )}
+                      style={styles.listRoomFeatures}
+                    />
+                    <Carousel
+                      loop
+                      width={width - 16}
+                      height={width / 2}
+                      autoPlay={true}
+                      data={rooms.deluxe.images}
+                      scrollAnimationDuration={1000}
+                      renderItem={({ index }) => (
+                        <View
+                          style={{
+                            flex: 1,
+                            borderWidth: 1,
+                            justifyContent: "center",
+                          }}
+                        >
+                          <Image
+                            source={{ uri: rooms.deluxe.images[index] }}
+                            style={styles.carouselImage}
+                          />
+                        </View>
+                      )}
                     />
                   </>
                 }
@@ -538,6 +588,139 @@ export default function Landing({ navigation }: any) {
                       ]}
                       renderItem={({ item }) => (
                         <Text style={styles.listText}>{item.key}</Text>
+                      )}
+                      style={styles.listRoomFeatures}
+                    />
+                    <Carousel
+                      loop
+                      width={width - 16}
+                      height={width / 2}
+                      autoPlay={true}
+                      // mode=""
+                      data={rooms.family.images}
+                      scrollAnimationDuration={1000}
+                      // onSnapToItem={(index) => console.log('current index:', index)}
+                      renderItem={({ index }) => (
+                        <View
+                          style={{
+                            flex: 1,
+                            borderWidth: 1,
+                            justifyContent: "center",
+                          }}
+                        >
+                          <Image
+                            source={{ uri: rooms.family.images[index] }}
+                            style={styles.carouselImage}
+                          />
+                        </View>
+                      )}
+                    />
+                  </>
+                }
+              />
+              <SmallModalCard
+                cardContent={
+                  <Card name={t("s_title")} image={rooms.suite.uri} />
+                }
+                modalContent={
+                  <>
+                    <AppText styles={styles.modalTitle}>{t("s_title")}</AppText>
+                    <AppText styles={styles.modalDescription}>
+                      {t("suite_room_desc")}
+                    </AppText>
+                    <FlatList
+                      data={[
+                        { key: `- ${t("compact_fridge")}` },
+                        { key: `- ${t("hairdryer")}` },
+                        { key: `- ${t("television")}` },
+                        { key: `- ${t("air_conditioner")}` },
+                        { key: `- ${t("wireless_internet")}` },
+                        { key: `- ${t("desk")}` },
+                        { key: `- ${t("bath")}` },
+                        { key: `- ${t("cable")}` },
+                        { key: `- ${t("balcony")}` },
+                      ]}
+                      renderItem={({ item }) => (
+                        <Text style={styles.listText}>{item.key}</Text>
+                      )}
+                      style={styles.listRoomFeatures}
+                    />
+                    <Carousel
+                      loop
+                      width={width - 16}
+                      height={width / 2}
+                      autoPlay={true}
+                      // mode=""
+                      data={rooms.suite.images}
+                      scrollAnimationDuration={1000}
+                      // onSnapToItem={(index) => console.log('current index:', index)}
+                      renderItem={({ index }) => (
+                        <View
+                          style={{
+                            flex: 1,
+                            borderWidth: 1,
+                            justifyContent: "center",
+                          }}
+                        >
+                          <Image
+                            source={{ uri: rooms.suite.images[index] }}
+                            style={styles.carouselImage}
+                          />
+                        </View>
+                      )}
+                    />
+                  </>
+                }
+              />
+              <SmallModalCard
+                cardContent={
+                  <Card name={t("ex_title")} image={rooms.executive.uri} />
+                }
+                modalContent={
+                  <>
+                    <AppText styles={styles.modalTitle}>
+                      {t("ex_title")}
+                    </AppText>
+                    <AppText styles={styles.modalDescription}>
+                      {t("executive_room_desc")}
+                    </AppText>
+                    <FlatList
+                      data={[
+                        { key: `- ${t("compact_fridge")}` },
+                        { key: `- ${t("hairdryer")}` },
+                        { key: `- ${t("television")}` },
+                        { key: `- ${t("air_conditioner")}` },
+                        { key: `- ${t("wireless_internet")}` },
+                        { key: `- ${t("desk")}` },
+                        { key: `- ${t("bath")}` },
+                        { key: `- ${t("cable")}` },
+                        { key: `- ${t("balcony")}` },
+                      ]}
+                      renderItem={({ item }) => (
+                        <Text style={styles.listText}>{item.key}</Text>
+                      )}
+                      style={styles.listRoomFeatures}
+                    />
+                    <Carousel
+                      loop
+                      width={width - 16}
+                      height={width / 2}
+                      autoPlay={true}
+                      data={rooms.executive.images}
+                      scrollAnimationDuration={1000}
+                      renderItem={({ index }) => (
+                        <View
+                          style={{
+                            flex: 1,
+                            borderWidth: 1,
+                            justifyContent: "center",
+                          }}
+                        >
+                          <Image
+                            source={{ uri: rooms.executive.images[index] }}
+                            style={styles.carouselImage}
+                          />
+                        </View>
                       )}
                     />
                   </>
@@ -627,6 +810,9 @@ export default function Landing({ navigation }: any) {
                     </AppText>
                   </>
                 }
+                modalStyle={styles.centerScreenModalStyle}
+                modalContentStyle={styles.centerScreenModalContentStyle}
+                transparent={true}
               />
               <SmallModalCard
                 cardContent={
@@ -645,6 +831,9 @@ export default function Landing({ navigation }: any) {
                     </AppText>
                   </>
                 }
+                modalStyle={styles.centerScreenModalStyle}
+                modalContentStyle={styles.centerScreenModalContentStyle}
+                transparent={true}
               />
               <SmallModalCard
                 cardContent={
@@ -663,6 +852,9 @@ export default function Landing({ navigation }: any) {
                     </AppText>
                   </>
                 }
+                modalStyle={styles.centerScreenModalStyle}
+                modalContentStyle={styles.centerScreenModalContentStyle}
+                transparent={true}
               />
             </View>
           </View>
@@ -693,6 +885,9 @@ export default function Landing({ navigation }: any) {
                     </AppText>
                   </>
                 }
+                modalStyle={styles.centerScreenModalStyle}
+                modalContentStyle={styles.centerScreenModalContentStyle}
+                transparent={true}
               />
               <SmallModalCard
                 cardContent={
@@ -708,6 +903,9 @@ export default function Landing({ navigation }: any) {
                     </AppText>
                   </>
                 }
+                modalStyle={styles.centerScreenModalStyle}
+                modalContentStyle={styles.centerScreenModalContentStyle}
+                transparent={true}
               />
               <SmallModalCard
                 cardContent={
@@ -723,6 +921,9 @@ export default function Landing({ navigation }: any) {
                     </AppText>
                   </>
                 }
+                modalStyle={styles.centerScreenModalStyle}
+                modalContentStyle={styles.centerScreenModalContentStyle}
+                transparent={true}
               />
             </View>
           </View>
@@ -821,7 +1022,6 @@ export default function Landing({ navigation }: any) {
           }}
         />
       </View>
-      
     </GestureHandlerRootView>
   );
 }
@@ -870,7 +1070,7 @@ const styles = StyleSheet.create({
   carouselImage: {
     flex: 1,
     borderColor: "black",
-    borderWidth: 0
+    borderWidth: 0,
   },
   bottomScrollSpace: {
     height: 40,
@@ -893,4 +1093,21 @@ const styles = StyleSheet.create({
     width: DEVICE.WIDTH * 0.4,
     aspectRatio: 1.25,
   },
+  listRoomFeatures: {
+    marginBottom: 8,
+  },
+  centerScreenModal: {},
+  centerScreenModalStyle:{
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0,0,0,0.5)",
+  },
+  centerScreenModalContentStyle:{
+    width: "75%",
+    borderRadius: 8,
+    borderWidth: 10,
+    borderColor: COLORS.WHITE,
+    backgroundColor: COLORS.WHITE,
+  }
 });
