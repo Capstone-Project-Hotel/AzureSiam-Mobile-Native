@@ -12,9 +12,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
+    "bundler": "metro",
+    "platforms": ["ios", "android"],
     "ios": {
       "supportsTablet": true
     },
@@ -25,16 +25,11 @@
       },
       "package": "com.ponrawoot.azuresiamproject"
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
     "plugins": [
       [
         "expo-font",
         {
-          "fonts": [
-            "./assets/fonts/NotoSansThai.ttf"
-          ]
+          "fonts": ["./assets/fonts/NotoSansThai.ttf"]
         }
       ]
     ],
