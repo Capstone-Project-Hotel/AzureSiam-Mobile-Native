@@ -17,10 +17,16 @@ export default function SmallModalCard({
   cardContent,
   modalContent,
   modalContentStyle,
+  modalStyle,
+  transparent = false,
+  animationType = "fade",
 }: {
   cardContent: React.ReactNode;
   modalContent?: React.ReactNode;
   modalContentStyle?: StyleProp<ViewStyle>;
+  modalStyle?: StyleProp<ViewStyle>;
+  transparent?: boolean;
+  animationType?: "none" | "slide" | "fade" | undefined;
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleOpen = () => setIsModalOpen(true);
@@ -28,19 +34,23 @@ export default function SmallModalCard({
   return (
     <>
       <TouchableOpacity onPress={handleOpen}>{cardContent}</TouchableOpacity>
-      <Modal animationType="slide" transparent={false} visible={isModalOpen}>
-        <AntDesign
-          name="closecircleo"
-          style={{
-            alignSelf: "flex-end",
-            paddingHorizontal: 8,
-            paddingBottom: 8,
-          }}
-          size={40}
-          onPress={handleClose}
-        />
-        <View style={[styles.modalContent, modalContentStyle]}>
-          {modalContent}
+      <Modal
+        animationType={animationType}
+        transparent={transparent}
+        visible={isModalOpen}
+      >
+        <View style={[styles.container, modalStyle]}>
+          <View style={[styles.modalContent, modalContentStyle]}>
+            <AntDesign
+              name="close"
+              style={{
+                alignSelf: "flex-end",
+              }}
+              size={40}
+              onPress={handleClose}
+            />
+            {modalContent}
+          </View>
         </View>
       </Modal>
     </>
@@ -48,6 +58,10 @@ export default function SmallModalCard({
 }
 
 const styles = StyleSheet.create({
+  container: {
+    // backgroundColor: "rgb(25, 90, 90)",
+    flex: 1,
+  },
   modalContent: {
     margin: 8,
   },
