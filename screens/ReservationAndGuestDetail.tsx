@@ -896,6 +896,17 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
               <Text style={styles.modalText}>5) {t("terms_condition_d5")}</Text>
               <Text style={styles.modalText}>6) {t("terms_condition_d6")}</Text>
               <Text style={styles.modalText}>7) {t("terms_condition_d7")}</Text>
+              <Text style={styles.modalText}>8) {t("terms_condition_d8")}</Text>
+              <Text style={styles.modalText}>9) {t("terms_condition_d9")}</Text>
+              <Text style={styles.modalText}>
+                10) {t("terms_condition_d10")}
+              </Text>
+              <Text style={styles.modalText}>
+                11) {t("terms_condition_d11")}
+              </Text>
+              <Text style={styles.modalText}>
+                12) {t("terms_condition_d12")}
+              </Text>
             </View>
             <Button size="small" onPress={() => setVisible(false)}>
               {t("close")}
