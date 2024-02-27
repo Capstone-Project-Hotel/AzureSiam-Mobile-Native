@@ -165,6 +165,20 @@ export default function SummaryBar({
     .slice(0, 4)
     .join(" ");
 
+  // Create Date objects
+  const date1 = new Date(startDate);
+  const date2 = new Date(endDate);
+
+  const date1Ms = date1.getTime();
+  const date2Ms = date2.getTime();
+
+  // Calculate difference in milliseconds
+  const diffInMs = date2Ms - date1Ms;
+
+  // Convert milliseconds to days
+  const msInDay = 1000 * 60 * 60 * 24;
+  const diffInDays = diffInMs / msInDay;
+
   return (
     <View
       style={{
@@ -206,6 +220,9 @@ export default function SummaryBar({
                       {startDate} - {endDate}
                     </AppText>
                   </View>
+                  <AppText styles={{ fontSize: 16, paddingLeft: 24 }}>
+                    {diffInDays} night(s)
+                  </AppText>
                   <View style={{ display: "flex", flexDirection: "row" }}>
                     <Octicons name="person" size={24} color="black" />
                     <AppText styles={{ fontSize: 16 }}>
