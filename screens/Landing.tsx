@@ -253,25 +253,38 @@ export default function Landing({ navigation }: any) {
         hidden={true}
       />
       <View style={styles.container}>
-        <TouchableOpacity
-          onPress={() => setVisible(true)}
+        {/* <View
           style={{
             position: "absolute",
             top: 20,
             left: 20,
             zIndex: 100,
-            elevation: 10,
-            shadowColor: "black",
-            shadowOffset: { width: -1, height: 1 },
-            // backgroundColor: "transparent"
-            // shadowRadius: 8,
+            // elevation: 4,
+            // shadowColor: "#000",
+            // shadowOffset: { width: -1, height: 1 },
           }}
-        >
-          <Image
-            source={require("../assets/menu.png")}
-            style={{ width: 30, height: 30 }}
-          />
-        </TouchableOpacity>
+        > */}
+          <TouchableOpacity
+            onPress={() => setVisible(true)}
+            style={{
+              position: "absolute",
+              top: 20,
+              left: 20,
+              zIndex: 100,
+              backgroundColor: "transparent",
+              shadowRadius: 8,
+              elevation: 24,
+              shadowColor: "#000",
+              shadowOffset: { width: 0, height: 1 },
+              // borderWidth: 0
+            }}
+          >
+            <Image
+              source={require("../assets/menu.png")}
+              style={{ width: 30, height: 30 }}
+            />
+          </TouchableOpacity>
+        {/* </View> */}
         <ScrollView ref={(ref: any) => setRef(ref)}>
           {/* Menu Modal */}
           <Modal visible={visible} onRequestClose={() => setVisible(false)}>
@@ -1095,14 +1108,13 @@ const styles = StyleSheet.create({
   listRoomFeatures: {
     marginBottom: 8,
   },
-  centerScreenModalStyle:{
+  centerScreenModalStyle: {
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "rgba(0,0,0,0.5)",
-
   },
-  centerScreenModalContentStyle:{
+  centerScreenModalContentStyle: {
     width: "75%",
     borderRadius: 8,
     borderWidth: 2,
@@ -1110,5 +1122,5 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     borderColor: COLORS.WHITE,
     backgroundColor: COLORS.WHITE,
-  }
+  },
 });
