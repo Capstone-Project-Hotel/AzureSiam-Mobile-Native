@@ -97,8 +97,17 @@ export default function BookingConfirmationPage({ navigation }: any) {
             </View>
           </View>
 
-          {/* Booking Detail */}
+          <View>
+            <Text style={styles.mainText}>{t("booking_detail")}</Text>
+          </View>
           <SummaryCard t={t} />
+          <View
+            style={{
+              borderBottomColor: "black",
+              borderBottomWidth: StyleSheet.hairlineWidth,
+              marginVertical: 5,
+            }}
+          />
 
           {/* Guest Detail */}
           <View style={styles.container}>

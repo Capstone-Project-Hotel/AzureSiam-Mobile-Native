@@ -49,7 +49,18 @@ export default function SummaryBookingDetailPage({ navigation }: any) {
           {/* Guest Detail */}
           <View style={styles.container}>
             {/* Booking Detail */}
+            <View>
+              <Text style={styles.mainText}>{t("booking_detail")}</Text>
+            </View>
             <SummaryCard t={t} />
+            <View
+              style={{
+                borderBottomColor: "black",
+                borderBottomWidth: StyleSheet.hairlineWidth,
+                marginVertical: 5,
+              }}
+            />
+
             <View>
               <Text style={styles.mainText}>{t("guest_detail_label")}</Text>
             </View>

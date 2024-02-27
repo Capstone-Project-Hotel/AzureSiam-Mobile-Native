@@ -92,7 +92,7 @@ export default function Topbar({
         <View>
           <Image
             source={{
-              uri: "https://cdn.discordapp.com/attachments/457166097230069773/1206260423544803408/Vector_1.png?ex=65db5c90&is=65c8e790&hm=a627479eb6fc79bef30c82b72a8e85260830e6ba90d65a8236faa848d7eb08b2&",
+              uri: "https://drive.google.com/uc?export=download&id=1HRRO45x_Bo5d_SJY_aW-USKVY2mWXo6y",
             }}
             style={{ width: 20, height: 20 }}
           />

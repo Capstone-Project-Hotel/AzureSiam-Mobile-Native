@@ -43,6 +43,7 @@ const RoomNumberInput = ({
       </TouchableOpacity>
 
       <Input
+        size="small"
         value={value.toString()}
         keyboardType="number-pad"
         onChange={(newValue) => {
@@ -174,7 +175,7 @@ export default function SummaryBar({
     >
       {showModal ? (
         <Modal style={style.calendarModalLowerContainer}>
-          <ScrollView style={{ paddingHorizontal: 12 }}>
+          <ScrollView style={{ paddingHorizontal: 12, paddingTop: 40 }}>
             <View>
               <View>
                 <View
@@ -184,82 +185,54 @@ export default function SummaryBar({
                     justifyContent: "space-between",
                   }}
                 >
-                  <AppText styles={{ fontSize: 32, fontWeight: "bold" }}>
-                    {t("booking_detail")}
+                  <AppText styles={{ fontSize: 28, fontWeight: "bold" }}>
+                    {t("booking_summary")}
                   </AppText>
                   <TouchableOpacity onPress={() => setShowModal(false)}>
                     <AntDesign name="close" size={20} color="black" />
                   </TouchableOpacity>
                 </View>
                 <View style={{ flex: 1, height: 2, backgroundColor: "gray" }} />
-                <View
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                  }}
-                >
-                  <AntDesign name="calendar" size={24} color="black" />
-                  <AppText styles={{ fontSize: 20 }}>
-                    {" "}
-                    {startDate} - {endDate}
-                  </AppText>
-                </View>
-                <View style={{ display: "flex", flexDirection: "row" }}>
-                  <Octicons name="person" size={24} color="black" />
-                  <AppText styles={{ fontSize: 20 }}>
-                    {" "}
-                    {bookingDetail.adultNumber} {t("adults")}{" "}
-                    {bookingDetail.childrenNumber} {t("children")}
-                  </AppText>
+                <View style={{ marginVertical: 8 }}>
+                  <View
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                    }}
+                  >
+                    <AntDesign name="calendar" size={24} color="black" />
+                    <AppText styles={{ fontSize: 16 }}>
+                      {" "}
+                      {startDate} - {endDate}
+                    </AppText>
+                  </View>
+                  <View style={{ display: "flex", flexDirection: "row" }}>
+                    <Octicons name="person" size={24} color="black" />
+                    <AppText styles={{ fontSize: 16 }}>
+                      {" "}
+                      {bookingDetail.adultNumber} {t("adults")}{" "}
+                      {bookingDetail.childrenNumber} {t("children")}
+                    </AppText>
+                  </View>
                 </View>
                 {page == "search-result" ? (
                   <View>
                     <View
                       style={{ flex: 1, height: 2, backgroundColor: "gray" }}
                     />
-                    <AppText styles={{ fontSize: 20 }}>
+                    <AppText styles={{ fontSize: 18 }}>
                       {t("edit_room")}
                     </AppText>
-                    {bookingDetail.standardRoomNumber != 0 ? (
-                      <View>
-                        <View
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            justifyContent: "space-between",
-                          }}
-                        >
-                          <View>
-                            <AppText styles={{ fontSize: 12 }}>
-                              {t("std_title")}
-                            </AppText>
-                            <View
-                              style={{ display: "flex", flexDirection: "row" }}
-                            >
-                              <EvilIcons name="trash" size={24} color="black" />
-                              <AppText>{t("remove")}</AppText>
-                            </View>
-                          </View>
-                          <RoomNumberInput
-                            roomType="Standard"
-                            value={bookingDetail.standardRoomNumber}
-                            onChange={(newValue: number) =>
-                              setBookingDetail({
-                                ...bookingDetail,
-                                standardRoomNumber: newValue,
-                              })
-                            }
-                          />
-                        </View>
-                        <TouchableOpacity
-                          onPress={() => {
-                            const updatedBookingDetail = {
-                              ...bookingDetail,
-                              standardRoomNumber: 0,
-                            };
-                            setBookingDetail(updatedBookingDetail);
-                          }}
-                        >
+                    <View
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: 8,
+                        marginBottom: 5,
+                      }}
+                    >
+                      {bookingDetail.standardRoomNumber != 0 ? (
+                        <View>
                           <View
                             style={{
                               display: "flex",
@@ -267,69 +240,87 @@ export default function SummaryBar({
                               justifyContent: "space-between",
                             }}
                           >
-                            <AppText styles={{ fontSize: 12 }}>
-                              {t("std_title")}{" "}
-                              {bookingDetail.standardRoomNumber}{" "}
-                              {t("room_per_night")}
-                            </AppText>
-
-                            <AppText styles={{ fontSize: 12 }}>
-                              {currency}{" "}
-                              {new Intl.NumberFormat("th-TH", {
-                                style: "decimal",
-                                minimumFractionDigits: 2,
-                                maximumFractionDigits: 2,
-                              }).format(
-                                bookingDetail.standardRoomNumber *
-                                  1200 *
-                                  reducedRate *
-                                  exchangeRate
-                              )}
-                            </AppText>
-                          </View>
-                        </TouchableOpacity>
-                      </View>
-                    ) : null}
-                    {bookingDetail.deluxeRoomNumber != 0 ? (
-                      <View>
-                        <View
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            justifyContent: "space-between",
-                          }}
-                        >
-                          <View>
-                            <AppText styles={{ fontSize: 12 }}>
-                              {t("dlx_title")}
-                            </AppText>
-                            <View
-                              style={{ display: "flex", flexDirection: "row" }}
-                            >
-                              <EvilIcons name="trash" size={24} color="black" />
-                              <AppText>{t("remove")}</AppText>
+                            <View>
+                              <AppText
+                                styles={{ fontSize: 14, fontWeight: "bold" }}
+                              >
+                                {t("std_title")}
+                              </AppText>
+                              <TouchableOpacity
+                                onPress={() => {
+                                  setBookingDetail({
+                                    ...bookingDetail,
+                                    standardRoomNumber: 0,
+                                  });
+                                }}
+                              >
+                                <View
+                                  style={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    marginLeft: -3,
+                                  }}
+                                >
+                                  <EvilIcons
+                                    name="trash"
+                                    size={24}
+                                    color="black"
+                                  />
+                                  <AppText>{t("remove")}</AppText>
+                                </View>
+                              </TouchableOpacity>
                             </View>
+                            <RoomNumberInput
+                              roomType="Standard"
+                              value={bookingDetail.standardRoomNumber}
+                              onChange={(newValue: number) =>
+                                setBookingDetail({
+                                  ...bookingDetail,
+                                  standardRoomNumber: newValue,
+                                })
+                              }
+                            />
                           </View>
-                          <RoomNumberInput
-                            roomType="Deluxe"
-                            value={bookingDetail.deluxeRoomNumber}
-                            onChange={(newValue: number) =>
-                              setBookingDetail({
+                          <TouchableOpacity
+                            onPress={() => {
+                              const updatedBookingDetail = {
                                 ...bookingDetail,
-                                deluxeRoomNumber: newValue,
-                              })
-                            }
-                          />
+                                standardRoomNumber: 0,
+                              };
+                              setBookingDetail(updatedBookingDetail);
+                            }}
+                          >
+                            <View
+                              style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "space-between",
+                              }}
+                            >
+                              <AppText styles={{ fontSize: 12 }}>
+                                {t("std_title")}{" "}
+                                {bookingDetail.standardRoomNumber}{" "}
+                                {t("room_per_night")}
+                              </AppText>
+                              <AppText styles={{ fontSize: 12 }}>
+                                {currency}{" "}
+                                {new Intl.NumberFormat("th-TH", {
+                                  style: "decimal",
+                                  minimumFractionDigits: 2,
+                                  maximumFractionDigits: 2,
+                                }).format(
+                                  bookingDetail.standardRoomNumber *
+                                    1200 *
+                                    reducedRate *
+                                    exchangeRate
+                                )}
+                              </AppText>
+                            </View>
+                          </TouchableOpacity>
                         </View>
-                        <TouchableOpacity
-                          onPress={() => {
-                            const updatedBookingDetail = {
-                              ...bookingDetail,
-                              deluxeRoomNumber: 0,
-                            };
-                            setBookingDetail(updatedBookingDetail);
-                          }}
-                        >
+                      ) : null}
+                      {bookingDetail.deluxeRoomNumber != 0 ? (
+                        <View>
                           <View
                             style={{
                               display: "flex",
@@ -337,68 +328,136 @@ export default function SummaryBar({
                               justifyContent: "space-between",
                             }}
                           >
-                            <AppText styles={{ fontSize: 12 }}>
-                              {t("dlx_title")} {bookingDetail.deluxeRoomNumber}{" "}
-                              {t("room_per_night")}
-                            </AppText>
-
-                            <AppText styles={{ fontSize: 12 }}>
-                              {currency}{" "}
-                              {new Intl.NumberFormat("th-TH", {
-                                style: "decimal",
-                                minimumFractionDigits: 2,
-                                maximumFractionDigits: 2,
-                              }).format(
-                                bookingDetail.deluxeRoomNumber *
-                                  1800 *
-                                  reducedRate *
-                                  exchangeRate
-                              )}
-                            </AppText>
-                          </View>
-                        </TouchableOpacity>
-                      </View>
-                    ) : null}
-                    {bookingDetail.familyRoomNumber != 0 ? (
-                      <View>
-                        <View
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            justifyContent: "space-between",
-                          }}
-                        >
-                          <View>
-                            <AppText styles={{ fontSize: 12 }}>
-                              {t("fml_title")}
-                            </AppText>
-                            <View
-                              style={{ display: "flex", flexDirection: "row" }}
-                            >
-                              <EvilIcons name="trash" size={24} color="black" />
-                              <AppText>{t("remove")}</AppText>
+                            <View>
+                              <AppText
+                                styles={{ fontSize: 14, fontWeight: "bold" }}
+                              >
+                                {t("dlx_title")}
+                              </AppText>
+                              <TouchableOpacity
+                                onPress={() => {
+                                  setBookingDetail({
+                                    ...bookingDetail,
+                                    deluxeRoomNumber: 0,
+                                  });
+                                }}
+                              >
+                                <View
+                                  style={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    marginLeft: -3,
+                                  }}
+                                >
+                                  <EvilIcons
+                                    name="trash"
+                                    size={24}
+                                    color="black"
+                                  />
+                                  <AppText>{t("remove")}</AppText>
+                                </View>
+                              </TouchableOpacity>
                             </View>
+                            <RoomNumberInput
+                              roomType="Deluxe"
+                              value={bookingDetail.deluxeRoomNumber}
+                              onChange={(newValue: number) =>
+                                setBookingDetail({
+                                  ...bookingDetail,
+                                  deluxeRoomNumber: newValue,
+                                })
+                              }
+                            />
                           </View>
-                          <RoomNumberInput
-                            roomType="Family"
-                            value={bookingDetail.familyRoomNumber}
-                            onChange={(newValue: number) =>
-                              setBookingDetail({
+                          <TouchableOpacity
+                            onPress={() => {
+                              const updatedBookingDetail = {
                                 ...bookingDetail,
-                                familyRoomNumber: newValue,
-                              })
-                            }
-                          />
+                                deluxeRoomNumber: 0,
+                              };
+                              setBookingDetail(updatedBookingDetail);
+                            }}
+                          >
+                            <View
+                              style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                justifyContent: "space-between",
+                              }}
+                            >
+                              <AppText styles={{ fontSize: 12 }}>
+                                {t("dlx_title")}{" "}
+                                {bookingDetail.deluxeRoomNumber}{" "}
+                                {t("room_per_night")}
+                              </AppText>
+                              <AppText styles={{ fontSize: 12 }}>
+                                {currency}{" "}
+                                {new Intl.NumberFormat("th-TH", {
+                                  style: "decimal",
+                                  minimumFractionDigits: 2,
+                                  maximumFractionDigits: 2,
+                                }).format(
+                                  bookingDetail.deluxeRoomNumber *
+                                    1800 *
+                                    reducedRate *
+                                    exchangeRate
+                                )}
+                              </AppText>
+                            </View>
+                          </TouchableOpacity>
                         </View>
-                        <TouchableOpacity
-                          onPress={() => {
-                            const updatedBookingDetail = {
-                              ...bookingDetail,
-                              familyRoomNumber: 0,
-                            };
-                            setBookingDetail(updatedBookingDetail);
-                          }}
-                        >
+                      ) : null}
+                      {bookingDetail.familyRoomNumber != 0 ? (
+                        <View>
+                          <View
+                            style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              justifyContent: "space-between",
+                            }}
+                          >
+                            <View>
+                              <AppText
+                                styles={{ fontSize: 14, fontWeight: "bold" }}
+                              >
+                                {t("fml_title")}
+                              </AppText>
+                              <TouchableOpacity
+                                onPress={() => {
+                                  const updatedBookingDetail = {
+                                    ...bookingDetail,
+                                    familyRoomNumber: 0,
+                                  };
+                                  setBookingDetail(updatedBookingDetail);
+                                }}
+                              >
+                                <View
+                                  style={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    marginLeft: -3,
+                                  }}
+                                >
+                                  <EvilIcons
+                                    name="trash"
+                                    size={24}
+                                    color="black"
+                                  />
+                                  <AppText>{t("remove")}</AppText>
+                                </View>
+                              </TouchableOpacity>
+                            </View>
+                            <RoomNumberInput
+                              roomType="Family"
+                              value={bookingDetail.familyRoomNumber}
+                              onChange={(newValue: number) =>
+                                setBookingDetail({
+                                  ...bookingDetail,
+                                  familyRoomNumber: newValue,
+                                })
+                              }
+                            />
+                          </View>
                           <View
                             style={{
                               display: "flex",
@@ -410,7 +469,6 @@ export default function SummaryBar({
                               {t("fml_title")} {bookingDetail.familyRoomNumber}{" "}
                               {t("room_per_night")}
                             </AppText>
-
                             <AppText styles={{ fontSize: 12 }}>
                               {currency}{" "}
                               {new Intl.NumberFormat("th-TH", {
@@ -425,49 +483,59 @@ export default function SummaryBar({
                               )}
                             </AppText>
                           </View>
-                        </TouchableOpacity>
-                      </View>
-                    ) : null}
-                    {bookingDetail.suiteRoomNumber != 0 ? (
-                      <View>
-                        <View
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            justifyContent: "space-between",
-                          }}
-                        >
-                          <View>
-                            <AppText styles={{ fontSize: 12 }}>
-                              {t("s_title")}
-                            </AppText>
-                            <View
-                              style={{ display: "flex", flexDirection: "row" }}
-                            >
-                              <EvilIcons name="trash" size={24} color="black" />
-                              <AppText>{t("remove")}</AppText>
-                            </View>
-                          </View>
-                          <RoomNumberInput
-                            roomType="Suite"
-                            value={bookingDetail.suiteRoomNumber}
-                            onChange={(newValue: number) =>
-                              setBookingDetail({
-                                ...bookingDetail,
-                                suiteRoomNumber: newValue,
-                              })
-                            }
-                          />
                         </View>
-                        <TouchableOpacity
-                          onPress={() => {
-                            const updatedBookingDetail = {
-                              ...bookingDetail,
-                              suiteRoomNumber: 0,
-                            };
-                            setBookingDetail(updatedBookingDetail);
-                          }}
-                        >
+                      ) : null}
+                      {bookingDetail.suiteRoomNumber != 0 ? (
+                        <View>
+                          <View
+                            style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              justifyContent: "space-between",
+                            }}
+                          >
+                            <View>
+                              <AppText
+                                styles={{ fontSize: 14, fontWeight: "bold" }}
+                              >
+                                {t("s_title")}
+                              </AppText>
+                              <TouchableOpacity
+                                onPress={() => {
+                                  const updatedBookingDetail = {
+                                    ...bookingDetail,
+                                    suiteRoomNumber: 0,
+                                  };
+                                  setBookingDetail(updatedBookingDetail);
+                                }}
+                              >
+                                <View
+                                  style={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    marginLeft: -3,
+                                  }}
+                                >
+                                  <EvilIcons
+                                    name="trash"
+                                    size={24}
+                                    color="black"
+                                  />
+                                  <AppText>{t("remove")}</AppText>
+                                </View>
+                              </TouchableOpacity>
+                            </View>
+                            <RoomNumberInput
+                              roomType="Suite"
+                              value={bookingDetail.suiteRoomNumber}
+                              onChange={(newValue: number) =>
+                                setBookingDetail({
+                                  ...bookingDetail,
+                                  suiteRoomNumber: newValue,
+                                })
+                              }
+                            />
+                          </View>
                           <View
                             style={{
                               display: "flex",
@@ -479,7 +547,6 @@ export default function SummaryBar({
                               {t("s_title")} {bookingDetail.suiteRoomNumber}{" "}
                               {t("room_per_night")}
                             </AppText>
-
                             <AppText styles={{ fontSize: 12 }}>
                               {currency}{" "}
                               {new Intl.NumberFormat("th-TH", {
@@ -494,49 +561,60 @@ export default function SummaryBar({
                               )}
                             </AppText>
                           </View>
-                        </TouchableOpacity>
-                      </View>
-                    ) : null}
-                    {bookingDetail.executiveRoomNumber != 0 ? (
-                      <View>
-                        <View
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            justifyContent: "space-between",
-                          }}
-                        >
-                          <View>
-                            <AppText styles={{ fontSize: 12 }}>
-                              {t("ex_title")}
-                            </AppText>
-                            <View
-                              style={{ display: "flex", flexDirection: "row" }}
-                            >
-                              <EvilIcons name="trash" size={24} color="black" />
-                              <AppText>{t("remove")}</AppText>
-                            </View>
-                          </View>
-                          <RoomNumberInput
-                            roomType="Executive"
-                            value={bookingDetail.executiveRoomNumber}
-                            onChange={(newValue: number) =>
-                              setBookingDetail({
-                                ...bookingDetail,
-                                executiveRoomNumber: newValue,
-                              })
-                            }
-                          />
                         </View>
-                        <TouchableOpacity
-                          onPress={() => {
-                            const updatedBookingDetail = {
-                              ...bookingDetail,
-                              executiveRoomNumber: 0,
-                            };
-                            setBookingDetail(updatedBookingDetail);
-                          }}
-                        >
+                      ) : null}
+                      {bookingDetail.executiveRoomNumber != 0 ? (
+                        <View>
+                          <View
+                            style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              justifyContent: "space-between",
+                            }}
+                          >
+                            <View>
+                              <AppText
+                                styles={{ fontSize: 14, fontWeight: "bold" }}
+                              >
+                                {t("ex_title")}
+                              </AppText>
+                              <TouchableOpacity
+                                onPress={() => {
+                                  const updatedBookingDetail = {
+                                    ...bookingDetail,
+                                    executiveRoomNumber: 0,
+                                  };
+                                  setBookingDetail(updatedBookingDetail);
+                                }}
+                              >
+                                <View
+                                  style={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    marginLeft: -3,
+                                  }}
+                                >
+                                  <EvilIcons
+                                    name="trash"
+                                    size={24}
+                                    color="black"
+                                  />
+                                  <AppText>{t("remove")}</AppText>
+                                </View>
+                              </TouchableOpacity>
+                            </View>
+                            <RoomNumberInput
+                              roomType="Executive"
+                              value={bookingDetail.executiveRoomNumber}
+                              onChange={(newValue: number) =>
+                                setBookingDetail({
+                                  ...bookingDetail,
+                                  executiveRoomNumber: newValue,
+                                })
+                              }
+                            />
+                          </View>
+
                           <View
                             style={{
                               display: "flex",
@@ -549,7 +627,6 @@ export default function SummaryBar({
                               {bookingDetail.executiveRoomNumber}{" "}
                               {t("room_per_night")}
                             </AppText>
-
                             <AppText styles={{ fontSize: 12 }}>
                               {currency}{" "}
                               {new Intl.NumberFormat("th-TH", {
@@ -564,9 +641,9 @@ export default function SummaryBar({
                               )}
                             </AppText>
                           </View>
-                        </TouchableOpacity>
-                      </View>
-                    ) : null}
+                        </View>
+                      ) : null}
+                    </View>
                   </View>
                 ) : null}
                 {page == "reservation-and-guest-detail" ? (
@@ -574,236 +651,263 @@ export default function SummaryBar({
                     <View
                       style={{ flex: 1, height: 2, backgroundColor: "gray" }}
                     />
-                    {bookingDetail.standardRoomNumber != 0 ? (
-                      <View>
-                        <View
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            justifyContent: "space-between",
-                          }}
-                        >
-                          <AppText styles={{ fontSize: 12 }}>
-                            {t("std_title")} {bookingDetail.standardRoomNumber}{" "}
-                            {t("room_per_night")}
-                          </AppText>
-
-                          <AppText styles={{ fontSize: 12 }}>
-                            {currency}{" "}
-                            {new Intl.NumberFormat("th-TH", {
-                              style: "decimal",
-                              minimumFractionDigits: 2,
-                              maximumFractionDigits: 2,
-                            }).format(
-                              bookingDetail.standardRoomNumber *
-                                1200 *
-                                reducedRate *
-                                exchangeRate
-                            )}
-                          </AppText>
+                    <View
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: 5,
+                        marginBottom: 5,
+                      }}
+                    >
+                      {bookingDetail.standardRoomNumber != 0 ? (
+                        <View>
+                          <View
+                            style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              justifyContent: "space-between",
+                            }}
+                          >
+                            <AppText styles={{ fontSize: 12 }}>
+                              {t("std_title")}{" "}
+                              {bookingDetail.standardRoomNumber}{" "}
+                              {t("room_per_night")}
+                            </AppText>
+                            <AppText styles={{ fontSize: 12 }}>
+                              {currency}{" "}
+                              {new Intl.NumberFormat("th-TH", {
+                                style: "decimal",
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                              }).format(
+                                bookingDetail.standardRoomNumber *
+                                  1200 *
+                                  reducedRate *
+                                  exchangeRate
+                              )}
+                            </AppText>
+                          </View>
                         </View>
-                      </View>
-                    ) : null}
-                    {bookingDetail.deluxeRoomNumber != 0 ? (
-                      <View>
-                        <View
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            justifyContent: "space-between",
-                          }}
-                        >
-                          <AppText styles={{ fontSize: 12 }}>
-                            {t("dlx_title")} {bookingDetail.deluxeRoomNumber}{" "}
-                            {t("room_per_night")}
-                          </AppText>
-
-                          <AppText styles={{ fontSize: 12 }}>
-                            {currency}{" "}
-                            {new Intl.NumberFormat("th-TH", {
-                              style: "decimal",
-                              minimumFractionDigits: 2,
-                              maximumFractionDigits: 2,
-                            }).format(
-                              bookingDetail.deluxeRoomNumber *
-                                1800 *
-                                reducedRate *
-                                exchangeRate
-                            )}
-                          </AppText>
+                      ) : null}
+                      {bookingDetail.deluxeRoomNumber != 0 ? (
+                        <View>
+                          <View
+                            style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              justifyContent: "space-between",
+                            }}
+                          >
+                            <AppText styles={{ fontSize: 12 }}>
+                              {t("dlx_title")} {bookingDetail.deluxeRoomNumber}{" "}
+                              {t("room_per_night")}
+                            </AppText>
+                            <AppText styles={{ fontSize: 12 }}>
+                              {currency}{" "}
+                              {new Intl.NumberFormat("th-TH", {
+                                style: "decimal",
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                              }).format(
+                                bookingDetail.deluxeRoomNumber *
+                                  1800 *
+                                  reducedRate *
+                                  exchangeRate
+                              )}
+                            </AppText>
+                          </View>
                         </View>
-                      </View>
-                    ) : null}
-                    {bookingDetail.familyRoomNumber != 0 ? (
-                      <View>
-                        <View
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            justifyContent: "space-between",
-                          }}
-                        >
-                          <AppText styles={{ fontSize: 12 }}>
-                            {t("fml_title")} {bookingDetail.familyRoomNumber}{" "}
-                            {t("room_per_night")}
-                          </AppText>
-
-                          <AppText styles={{ fontSize: 12 }}>
-                            {currency}{" "}
-                            {new Intl.NumberFormat("th-TH", {
-                              style: "decimal",
-                              minimumFractionDigits: 2,
-                              maximumFractionDigits: 2,
-                            }).format(
-                              bookingDetail.familyRoomNumber *
-                                2200 *
-                                reducedRate *
-                                exchangeRate
-                            )}
-                          </AppText>
+                      ) : null}
+                      {bookingDetail.familyRoomNumber != 0 ? (
+                        <View>
+                          <View
+                            style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              justifyContent: "space-between",
+                            }}
+                          >
+                            <AppText styles={{ fontSize: 12 }}>
+                              {t("fml_title")} {bookingDetail.familyRoomNumber}{" "}
+                              {t("room_per_night")}
+                            </AppText>
+                            <AppText styles={{ fontSize: 12 }}>
+                              {currency}{" "}
+                              {new Intl.NumberFormat("th-TH", {
+                                style: "decimal",
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                              }).format(
+                                bookingDetail.familyRoomNumber *
+                                  2200 *
+                                  reducedRate *
+                                  exchangeRate
+                              )}
+                            </AppText>
+                          </View>
                         </View>
-                      </View>
-                    ) : null}
-                    {bookingDetail.suiteRoomNumber != 0 ? (
-                      <View>
-                        <View
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            justifyContent: "space-between",
-                          }}
-                        >
-                          <AppText styles={{ fontSize: 12 }}>
-                            {t("std_title")} {bookingDetail.suiteRoomNumber}{" "}
-                            {t("room_per_night")}
-                          </AppText>
-
-                          <AppText styles={{ fontSize: 12 }}>
-                            {currency}{" "}
-                            {new Intl.NumberFormat("th-TH", {
-                              style: "decimal",
-                              minimumFractionDigits: 2,
-                              maximumFractionDigits: 2,
-                            }).format(
-                              bookingDetail.suiteRoomNumber *
-                                2500 *
-                                reducedRate *
-                                exchangeRate
-                            )}
-                          </AppText>
+                      ) : null}
+                      {bookingDetail.suiteRoomNumber != 0 ? (
+                        <View>
+                          <View
+                            style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              justifyContent: "space-between",
+                            }}
+                          >
+                            <AppText styles={{ fontSize: 12 }}>
+                              {t("std_title")} {bookingDetail.suiteRoomNumber}{" "}
+                              {t("room_per_night")}
+                            </AppText>
+                            <AppText styles={{ fontSize: 12 }}>
+                              {currency}{" "}
+                              {new Intl.NumberFormat("th-TH", {
+                                style: "decimal",
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                              }).format(
+                                bookingDetail.suiteRoomNumber *
+                                  2500 *
+                                  reducedRate *
+                                  exchangeRate
+                              )}
+                            </AppText>
+                          </View>
                         </View>
-                      </View>
-                    ) : null}
-                    {bookingDetail.executiveRoomNumber != 0 ? (
-                      <View>
-                        <View
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            justifyContent: "space-between",
-                          }}
-                        >
-                          <AppText styles={{ fontSize: 12 }}>
-                            {t("std_title")} {bookingDetail.executiveRoomNumber}{" "}
-                            {t("room_per_night")}
-                          </AppText>
-
-                          <AppText styles={{ fontSize: 12 }}>
-                            {currency}{" "}
-                            {new Intl.NumberFormat("th-TH", {
-                              style: "decimal",
-                              minimumFractionDigits: 2,
-                              maximumFractionDigits: 2,
-                            }).format(
-                              bookingDetail.executiveRoomNumber *
-                                3000 *
-                                reducedRate *
-                                exchangeRate
-                            )}
-                          </AppText>
+                      ) : null}
+                      {bookingDetail.executiveRoomNumber != 0 ? (
+                        <View>
+                          <View
+                            style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              justifyContent: "space-between",
+                            }}
+                          >
+                            <AppText styles={{ fontSize: 12 }}>
+                              {t("std_title")}{" "}
+                              {bookingDetail.executiveRoomNumber}{" "}
+                              {t("room_per_night")}
+                            </AppText>
+                            <AppText styles={{ fontSize: 12 }}>
+                              {currency}{" "}
+                              {new Intl.NumberFormat("th-TH", {
+                                style: "decimal",
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                              }).format(
+                                bookingDetail.executiveRoomNumber *
+                                  3000 *
+                                  reducedRate *
+                                  exchangeRate
+                              )}
+                            </AppText>
+                          </View>
                         </View>
-                      </View>
-                    ) : null}
+                      ) : null}
+                    </View>
                     <View
                       style={{ flex: 1, height: 2, backgroundColor: "gray" }}
                     />
-                    <Text>{t("edit_service")}</Text>
-                    {bookingDetail.packageOne ? (
-                      <View>
-                        <AppText>{t("service_name1")}</AppText>
-                        <TouchableOpacity
-                          onPress={() => {
-                            const updatedBookingDetail = {
-                              ...bookingDetail,
-                              packageOne: false,
-                            };
-                            setBookingDetail(updatedBookingDetail);
-                          }}
-                        >
-                          <View
-                            style={{ display: "flex", flexDirection: "row" }}
+                    <Text style={{ fontSize: 18 }}>{t("edit_service")}</Text>
+                    <View
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: 5,
+                        marginBottom: 5,
+                      }}
+                    >
+                      {bookingDetail.packageOne ? (
+                        <View>
+                          <AppText
+                            styles={{ fontSize: 14, fontWeight: "bold" }}
                           >
-                            <EvilIcons name="trash" size={24} color="black" />
-                            <AppText>{t("remove")}</AppText>
-                          </View>
-                        </TouchableOpacity>
-                        <View
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            justifyContent: "space-between",
-                          }}
-                        >
-                          <AppText>{t("service_name1")}</AppText>
-                          <AppText styles={{ fontSize: 12 }}>
-                            {currency}{" "}
-                            {new Intl.NumberFormat("th-TH", {
-                              style: "decimal",
-                              minimumFractionDigits: 2,
-                              maximumFractionDigits: 2,
-                            }).format(299)}
+                            {t("service_name1")}
                           </AppText>
-                        </View>
-                      </View>
-                    ) : null}
-                    {bookingDetail.packageTwo ? (
-                      <View>
-                        <AppText>{t("service_name2")}</AppText>
-                        <TouchableOpacity
-                          onPress={() => {
-                            const updatedBookingDetail = {
-                              ...bookingDetail,
-                              packageTwo: false,
-                            };
-                            setBookingDetail(updatedBookingDetail);
-                          }}
-                        >
-                          <View
-                            style={{ display: "flex", flexDirection: "row" }}
+                          <TouchableOpacity
+                            onPress={() => {
+                              const updatedBookingDetail = {
+                                ...bookingDetail,
+                                packageOne: false,
+                              };
+                              setBookingDetail(updatedBookingDetail);
+                            }}
                           >
-                            <EvilIcons name="trash" size={24} color="black" />
-                            <AppText>{t("remove")}</AppText>
+                            <View
+                              style={{ display: "flex", flexDirection: "row" }}
+                            >
+                              <EvilIcons name="trash" size={24} color="black" />
+                              <AppText>{t("remove")}</AppText>
+                            </View>
+                          </TouchableOpacity>
+                          <View
+                            style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              justifyContent: "space-between",
+                            }}
+                          >
+                            <AppText styles={{ fontSize: 12 }}>
+                              {t("service_name1")}
+                            </AppText>
+                            <AppText styles={{ fontSize: 12 }}>
+                              {currency}{" "}
+                              {new Intl.NumberFormat("th-TH", {
+                                style: "decimal",
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                              }).format(299)}
+                            </AppText>
                           </View>
-                        </TouchableOpacity>
-                        <View
-                          style={{
-                            display: "flex",
-                            flexDirection: "row",
-                            justifyContent: "space-between",
-                          }}
-                        >
-                          <AppText>{t("service_name2")}</AppText>
-                          <AppText styles={{ fontSize: 12 }}>
-                            {currency}{" "}
-                            {new Intl.NumberFormat("th-TH", {
-                              style: "decimal",
-                              minimumFractionDigits: 2,
-                              maximumFractionDigits: 2,
-                            }).format(499)}
-                          </AppText>
                         </View>
-                      </View>
-                    ) : null}
+                      ) : null}
+                      {bookingDetail.packageTwo ? (
+                        <View>
+                          <AppText
+                            styles={{ fontSize: 14, fontWeight: "bold" }}
+                          >
+                            {t("service_name2")}
+                          </AppText>
+                          <TouchableOpacity
+                            onPress={() => {
+                              const updatedBookingDetail = {
+                                ...bookingDetail,
+                                packageTwo: false,
+                              };
+                              setBookingDetail(updatedBookingDetail);
+                            }}
+                          >
+                            <View
+                              style={{ display: "flex", flexDirection: "row" }}
+                            >
+                              <EvilIcons name="trash" size={24} color="black" />
+                              <AppText>{t("remove")}</AppText>
+                            </View>
+                          </TouchableOpacity>
+                          <View
+                            style={{
+                              display: "flex",
+                              flexDirection: "row",
+                              justifyContent: "space-between",
+                            }}
+                          >
+                            <AppText styles={{ fontSize: 12 }}>
+                              {t("service_name2")}
+                            </AppText>
+                            <AppText styles={{ fontSize: 12 }}>
+                              {currency}{" "}
+                              {new Intl.NumberFormat("th-TH", {
+                                style: "decimal",
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2,
+                              }).format(499)}
+                            </AppText>
+                          </View>
+                        </View>
+                      ) : null}
+                    </View>
                   </View>
                 ) : null}
               </View>
@@ -812,110 +916,127 @@ export default function SummaryBar({
             <View
               style={{
                 display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
+                flexDirection: "column",
+                gap: 5,
               }}
             >
-              <Text>{t("monday_and_friday_sale")}</Text>
-              <Text style={{ fontSize: 20 }}>
-                {" "}
-                {currency}{" "}
-                {new Intl.NumberFormat("th-TH", {
-                  style: "decimal",
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2,
-                }).format(mondayAndFridaySale)}
-              </Text>
-            </View>
-            <View
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-              }}
-            >
-              <Text>{t("saturday_additional_cost")}</Text>
-              <Text style={{ fontSize: 20 }}>
-                {" "}
-                {currency}{" "}
-                {new Intl.NumberFormat("th-TH", {
-                  style: "decimal",
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2,
-                }).format(saturdayAdditionalCost)}
-              </Text>
-            </View>
-            <View
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-              }}
-            >
-              <Text>{t("sub_total")}</Text>
-              <Text style={{ fontSize: 20 }}>
-                {" "}
-                {currency}{" "}
-                {new Intl.NumberFormat("th-TH", {
-                  style: "decimal",
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2,
-                }).format(subTotal)}
-              </Text>
-            </View>
-            <View
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-              }}
-            >
-              <Text>{t("service_charge")} (10%)</Text>
-              <Text style={{ fontSize: 20 }}>
-                {" "}
-                {currency}{" "}
-                {new Intl.NumberFormat("th-TH", {
-                  style: "decimal",
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2,
-                }).format(serviceCharge)}
-              </Text>
-            </View>
-            <View
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-              }}
-            >
-              <Text>{t("taxes_and_fees")} (7%)</Text>
-              <Text style={{ fontSize: 20 }}>
-                {" "}
-                {currency}{" "}
-                {new Intl.NumberFormat("th-TH", {
-                  style: "decimal",
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2,
-                }).format(taxesAndFees)}
-              </Text>
-            </View>
-            <View
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-              }}
-            >
-              <Text>{t("total")}</Text>
-              <Text style={{ fontSize: 20 }}>
-                {" "}
-                {currency}{" "}
-                {new Intl.NumberFormat("th-TH", {
-                  style: "decimal",
-                  minimumFractionDigits: 2,
-                  maximumFractionDigits: 2,
-                }).format(totalPrice)}
-              </Text>
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Text style={{ fontSize: 12 }}>
+                  {t("monday_and_friday_sale")}
+                </Text>
+                <Text style={{ fontSize: 12 }}>
+                  {" "}
+                  {currency}{" "}
+                  {new Intl.NumberFormat("th-TH", {
+                    style: "decimal",
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  }).format(mondayAndFridaySale)}
+                </Text>
+              </View>
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Text style={{ fontSize: 12 }}>
+                  {t("saturday_additional_cost")}
+                </Text>
+                <Text style={{ fontSize: 12 }}>
+                  {" "}
+                  {currency}{" "}
+                  {new Intl.NumberFormat("th-TH", {
+                    style: "decimal",
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  }).format(saturdayAdditionalCost)}
+                </Text>
+              </View>
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Text style={{ fontSize: 12 }}>{t("sub_total")}</Text>
+                <Text style={{ fontSize: 12 }}>
+                  {" "}
+                  {currency}{" "}
+                  {new Intl.NumberFormat("th-TH", {
+                    style: "decimal",
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  }).format(subTotal)}
+                </Text>
+              </View>
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Text style={{ fontSize: 12 }}>
+                  {t("service_charge")} (10%)
+                </Text>
+                <Text style={{ fontSize: 12 }}>
+                  {" "}
+                  {currency}{" "}
+                  {new Intl.NumberFormat("th-TH", {
+                    style: "decimal",
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  }).format(serviceCharge)}
+                </Text>
+              </View>
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Text>{t("taxes_and_fees")} (7%)</Text>
+                <Text style={{ fontSize: 12 }}>
+                  {" "}
+                  {currency}{" "}
+                  {new Intl.NumberFormat("th-TH", {
+                    style: "decimal",
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  }).format(taxesAndFees)}
+                </Text>
+              </View>
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "flex-end",
+                  marginTop: 20,
+                }}
+              >
+                <Text style={{ fontSize: 24, fontWeight: "bold" }}>
+                  {t("total")}
+                </Text>
+                <Text style={{ fontSize: 24, fontWeight: "bold" }}>
+                  {" "}
+                  {currency}{" "}
+                  {new Intl.NumberFormat("th-TH", {
+                    style: "decimal",
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  }).format(totalPrice)}
+                </Text>
+              </View>
             </View>
             {page == "search-result" ? (
               <Button
@@ -923,6 +1044,7 @@ export default function SummaryBar({
                 style={{
                   backgroundColor: COLORS.SECONDARY,
                   borderColor: "transparent",
+                  marginTop: 40,
                 }}
                 disabled={
                   bookingDetail.standardRoomNumber +

@@ -5,7 +5,7 @@ import { addDays, format } from "date-fns";
 import useStore from "@/hooks/useStore";
 
 export default function CustomDateRange() {
-  const { bookingDetail, setBookingDetail } = useStore();
+  const { bookingDetail, setBookingDetail, currency } = useStore();
   const [range, setRange] = useState<any>({
     startDate: new Date(),
     endDate: addDays(new Date(), 1),
@@ -41,7 +41,7 @@ export default function CustomDateRange() {
           <Text style={style.text}>{date.getDate()}</Text>
           {(date >= new Date() || date == new Date()) &&
           !disabledDatesFormat.includes(format(date, "dd/MM/yyyy")) ? (
-            <Text style={[style.text, styles.value]}>THB1,000</Text>
+            <Text style={[style.text, styles.value]}>{currency} 1,000</Text>
           ) : (
             <Text style={[style.text, styles.value]}></Text>
           )}
@@ -55,7 +55,7 @@ export default function CustomDateRange() {
           <Text style={style.text}>{date.getDate()}</Text>
           {(date >= new Date() || date == new Date()) &&
           !disabledDatesFormat.includes(format(date, "dd/MM/yyyy")) ? (
-            <Text style={[style.text, styles.value]}>THB1,400</Text>
+            <Text style={[style.text, styles.value]}>{currency} 1,400</Text>
           ) : (
             <Text style={[style.text, styles.value]}></Text>
           )}
@@ -68,7 +68,7 @@ export default function CustomDateRange() {
         <Text style={style.text}>{date.getDate()}</Text>
         {(date >= new Date() || date == new Date()) &&
         !disabledDatesFormat.includes(format(date, "dd/MM/yyyy")) ? (
-          <Text style={[style.text, styles.value]}>THB1,200</Text>
+          <Text style={[style.text, styles.value]}>{currency} 1,200</Text>
         ) : (
           <Text style={[style.text, styles.value]}></Text>
         )}

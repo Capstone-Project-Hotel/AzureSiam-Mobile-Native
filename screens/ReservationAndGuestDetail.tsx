@@ -231,7 +231,9 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
               }}
             >
               <Image
-                source={require("assets/add1.png")}
+                source={{
+                  uri: "https://drive.google.com/uc?export=download&id=1z3qIyMymVO-M55xqqJfzW9wpFitLAGkm",
+                }}
                 resizeMode="cover"
                 style={{
                   height: "100%",
@@ -307,7 +309,9 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
               }}
             >
               <Image
-                source={require("assets/add2.png")}
+                source={{
+                  uri: "https://drive.google.com/uc?export=download&id=1EQCmQzFfsfSru8QzL5JQaWFu8n0HrXv4",
+                }}
                 resizeMode="cover"
                 style={{
                   height: "100%",

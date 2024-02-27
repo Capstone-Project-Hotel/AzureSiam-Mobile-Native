@@ -50,7 +50,8 @@ export default function SearchResultPage({ navigation }: any) {
     bedType: t("single_bed"),
     roomSize: 16,
     roomPrice: 1200,
-    roomImage: "/assets/stdroom.jpg",
+    roomImage:
+      "https://drive.google.com/uc?export=download&id=1T7uKb6UmggJ4UEzY7gY9f442zkrqqNPi",
     roomAmenities: [
       t("television"),
       t("air_conditioner"),
@@ -81,7 +82,7 @@ export default function SearchResultPage({ navigation }: any) {
     roomSize: 20,
     roomPrice: 1800,
     roomImage:
-      "https://cdn.discordapp.com/attachments/457166097230069773/1186387436901781634/cover_1.jpg?ex=65931066&is=65809b66&hm=f75c101fa0d7768bac471cc46a3c94a94b5a1737567af3c91951c95abfc4ec9b&",
+      "https://drive.google.com/uc?export=download&id=1x-XcJq_7o3DymWHuX6wK0lSvszf9r3S1",
     roomAmenities: [
       t("television"),
       t("air_conditioner"),
@@ -113,7 +114,7 @@ export default function SearchResultPage({ navigation }: any) {
     roomSize: 28,
     roomPrice: 2200,
     roomImage:
-      "https://cdn.discordapp.com/attachments/457166097230069773/1186387586516791326/cover_2.jpg?ex=6593108a&is=65809b8a&hm=44468b0913ab9e438ce166d2c49366e3833e42e84669ffff7b38eb770aac7c1c&",
+      "https://drive.google.com/uc?export=download&id=1oVxVhLAQYnYUlMAhbqsaU-_5uqLCmWuf",
     roomAmenities: [
       t("television"),
       t("air_conditioner"),
@@ -146,7 +147,7 @@ export default function SearchResultPage({ navigation }: any) {
     roomSize: 30,
     roomPrice: 2500,
     roomImage:
-      "https://cdn.discordapp.com/attachments/457166097230069773/1188826464708218920/image_41.jpg?ex=659befec&is=65897aec&hm=5a3d092015cc24fcd079f85b33341c508f33152ec6ea2e2c7b2c5796e4839e6a&",
+      "https://drive.google.com/uc?export=download&id=14poEWNuJlDvqWRX_xcg8tFeQrDwrlOpF",
     roomAmenities: [
       t("television"),
       t("air_conditioner"),
@@ -180,7 +181,7 @@ export default function SearchResultPage({ navigation }: any) {
     roomSize: 40,
     roomPrice: 3000,
     roomImage:
-      "https://cdn.discordapp.com/attachments/457166097230069773/1188826023228354650/image_40_1_1.jpg?ex=659bef83&is=65897a83&hm=6582bd0a8cc86db4a4146b452e6d4b139146174c8c42818f174afa5fbd7e6bc0&",
+      "https://drive.google.com/uc?export=download&id=1jyPl3qhga00wJ8eWcyXB131K0k0e3aed",
     roomAmenities: [
       t("television"),
       t("air_conditioner"),
@@ -237,7 +238,8 @@ export default function SearchResultPage({ navigation }: any) {
         <Filter t={t} />
         <View
           style={{
-            marginVertical: 50,
+            marginTop: 30,
+            marginBottom: 50,
             display: "flex",
             flexDirection: "column",
             rowGap: 15,
