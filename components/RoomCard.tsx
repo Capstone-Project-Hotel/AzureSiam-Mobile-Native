@@ -55,8 +55,9 @@ export default function RoomCard({
         width: 350,
         padding: 10,
         shadowColor: "#000",
-        shadowOpacity: 1,
-        shadowRadius: 10,
+        elevation: 8,
+        // shadowOpacity: 1,
+        // shadowRadius: 10,
         shadowOffset: {
           height: 10,
           width: 10,
