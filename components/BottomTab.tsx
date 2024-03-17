@@ -151,6 +151,10 @@ export default function BottomTab({
               <View style={styles.customDateRange}>
                 <CustomDateRange />
               </View>
+              <View style={styles.lowestRemarkContainer}>
+                <Text style={styles.asterisk}>*</Text>
+                <Text style={styles.lowestLabelText}>{t("lowest_price_remark")}</Text>
+              </View>
               <View style={styles.calendarModalLowerContainer}>
                 {LineBreak}
                 <View style={styles.calendarModalSection}>
@@ -377,6 +381,22 @@ const getStyles = (height: number | undefined) => {
       // height: 50,
       borderColor: "grey",
       borderWidth: 0.5,
+    },
+    lowestRemarkContainer: {
+      paddingTop: 16,
+      paddingLeft: 8,
+      paddingRight: 8,
+      paddingBottom: 4,
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    asterisk: {
+      color: "red",
+      marginRight: 8
+    },
+    lowestLabelText: {
+      fontSize: 12,
     },
   });
 };

@@ -183,5 +183,7 @@
   "monday_and_friday_sale": "Monday and Friday Sale",
   "saturday_additional_cost": "Saturday Additional Cost",
   "select_feature": "Select Feature",
-  "booking_summary": "Booking Summary"
+  "booking_summary": "Booking Summary",
+
+  "lowest_price_remark": "The calendar price represents the lowest available rate for that day"
 }
