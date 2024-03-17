@@ -1087,28 +1087,29 @@ const styles = StyleSheet.create({
     paddingBottom: 16,
     // marginRight: 8,
   },
-  sectionText: { fontSize: 18, fontWeight: "bold", marginBottom: 8 },
+  sectionText: { fontFamily : "NotoSansThai_600SemiBold",fontSize: 18, fontWeight: "600", marginBottom: 8 },
   listText: {
-    color: "#3A3A3A",
+    fontFamily : "NotoSansThai_400Regular",
+    fontSize: 18,
   },
   landingBigCardTitle: {
-    fontWeight: "bold",
-    fontSize: 12,
-    lineHeight: 18,
+    fontFamily : "NotoSansThai_600SemiBold",
+    fontSize: 16,
+    lineHeight: 30,
     marginBottom: 6,
   },
   landingBigCardDescription: {
     fontWeight: "normal",
-    fontSize: 10,
+    fontSize: 12,
   },
   modalTitle: {
-    fontWeight: "bold",
-    fontSize: 14,
-    marginBottom: 8,
+    fontFamily : "NotoSansThai_600SemiBold",
+    fontSize: 24,
+    marginBottom: 20,
   },
   modalDescription: {
-    fontWeight: "normal",
-    fontSize: 12,
+    fontFamily : "NotoSansThai_400Regular",
+    fontSize: 18,
     marginBottom: 8,
   },
   carouselImage: {
@@ -1131,6 +1132,7 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
   },
   menuModalText: {
+    fontFamily : "NotoSansThai_400Regular",
     fontSize: 20,
   },
   modalImage: {

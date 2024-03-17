@@ -29,7 +29,7 @@
       [
         "expo-font",
         {
-          "fonts": ["./assets/fonts/NotoSansThai.ttf"]
+          "fonts": ["node_modules/@expo-google-fonts/noto-sans-thai/NotoSansThai_400Regular.ttf","node_modules/@expo-google-fonts/noto-sans-thai/NotoSansThai_600SemiBold.ttf"]
         }
       ]
     ],
