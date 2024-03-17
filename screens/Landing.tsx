@@ -38,6 +38,9 @@ import {
 
 const width = Dimensions.get("window").width; // ย้ายไป cosntant
 
+const logo = {
+  uri: "https://drive.google.com/uc?export=download&id=1HRRO45x_Bo5d_SJY_aW-USKVY2mWXo6y",
+};
 const banner = {
   uri: "https://drive.google.com/uc?export=download&id=1C2A_9JtOep3mcddudH6W0VhfxWpErGW1",
 };
@@ -264,26 +267,26 @@ export default function Landing({ navigation }: any) {
             // shadowOffset: { width: -1, height: 1 },
           }}
         > */}
-          <TouchableOpacity
-            onPress={() => setVisible(true)}
-            style={{
-              position: "absolute",
-              top: 20,
-              left: 20,
-              zIndex: 100,
-              backgroundColor: "transparent",
-              shadowRadius: 8,
-              elevation: 24,
-              shadowColor: "#000",
-              shadowOffset: { width: 0, height: 1 },
-              // borderWidth: 0
-            }}
-          >
-            <Image
-              source={require("../assets/menu.png")}
-              style={{ width: 30, height: 30 }}
-            />
-          </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => setVisible(true)}
+          style={{
+            position: "absolute",
+            top: 20,
+            left: 20,
+            zIndex: 100,
+            backgroundColor: "transparent",
+            shadowRadius: 8,
+            elevation: 24,
+            shadowColor: "#000",
+            shadowOffset: { width: 0, height: 1 },
+            // borderWidth: 0
+          }}
+        >
+          <Image
+            source={require("../assets/menu.png")}
+            style={{ width: 30, height: 30 }}
+          />
+        </TouchableOpacity>
         {/* </View> */}
         <ScrollView ref={(ref: any) => setRef(ref)}>
           {/* Menu Modal */}
@@ -419,12 +422,34 @@ export default function Landing({ navigation }: any) {
           <ImageBackground
             source={require("assets/landing.png")}
             style={styles.bannerImage}
-          ></ImageBackground>
+          >
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                opacity: 0.85,
+                marginBottom: 8,
+              }}
+            >
+              <Image
+                source={{
+                  uri: "https://drive.google.com/uc?export=download&id=1HRRO45x_Bo5d_SJY_aW-USKVY2mWXo6y",
+                }}
+                style={{
+                  width: 24,
+                  height: 24,
+                  marginHorizontal: 8,
+                }}
+              />
+              <View>
+                <Text style={{ color: "white", fontSize: 24 }}>AzureSiam</Text>
+              </View>
+            </View>
+          </ImageBackground>
           <LandingBigCard style={styles.bigCard}>
             <View
               style={{
                 flex: 1,
-                // justifyContent
                 marginLeft: 16,
                 marginRight: 16,
               }}
@@ -1039,7 +1064,14 @@ export default function Landing({ navigation }: any) {
 }
 
 const styles = StyleSheet.create({
-  bannerImage: { marginBottom: 16, height: 240 },
+  bannerImage: {
+    marginBottom: 16,
+    height: 240,
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "flex-end",
+  },
   container: {
     flex: 1,
     backgroundColor: "#fff",
