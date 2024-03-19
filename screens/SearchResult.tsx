@@ -10,11 +10,18 @@ import Topbar from "@/components/Topbar";
 import SummaryBar from "@/components/SummaryBar";
 import { COLORS } from "@/constants";
 dayjs().format();
-import stdroom from "assets/stdroom.jpg";
 
 export default function SearchResultPage({ navigation }: any) {
   const { bookingDetail } = useStore();
   const { t } = useTranslation();
+
+  let startDate = new Date(
+    bookingDetail.startDate.toString().split(" ").slice(0, 4).join(" ")
+  );
+
+  let endDate = new Date(
+    bookingDetail.endDate.toString().split(" ").slice(0, 4).join(" ")
+  );
 
   const generateDateList = (start: Date, end: Date): string[] => {
     let dateList: string[] = [];
@@ -26,8 +33,11 @@ export default function SearchResultPage({ navigation }: any) {
     return dateList;
   };
 
-  // const generatedDates = generateDateList(startDateFormat, endDateFormat);
-  const standardUnavailableDateList = ["01/03/2024", "04/03/2024"];
+  // bookingDetail
+  const generatedDates = generateDateList(startDate, endDate);
+  console.log(generatedDates);
+
+  const standardUnavailableDateList = ["01/03/2024", "10/03/2024"];
   const deluxeUnavailableDateList = [
     "25/01/2024",
     "26/01/2024",
@@ -69,9 +79,9 @@ export default function SearchResultPage({ navigation }: any) {
       !bookingDetail.showOnlyBalcony &&
       !bookingDetail.showOnlyDinnerPlan &&
       !bookingDetail.showOnlyJacuzzi,
-    // isAvailable: generatedDates.every(
-    //   (date) => !standardUnavailableDateList.includes(date)
-    // ),
+    isAvailable: generatedDates.every(
+      (date) => !standardUnavailableDateList.includes(date)
+    ),
     // disabledDate: standardDisabledDate,
   };
 
@@ -82,7 +92,7 @@ export default function SearchResultPage({ navigation }: any) {
     roomSize: 20,
     roomPrice: 1800,
     roomImage:
-      "https://drive.google.com/uc?export=download&id=1x-XcJq_7o3DymWHuX6wK0lSvszf9r3S1",
+      "https://drive.google.com/uc?export=download&id=1A1LakXbp0_34aEUuJiheHpQjvjkU-bgC",
     roomAmenities: [
       t("television"),
       t("air_conditioner"),
@@ -101,9 +111,9 @@ export default function SearchResultPage({ navigation }: any) {
       !bookingDetail.showOnlyDinnerPlan &&
       !bookingDetail.showOnlyJacuzzi &&
       !bookingDetail.showBelowOption1,
-    // isAvailable: generatedDates.every(
-    //   (date) => !deluxeUnavailableDateList.includes(date)
-    // ),
+    isAvailable: generatedDates.every(
+      (date) => !deluxeUnavailableDateList.includes(date)
+    ),
     // disabledDate: deluxeDisabledDate,
   };
 
@@ -134,9 +144,9 @@ export default function SearchResultPage({ navigation }: any) {
       !bookingDetail.showOnlyJacuzzi &&
       !bookingDetail.showBelowOption1 &&
       !bookingDetail.showBelowOption2,
-    // isAvailable: generatedDates.every(
-    //   (date) => !familyUnavailableDateList.includes(date)
-    // ),
+    isAvailable: generatedDates.every(
+      (date) => !familyUnavailableDateList.includes(date)
+    ),
     // disabledDate: familyDisabledDate,
   };
 
@@ -168,9 +178,9 @@ export default function SearchResultPage({ navigation }: any) {
       bookingDetail.showSuite &&
       !bookingDetail.showBelowOption1 &&
       !bookingDetail.showBelowOption2,
-    // isAvailable: generatedDates.every(
-    //   (date) => !suiteUnavailableDateList.includes(date)
-    // ),
+    isAvailable: generatedDates.every(
+      (date) => !suiteUnavailableDateList.includes(date)
+    ),
     // disabledDate: suiteDisabledDate,
   };
 
@@ -203,9 +213,9 @@ export default function SearchResultPage({ navigation }: any) {
       !bookingDetail.showBelowOption1 &&
       !bookingDetail.showBelowOption2 &&
       !bookingDetail.showBelowOption3,
-    // isAvailable: generatedDates.every(
-    //   (date) => !executiveUnavailableDateList.includes(date)
-    // ),
+    isAvailable: generatedDates.every(
+      (date) => !executiveUnavailableDateList.includes(date)
+    ),
     // disabledDate: executiveDisabledDate,
   };
 
@@ -260,7 +270,7 @@ export default function SearchResultPage({ navigation }: any) {
                 roomDetail={room.roomDetail}
                 roomType={room.roomType}
                 t={t}
-                // isAvailable={true}
+                isAvailable={room.isAvailable}
                 // disabledDate={}
               />
             ) : null

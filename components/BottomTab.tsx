@@ -152,8 +152,20 @@ export default function BottomTab({
                 <CustomDateRange />
               </View>
               <View style={styles.lowestRemarkContainer}>
-                <Text style={styles.asterisk}>*</Text>
-                <Text style={styles.lowestLabelText}>{t("lowest_price_remark")}</Text>
+                <View style={{ display: "flex", flexDirection: "column" }}>
+                  <Text style={styles.lowestLabelText}>
+                    <Text style={styles.asterisk}>*</Text>
+                    {t("lowest_price_remark")}
+                  </Text>
+                  <Text style={styles.lowestLabelText}>
+                    <Text style={styles.asterisk}>*</Text>
+                    {t("monday_and_friday_discount_remark")}
+                  </Text>
+                  <Text style={styles.lowestLabelText}>
+                    <Text style={styles.asterisk}>*</Text>
+                    {t("saturday_additional_cost_remark")}
+                  </Text>
+                </View>
               </View>
               <View style={styles.calendarModalLowerContainer}>
                 {LineBreak}
@@ -169,7 +181,7 @@ export default function BottomTab({
                       onChangeText={(text) => {
                         setBookingDetail({
                           ...bookingDetail,
-                          adultNumber: Number(text.replace(/[^0-9]/g,"")),
+                          adultNumber: Number(text.replace(/[^0-9]/g, "")),
                         });
                       }}
                       placeholder="1"
@@ -393,7 +405,7 @@ const getStyles = (height: number | undefined) => {
     },
     asterisk: {
       color: "red",
-      marginRight: 8
+      marginRight: 8,
     },
     lowestLabelText: {
       fontSize: 12,

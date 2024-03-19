@@ -19,6 +19,17 @@ import {
 } from "react-native";
 import LandingBigCard from "@/components/LandingBigCard";
 import { useFonts } from "expo-font";
+import {
+  NotoSansThai_100Thin,
+  NotoSansThai_200ExtraLight,
+  NotoSansThai_300Light,
+  NotoSansThai_400Regular,
+  NotoSansThai_500Medium,
+  NotoSansThai_600SemiBold,
+  NotoSansThai_700Bold,
+  NotoSansThai_800ExtraBold,
+  NotoSansThai_900Black,
+} from "@expo-google-fonts/noto-sans-thai";
 import AppText from "@/components/AppText";
 import React, { useEffect, useRef, useState } from "react";
 import SmallModalCard from "@/components/SmallModalCard";
@@ -57,7 +68,7 @@ const rooms = {
     ],
   },
   deluxe: {
-    uri: "https://drive.google.com/uc?export=download&id=1x-XcJq_7o3DymWHuX6wK0lSvszf9r3S1",
+    uri: "https://drive.google.com/uc?export=download&id=1A1LakXbp0_34aEUuJiheHpQjvjkU-bgC",
     images: [
       "https://www.botanicserviceroom.com/uploads/images/rooms/1580916590qf79ctC5yT.jpeg",
       "https://lebua.com/wp-content/uploads/2019/07/02.-LST_-Suites-City-View.jpg",
@@ -233,7 +244,15 @@ export default function Landing({ navigation }: any) {
   };
 
   const [fontsLoaded, fontError] = useFonts({
-    NotoSansThai: require("@/assets/fonts/NotoSansThai.ttf"),
+    NotoSansThai_100Thin,
+    NotoSansThai_200ExtraLight,
+    NotoSansThai_300Light,
+    NotoSansThai_400Regular,
+    NotoSansThai_500Medium,
+    NotoSansThai_600SemiBold,
+    NotoSansThai_700Bold,
+    NotoSansThai_800ExtraBold,
+    NotoSansThai_900Black,
   });
   if (!fontsLoaded) {
     return <Text>LOADING...</Text>;
@@ -436,13 +455,16 @@ export default function Landing({ navigation }: any) {
                   uri: "https://drive.google.com/uc?export=download&id=1HRRO45x_Bo5d_SJY_aW-USKVY2mWXo6y",
                 }}
                 style={{
-                  width: 24,
-                  height: 24,
+                  width: 30,
+                  height: 30,
                   marginHorizontal: 8,
                 }}
               />
               <View>
                 <Text style={{ color: "white", fontSize: 24 }}>AzureSiam</Text>
+                <Text style={{ color: "white", fontSize: 16 }}>
+                  {t("hotel_description")}
+                </Text>
               </View>
             </View>
           </ImageBackground>
@@ -516,32 +538,28 @@ export default function Landing({ navigation }: any) {
                       )}
                       style={styles.listRoomFeatures}
                     />
-                    <Carousel
-                      loop
-                      width={width - 16}
-                      height={width / 2}
-                      autoPlay={true}
-                      data={rooms.standard.images}
-                      scrollAnimationDuration={1000}
-                      renderItem={({ index }) => (
-                        <View
-                          style={{
-                            flex: 1,
-                            borderWidth: 1,
-                            justifyContent: "center",
-                          }}
-                        >
-                          <Image
-                            source={{ uri: rooms.standard.images[index] }}
-                            style={styles.carouselImage}
-                          />
-                        </View>
-                      )}
-                    />
-                    {/* <Image
-                      source={{ uri: rooms.standard.images[0] }}
-                      style={styles.modalImage}
-                    /> */}
+                    <View
+                      style={{
+                        marginTop: 20,
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "center",
+                        columnGap: 5,
+                      }}
+                    >
+                      <Image
+                        source={{ uri: rooms.standard.uri }}
+                        style={styles.modalImage}
+                      />
+                      <Image
+                        source={{ uri: rooms.standard.images[0] }}
+                        style={styles.modalImage}
+                      />
+                      <Image
+                        source={{ uri: rooms.standard.images[1] }}
+                        style={styles.modalImage}
+                      />
+                    </View>
                   </>
                 }
               />
@@ -574,28 +592,28 @@ export default function Landing({ navigation }: any) {
                       )}
                       style={styles.listRoomFeatures}
                     />
-                    <Carousel
-                      loop
-                      width={width - 16}
-                      height={width / 2}
-                      autoPlay={true}
-                      data={rooms.deluxe.images}
-                      scrollAnimationDuration={1000}
-                      renderItem={({ index }) => (
-                        <View
-                          style={{
-                            flex: 1,
-                            borderWidth: 1,
-                            justifyContent: "center",
-                          }}
-                        >
-                          <Image
-                            source={{ uri: rooms.deluxe.images[index] }}
-                            style={styles.carouselImage}
-                          />
-                        </View>
-                      )}
-                    />
+                    <View
+                      style={{
+                        marginTop: 20,
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "center",
+                        columnGap: 5,
+                      }}
+                    >
+                      <Image
+                        source={{ uri: rooms.deluxe.uri }}
+                        style={styles.modalImage}
+                      />
+                      <Image
+                        source={{ uri: rooms.deluxe.images[0] }}
+                        style={styles.modalImage}
+                      />
+                      <Image
+                        source={{ uri: rooms.deluxe.images[1] }}
+                        style={styles.modalImage}
+                      />
+                    </View>
                   </>
                 }
               />
@@ -613,7 +631,7 @@ export default function Landing({ navigation }: any) {
                     </AppText>
                     <FlatList
                       data={[
-                        { key: `- ${t("compact_fridge")}` },
+                        { key: `- ${t("fridge")}` },
                         { key: `- ${t("hairdryer")}` },
                         { key: `- ${t("television")}` },
                         { key: `- ${t("air_conditioner")}` },
@@ -628,30 +646,28 @@ export default function Landing({ navigation }: any) {
                       )}
                       style={styles.listRoomFeatures}
                     />
-                    <Carousel
-                      loop
-                      width={width - 16}
-                      height={width / 2}
-                      autoPlay={true}
-                      // mode=""
-                      data={rooms.family.images}
-                      scrollAnimationDuration={1000}
-                      // onSnapToItem={(index) => console.log('current index:', index)}
-                      renderItem={({ index }) => (
-                        <View
-                          style={{
-                            flex: 1,
-                            borderWidth: 1,
-                            justifyContent: "center",
-                          }}
-                        >
-                          <Image
-                            source={{ uri: rooms.family.images[index] }}
-                            style={styles.carouselImage}
-                          />
-                        </View>
-                      )}
-                    />
+                    <View
+                      style={{
+                        marginTop: 20,
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "center",
+                        columnGap: 5,
+                      }}
+                    >
+                      <Image
+                        source={{ uri: rooms.family.uri }}
+                        style={styles.modalImage}
+                      />
+                      <Image
+                        source={{ uri: rooms.family.images[0] }}
+                        style={styles.modalImage}
+                      />
+                      <Image
+                        source={{ uri: rooms.family.images[1] }}
+                        style={styles.modalImage}
+                      />
+                    </View>
                   </>
                 }
               />
@@ -667,7 +683,7 @@ export default function Landing({ navigation }: any) {
                     </AppText>
                     <FlatList
                       data={[
-                        { key: `- ${t("compact_fridge")}` },
+                        { key: `- ${t("mini_fridge")}` },
                         { key: `- ${t("hairdryer")}` },
                         { key: `- ${t("television")}` },
                         { key: `- ${t("air_conditioner")}` },
@@ -682,30 +698,28 @@ export default function Landing({ navigation }: any) {
                       )}
                       style={styles.listRoomFeatures}
                     />
-                    <Carousel
-                      loop
-                      width={width - 16}
-                      height={width / 2}
-                      autoPlay={true}
-                      // mode=""
-                      data={rooms.suite.images}
-                      scrollAnimationDuration={1000}
-                      // onSnapToItem={(index) => console.log('current index:', index)}
-                      renderItem={({ index }) => (
-                        <View
-                          style={{
-                            flex: 1,
-                            borderWidth: 1,
-                            justifyContent: "center",
-                          }}
-                        >
-                          <Image
-                            source={{ uri: rooms.suite.images[index] }}
-                            style={styles.carouselImage}
-                          />
-                        </View>
-                      )}
-                    />
+                    <View
+                      style={{
+                        marginTop: 20,
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "center",
+                        columnGap: 5,
+                      }}
+                    >
+                      <Image
+                        source={{ uri: rooms.suite.uri }}
+                        style={styles.modalImage}
+                      />
+                      <Image
+                        source={{ uri: rooms.suite.images[0] }}
+                        style={styles.modalImage}
+                      />
+                      <Image
+                        source={{ uri: rooms.suite.images[1] }}
+                        style={styles.modalImage}
+                      />
+                    </View>
                   </>
                 }
               />
@@ -723,7 +737,7 @@ export default function Landing({ navigation }: any) {
                     </AppText>
                     <FlatList
                       data={[
-                        { key: `- ${t("compact_fridge")}` },
+                        { key: `- ${t("fridge")}` },
                         { key: `- ${t("hairdryer")}` },
                         { key: `- ${t("television")}` },
                         { key: `- ${t("air_conditioner")}` },
@@ -738,28 +752,27 @@ export default function Landing({ navigation }: any) {
                       )}
                       style={styles.listRoomFeatures}
                     />
-                    <Carousel
-                      loop
-                      width={width - 16}
-                      height={width / 2}
-                      autoPlay={true}
-                      data={rooms.executive.images}
-                      scrollAnimationDuration={1000}
-                      renderItem={({ index }) => (
-                        <View
-                          style={{
-                            flex: 1,
-                            borderWidth: 1,
-                            justifyContent: "center",
-                          }}
-                        >
-                          <Image
-                            source={{ uri: rooms.executive.images[index] }}
-                            style={styles.carouselImage}
-                          />
-                        </View>
-                      )}
-                    />
+                    <View
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        rowGap: 10,
+                      }}
+                    >
+                      <Image
+                        source={{ uri: rooms.standard.uri }}
+                        style={styles.modalImage}
+                      />
+                      <Image
+                        source={{ uri: rooms.standard.images[0] }}
+                        style={styles.modalImage}
+                      />
+                      <Image
+                        source={{ uri: rooms.standard.images[1] }}
+                        style={styles.modalImage}
+                      />
+                    </View>
                   </>
                 }
               />
@@ -1079,7 +1092,7 @@ const styles = StyleSheet.create({
     // gap: 16,
   },
   bigCard: {
-    height: 160,
+    height: 350,
     marginBottom: 24,
   },
   sectionMargin: {
@@ -1087,14 +1100,19 @@ const styles = StyleSheet.create({
     paddingBottom: 16,
     // marginRight: 8,
   },
-  sectionText: { fontFamily : "NotoSansThai_600SemiBold",fontSize: 18, fontWeight: "600", marginBottom: 8 },
+  sectionText: {
+    fontFamily: "NotoSansThai_700Bold",
+    fontSize: 18,
+    fontWeight: "600",
+    marginBottom: 8,
+  },
   listText: {
-    fontFamily : "NotoSansThai_400Regular",
+    fontFamily: "NotoSansThai_400Regular",
     fontSize: 18,
   },
   landingBigCardTitle: {
-    fontFamily : "NotoSansThai_600SemiBold",
-    fontSize: 16,
+    fontSize: 12,
+    fontWeight: "bold",
     lineHeight: 30,
     marginBottom: 6,
   },
@@ -1103,13 +1121,13 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   modalTitle: {
-    fontFamily : "NotoSansThai_600SemiBold",
+    fontWeight: "bold",
     fontSize: 24,
     marginBottom: 20,
   },
   modalDescription: {
-    fontFamily : "NotoSansThai_400Regular",
-    fontSize: 18,
+    fontWeight: "normal",
+    fontSize: 16,
     marginBottom: 8,
   },
   carouselImage: {
@@ -1132,11 +1150,11 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
   },
   menuModalText: {
-    fontFamily : "NotoSansThai_400Regular",
+    fontFamily: "NotoSansThai_400Regular",
     fontSize: 20,
   },
   modalImage: {
-    width: DEVICE.WIDTH * 0.4,
+    width: DEVICE.WIDTH * 0.3,
     aspectRatio: 1.25,
   },
   listRoomFeatures: {

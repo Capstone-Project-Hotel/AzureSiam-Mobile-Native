@@ -9,8 +9,6 @@ import {
   ViewStyle,
 } from "react-native";
 import React, { useState } from "react";
-import Card from "./Card";
-import AppText from "./AppText";
 import AntDesign from "@expo/vector-icons/AntDesign";
 
 export default function SmallModalCard({
@@ -31,6 +29,7 @@ export default function SmallModalCard({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleOpen = () => setIsModalOpen(true);
   const handleClose = () => setIsModalOpen(false);
+
   return (
     <>
       <TouchableOpacity onPress={handleOpen}>{cardContent}</TouchableOpacity>
