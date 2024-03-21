@@ -195,10 +195,7 @@ export default function RoomCard({
               <RangeDatepicker
                 size="small"
                 style={{ width: 250 }}
-                range={{
-                  startDate: bookingDetail.startDate,
-                  endDate: bookingDetail.endDate,
-                }}
+                range={range}
                 filter={disabledDate}
                 onSelect={(nextRange: any) => {
                   setRange(nextRange);
