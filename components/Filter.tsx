@@ -14,6 +14,7 @@ import { format } from "date-fns";
 import { COLORS } from "@/constants";
 import { Feather } from "@expo/vector-icons";
 
+const initialDate = new Date();
 const getSelectValue = (
   selectedIndexPaths: IndexPath[] | IndexPath,
   data: string[]
@@ -35,10 +36,26 @@ export default function Filter({ t }: any) {
 
   const [hidden, setHidden] = useState(false);
 
-  const [range, setRange] = React.useState<CalendarRange<string>>({
+  // no room in that day
+  const disabledDates = [new Date("2024-02-10")];
+  const [myDisabledDates, setMyDisabledDates] = useState<any[]>(disabledDates);
+
+  const [range, setRange] = React.useState<CalendarRange<Date>>({
     startDate: bookingDetail.startDate,
     endDate: bookingDetail.endDate,
   });
+
+  const filter = (date: Date): boolean => {
+    const currentDateFormatted = format(new Date(), "dd/MM/yyyy");
+
+    const disabledDatesFormat = myDisabledDates.map((d) =>
+      format(d, "dd/MM/yyyy")
+    );
+    return (
+      format(date, "dd/MM/yyyy") >= currentDateFormatted &&
+      !disabledDatesFormat.includes(format(date, "dd/MM/yyyy"))
+    );
+  };
 
   const [selectedIndexForRoomTypes, setSelectedIndexForRoomTypes] =
     React.useState<IndexPath | IndexPath[]>([
@@ -98,11 +115,11 @@ export default function Filter({ t }: any) {
           >
             {t("booking_detail")}
           </Text>
-          {/* <Text style={{ color: "white" }}>Check-in date & Check-out date</Text> */}
           <RangeDatepicker
             size="small"
             style={{ width: 250 }}
             range={range}
+            filter={filter}
             onSelect={(nextRange: any) => {
               setRange(nextRange);
 

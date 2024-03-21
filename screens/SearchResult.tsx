@@ -18,6 +18,8 @@ import Topbar from "@/components/Topbar";
 import SummaryBar from "@/components/SummaryBar";
 import { COLORS, DEVICE } from "@/constants";
 import AppText from "@/components/AppText";
+import { format } from "date-fns";
+import { useState } from "react";
 dayjs().format();
 
 const rooms = {
@@ -83,22 +85,93 @@ export default function SearchResultPage({ navigation }: any) {
   // bookingDetail
   const generatedDates = generateDateList(startDate, endDate);
 
-  const standardUnavailableDateList = ["01/03/2024", "10/03/2024"];
-  const deluxeUnavailableDateList = [
-    "25/01/2024",
-    "26/01/2024",
-    "28/01/2024",
-    "29/01/2024",
-    "14/02/2024",
-    "15/02/2024",
-  ];
-  const familyUnavailableDateList = ["25/01/2024", "26/01/2024", "28/01/2024"];
-  const suiteUnavailableDateList = ["25/01/2024", "26/01/2024", "28/01/2024"];
-  const executiveUnavailableDateList = [
-    "25/01/2024",
-    "26/01/2024",
-    "28/01/2024",
-  ];
+  const standardDisabledDateList = [new Date("2024-03-22")];
+  const standardUnavailableDateList = standardDisabledDateList.map((date) =>
+    format(date, "dd/MM/yyyy")
+  );
+  const deluxeDisabledDateList = [new Date("2024-03-22")];
+  const deluxeUnavailableDateList = deluxeDisabledDateList.map((date) =>
+    format(date, "dd/MM/yyyy")
+  );
+  const familyDisabledDateList = [new Date("2024-03-22")];
+  const familyUnavailableDateList = familyDisabledDateList.map((date) =>
+    format(date, "dd/MM/yyyy")
+  );
+  const suiteDisabledDateList = [new Date("2024-03-22")];
+  const suiteUnavailableDateList = suiteDisabledDateList.map((date) =>
+    format(date, "dd/MM/yyyy")
+  );
+  const executiveDisabledDateList = [new Date("2024-03-22")];
+  const executiveUnavailableDateList = executiveDisabledDateList.map((date) =>
+    format(date, "dd/MM/yyyy")
+  );
+
+  const [standardDisabledDates, setStandardDisabledDates] = useState<any[]>(
+    standardDisabledDateList
+  );
+  const [deluxeDisabledDates, setDeluxeDisabledDates] = useState<any[]>(
+    deluxeDisabledDateList
+  );
+  const [familyDisabledDates, setFamilyDisabledDates] = useState<any[]>(
+    familyDisabledDateList
+  );
+  const [suiteDisabledDates, setSuiteDisabledDates] = useState<any[]>(
+    suiteDisabledDateList
+  );
+  const [executiveDisabledDates, setExecutiveDisabledDates] = useState<any[]>(
+    executiveDisabledDateList
+  );
+
+  const standardDisabledDate = (date: Date): boolean => {
+    const currentDateFormatted = format(new Date(), "dd/MM/yyyy");
+    const disabledDatesFormat = standardDisabledDates.map((d) =>
+      format(d, "dd/MM/yyyy")
+    );
+    return (
+      format(date, "dd/MM/yyyy") >= currentDateFormatted &&
+      !disabledDatesFormat.includes(format(date, "dd/MM/yyyy"))
+    );
+  };
+  const deluxeDisabledDate = (date: Date): boolean => {
+    const currentDateFormatted = format(new Date(), "dd/MM/yyyy");
+    const disabledDatesFormat = deluxeDisabledDates.map((d) =>
+      format(d, "dd/MM/yyyy")
+    );
+    return (
+      format(date, "dd/MM/yyyy") >= currentDateFormatted &&
+      !disabledDatesFormat.includes(format(date, "dd/MM/yyyy"))
+    );
+  };
+  const familyDisabledDate = (date: Date): boolean => {
+    const currentDateFormatted = format(new Date(), "dd/MM/yyyy");
+    const disabledDatesFormat = familyDisabledDates.map((d) =>
+      format(d, "dd/MM/yyyy")
+    );
+    return (
+      format(date, "dd/MM/yyyy") >= currentDateFormatted &&
+      !disabledDatesFormat.includes(format(date, "dd/MM/yyyy"))
+    );
+  };
+  const suiteDisabledDate = (date: Date): boolean => {
+    const currentDateFormatted = format(new Date(), "dd/MM/yyyy");
+    const disabledDatesFormat = suiteDisabledDates.map((d) =>
+      format(d, "dd/MM/yyyy")
+    );
+    return (
+      format(date, "dd/MM/yyyy") >= currentDateFormatted &&
+      !disabledDatesFormat.includes(format(date, "dd/MM/yyyy"))
+    );
+  };
+  const executiveDisabledDate = (date: Date): boolean => {
+    const currentDateFormatted = format(new Date(), "dd/MM/yyyy");
+    const disabledDatesFormat = executiveDisabledDates.map((d) =>
+      format(d, "dd/MM/yyyy")
+    );
+    return (
+      format(date, "dd/MM/yyyy") >= currentDateFormatted &&
+      !disabledDatesFormat.includes(format(date, "dd/MM/yyyy"))
+    );
+  };
 
   const mockStandardRoomInformation = {
     roomName: t("std_title"),
@@ -128,7 +201,7 @@ export default function SearchResultPage({ navigation }: any) {
     isAvailable: generatedDates.every(
       (date) => !standardUnavailableDateList.includes(date)
     ),
-    // disabledDate: standardDisabledDate,
+    disabledDate: standardDisabledDate,
   };
 
   const mockDeluxeRoomInformation = {
@@ -160,7 +233,7 @@ export default function SearchResultPage({ navigation }: any) {
     isAvailable: generatedDates.every(
       (date) => !deluxeUnavailableDateList.includes(date)
     ),
-    // disabledDate: deluxeDisabledDate,
+    disabledDate: deluxeDisabledDate,
   };
 
   const mockFamilyRoomInformation = {
@@ -193,7 +266,7 @@ export default function SearchResultPage({ navigation }: any) {
     isAvailable: generatedDates.every(
       (date) => !familyUnavailableDateList.includes(date)
     ),
-    // disabledDate: familyDisabledDate,
+    disabledDate: familyDisabledDate,
   };
 
   const mockSuiteRoomInformation = {
@@ -227,7 +300,7 @@ export default function SearchResultPage({ navigation }: any) {
     isAvailable: generatedDates.every(
       (date) => !suiteUnavailableDateList.includes(date)
     ),
-    // disabledDate: suiteDisabledDate,
+    disabledDate: suiteDisabledDate,
   };
 
   const mockExecutiveRoomInformation = {
@@ -262,7 +335,7 @@ export default function SearchResultPage({ navigation }: any) {
     isAvailable: generatedDates.every(
       (date) => !executiveUnavailableDateList.includes(date)
     ),
-    // disabledDate: executiveDisabledDate,
+    disabledDate: executiveDisabledDate,
   };
 
   const mockRoomInformation = [
@@ -317,6 +390,7 @@ export default function SearchResultPage({ navigation }: any) {
                 roomType={room.roomType}
                 t={t}
                 isAvailable={room.isAvailable}
+                disabledDate={room.disabledDate}
                 modalContent={
                   <>
                     <AppText styles={styles.modalTitle}>

@@ -30,7 +30,7 @@ export default function RoomCard({
   modalStyle,
   transparent = false,
   animationType = "fade",
-  //   disabledDate,
+  disabledDate,
   t,
 }: {
   roomName: string;
@@ -48,7 +48,7 @@ export default function RoomCard({
   modalStyle?: StyleProp<ViewStyle>;
   transparent?: boolean;
   animationType?: "none" | "slide" | "fade" | undefined;
-  //   disabledDate: string;
+  disabledDate: (date: Date) => boolean;
   t: any;
 }) {
   const { bookingDetail, setBookingDetail, currency, exchangeRate } =
@@ -58,7 +58,7 @@ export default function RoomCard({
   const handleOpen = () => setIsModalOpen(true);
   const handleClose = () => setIsModalOpen(false);
 
-  const [range, setRange] = React.useState<CalendarRange<string>>({
+  const [range, setRange] = React.useState<CalendarRange<Date>>({
     startDate: bookingDetail.startDate,
     endDate: bookingDetail.endDate,
   });
@@ -191,6 +191,7 @@ export default function RoomCard({
                 size="small"
                 style={{ width: 250 }}
                 range={range}
+                // filter={disabledDate}
                 onSelect={(nextRange: any) => {
                   setRange(nextRange);
 
