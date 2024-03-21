@@ -45,6 +45,7 @@
     "react-native-reanimated-carousel": "3.5.1",
     "react-native-scroll-into-view": "^2.0.2",
     "react-native-svg": "14.1.0",
+    "react-native-toast-message": "^2.2.0",
     "react-native-web": "~0.19.6",
     "zustand": "4.5.0"
   },
