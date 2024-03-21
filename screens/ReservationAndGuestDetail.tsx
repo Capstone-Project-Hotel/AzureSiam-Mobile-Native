@@ -1,5 +1,6 @@
 import { COLORS } from "@/constants";
 import useStore from "@/hooks/useStore";
+import Toast from "react-native-toast-message";
 import {
   Input,
   Select,
@@ -12,6 +13,7 @@ import {
   Button,
 } from "@ui-kitten/components";
 import { useEffect, useRef, useState } from "react";
+import { Ionicons } from "@expo/vector-icons";
 import {
   View,
   Text,
@@ -29,6 +31,7 @@ import { addDays } from "date-fns";
 import Topbar from "@/components/Topbar";
 import { useTranslation } from "react-i18next";
 import SummaryBar from "@/components/SummaryBar";
+import AppText from "@/components/AppText";
 
 export default function ReservationAndGuestDetailPage({ navigation }: any) {
   const {
@@ -42,6 +45,14 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
     setSpecialReq,
     cardType,
     setCardType,
+    guestsError,
+    setGuestsError,
+    lng,
+    paymentError,
+    setPaymentError,
+    setPaymentError2,
+    setCheckboxError,
+    checkboxError,
   } = useStore();
 
   const { t } = useTranslation();
@@ -55,7 +66,7 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
     return country.isoCode;
   });
   const phoneInput = useRef<PhoneInput>(null);
-  const idTypeToid = {
+  const idTypeToid: any = {
     id: t("national_id"),
     passportNumber: t("passport_number"),
     drivingLicence: t("driving_licence"),
@@ -75,6 +86,30 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
     id: "",
     idType: "",
   };
+
+  const formatGuestDetail: any = {
+    firstName: t("first_name"),
+    lastName: t("last_name"),
+    gender: t("gender"),
+    birthDate: t("birthdate"),
+    email: t("email"),
+    phoneNumber: t("phone_number"),
+    country: t("country"),
+    zipCode: t("zip_code"),
+    address: t("address"),
+    id: t("id"),
+  };
+
+  const formatPaymentDetail: any = {
+    cardHolderName: t("card_holder"),
+    cardNumber: t("card_number"),
+    expDate: t("expiration_date"),
+    cvv: t("cvv"),
+  };
+
+  const zipCodeRegex = /^\d{5}(?:[-\s]\d{4})?$/;
+  const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+
   const cardTypeToCardImg = {
     amex: "https://cdn.discordapp.com/attachments/457166097230069773/1186233714523512852/vinnytsia-ukraine-september-6-2023-600nw-2358048941.webp?ex=6592813c&is=65800c3c&hm=b37ff0d726d6a4b7c5994550407f23d9a6401cfb3fa44696c5425531b322b02d&",
     visa: "https://swissuplabs.com/wordpress/wp-content/uploads/2016/04/free-icons-visa.png",
@@ -111,6 +146,43 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
     updatedGuests[index] = { ...updatedGuests[index], [name]: value };
     setGuests(updatedGuests);
     isDisabledConfirmF(updatedGuests, paymentDetail);
+    let ud = guestsError;
+    if (value === "") {
+      ud[index] = {
+        ...ud[index],
+        [name]:
+          name === "id"
+            ? idTypeToid[guests[index].idType] + t("isRequired")
+            : formatGuestDetail[name] + t("isRequired"),
+      };
+      setGuestsError(ud);
+    } else if (name === "zipCode") {
+      const zipCode = value;
+      const isValid = zipCodeRegex.test(zipCode);
+      if (!isValid) {
+        ud[index] = { ...ud[index], zipCode: t("zipCodeFormat") };
+        setGuestsError(ud);
+      } else {
+        ud[index] = { ...ud[index], zipCode: "" };
+        setGuestsError(ud);
+      }
+    } else if (name === "email") {
+      const email = value;
+      const isValid = emailRegex.test(email);
+      if (!isValid) {
+        ud[index] = { ...ud[index], email: t("emailFormat") };
+        setGuestsError(ud);
+      } else {
+        ud[index] = { ...ud[index], email: "" };
+        setGuestsError(ud);
+      }
+    } else {
+      ud[index] = {
+        ...ud[index],
+        [name]: "",
+      };
+      setGuestsError(ud);
+    }
   };
 
   const handlePaymentInputChange = (value: string, name: string) => {
@@ -169,6 +241,34 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
     isDisabledConfirmF(guests, paymentDetail);
   }, [bookingDetail.isCheckedPDPA, guests.length]);
 
+  useEffect(() => {
+    const emptyGuestError: GuestError = {
+      firstName: "",
+      lastName: "",
+      gender: "",
+      birthDate: "",
+      email: "",
+      phoneNumber: "",
+      country: "",
+      zipCode: "",
+      address: "",
+      idType: "",
+      id: "",
+    };
+    const guestsErrorNew = guestsError.map(() => emptyGuestError);
+    setGuestsError(guestsErrorNew);
+
+    const emptyPaymentError: PaymentError = {
+      cardHolderName: "",
+      cardNumber: "",
+      expDate: "",
+      cvv: "",
+    };
+    setPaymentError(emptyPaymentError);
+
+    setCheckboxError("");
+  }, []);
+
   const [countryCode, setCountryCode] = useState("");
   const [city, setCity] = useState<any[]>([]);
   useEffect(() => {
@@ -180,7 +280,7 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
   }, [countryCode]);
 
   return (
-    <View style={{ marginBottom: 120 }}>
+    <View style={{ marginBottom: 120, zIndex: -10 }}>
       <Topbar
         landingHandler={() => {
           navigation.navigate("Landing");
@@ -193,20 +293,6 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
           // marginBottom: 0,
         }}
       >
-        <View>
-          {/* <Text>
-            Button check :
-            {isDisabledConfirm || !bookingDetail.isCheckedPDPA
-              ? "disable"
-              : "go next"}
-          </Text> */}
-          {/* <Button
-            disabled={isDisabledConfirm || !bookingDetail.isCheckedPDPA}
-            onPress={() => navigation.navigate("Summary Booking Detail")}
-          >
-            Confirm
-          </Button> */}
-        </View>
         {/* Additional Services */}
         <View style={styles.container}>
           <View>
@@ -396,11 +482,28 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
                     </Text>
                     <Input
                       placeholder={t("first_name")}
+                      status={
+                        guestsError[index].firstName ? "danger" : undefined
+                      }
                       value={guest.firstName}
                       onChangeText={(nextValue) =>
                         handleInputChange(index, nextValue, "firstName")
                       }
                     />
+                    {guestsError[index].firstName && (
+                      <View
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Ionicons name="alert-circle" size={20} color="red" />
+                        <AppText styles={styles.error}>
+                          {guestsError[index].firstName}
+                        </AppText>
+                      </View>
+                    )}
                   </View>
 
                   {/* Middle Name */}
@@ -424,10 +527,27 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
                     <Input
                       placeholder={t("last_name")}
                       value={guest.lastName}
+                      status={
+                        guestsError[index].lastName ? "danger" : undefined
+                      }
                       onChangeText={(nextValue) =>
                         handleInputChange(index, nextValue, "lastName")
                       }
                     />
+                    {guestsError[index].lastName && (
+                      <View
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Ionicons name="alert-circle" size={20} color="red" />
+                        <AppText styles={styles.error}>
+                          {guestsError[index].lastName}
+                        </AppText>
+                      </View>
+                    )}
                   </View>
 
                   {/* Gender */}
@@ -442,11 +562,26 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
                       }
                       value={t(guest.gender)}
                       placeholder={t("gender_default")}
+                      status={guestsError[index].gender ? "danger" : undefined}
                     >
                       <SelectItem title={t("male")} />
                       <SelectItem title={t("female")} />
                       <SelectItem title={t("other")} />
                     </Select>
+                    {guestsError[index].gender && (
+                      <View
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Ionicons name="alert-circle" size={20} color="red" />
+                        <AppText styles={styles.error}>
+                          {guestsError[index].gender}
+                        </AppText>
+                      </View>
+                    )}
                   </View>
 
                   {/* Birth Date */}
@@ -460,11 +595,26 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
                       max={addDays(new Date(), 999999)}
                       placeholder={t("birthdate_default")}
                       date={guest.birthDate ? new Date(guest.birthDate) : null}
+                      status={guestsError[index].gender ? "danger" : undefined}
                       onSelect={(nextDate: any) => {
                         handleInputChange(index, nextDate, "birthDate");
                       }}
                       accessoryRight={<Icon name="calendar" />}
                     />
+                    {guestsError[index].birthDate && (
+                      <View
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Ionicons name="alert-circle" size={20} color="red" />
+                        <AppText styles={styles.error}>
+                          {guestsError[index].birthDate}
+                        </AppText>
+                      </View>
+                    )}
                   </View>
 
                   {/* Email */}
@@ -476,10 +626,25 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
                     <Input
                       placeholder={t("email")}
                       value={guest.email}
+                      status={guestsError[index].gender ? "danger" : undefined}
                       onChangeText={(nextValue) =>
                         handleInputChange(index, nextValue, "email")
                       }
                     />
+                    {guestsError[index].email && (
+                      <View
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Ionicons name="alert-circle" size={20} color="red" />
+                        <AppText styles={styles.error}>
+                          {guestsError[index].email}
+                        </AppText>
+                      </View>
+                    )}
                   </View>
 
                   {/* Phone Number */}
@@ -498,13 +663,34 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
                         handleInputChange(index, text, "phoneNumber")
                       }
                       containerStyle={{
-                        height: 35,
+                        height: 36,
                         width: "100%",
                         marginTop: 2,
+                        borderColor: guestsError[index].phoneNumber
+                          ? "red"
+                          : undefined,
+                        borderWidth: guestsError[index].phoneNumber ? 1 : 0,
+                        borderStyle: guestsError[index].phoneNumber
+                          ? "solid"
+                          : undefined,
                       }}
                       textInputStyle={{ height: 35, paddingLeft: 10 }}
                       codeTextStyle={{ height: 21 }}
                     />
+                    {guestsError[index].phoneNumber && (
+                      <View
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Ionicons name="alert-circle" size={20} color="red" />
+                        <AppText styles={styles.error}>
+                          {guestsError[index].phoneNumber}
+                        </AppText>
+                      </View>
+                    )}
                   </View>
 
                   {/* Country */}
@@ -519,6 +705,7 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
                         setCountryCode(countriesCode[i.row]);
                       }}
                       value={guest.country}
+                      status={guestsError[index].country ? "danger" : undefined}
                       placeholder={t("country_default")}
                     >
                       {Country.getAllCountries().map((country: any) => {
@@ -527,6 +714,20 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
                         );
                       })}
                     </Select>
+                    {guestsError[index].country && (
+                      <View
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Ionicons name="alert-circle" size={20} color="red" />
+                        <AppText styles={styles.error}>
+                          {guestsError[index].country}
+                        </AppText>
+                      </View>
+                    )}
                   </View>
 
                   {/* City */}
@@ -554,10 +755,25 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
                     <Input
                       placeholder={t("zip_code")}
                       value={guest.zipCode}
+                      status={guestsError[index].zipCode ? "danger" : undefined}
                       onChangeText={(nextValue) =>
                         handleInputChange(index, nextValue, "zipCode")
                       }
                     />
+                    {guestsError[index].zipCode && (
+                      <View
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Ionicons name="alert-circle" size={20} color="red" />
+                        <AppText styles={styles.error}>
+                          {guestsError[index].zipCode}
+                        </AppText>
+                      </View>
+                    )}
                   </View>
 
                   {/* Address */}
@@ -569,10 +785,25 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
                     <Input
                       placeholder={t("address")}
                       value={guest.address}
+                      status={guestsError[index].address ? "danger" : undefined}
                       onChangeText={(nextValue) =>
                         handleInputChange(index, nextValue, "address")
                       }
                     />
+                    {guestsError[index].address && (
+                      <View
+                        style={{
+                          display: "flex",
+                          flexDirection: "row",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Ionicons name="alert-circle" size={20} color="red" />
+                        <AppText styles={styles.error}>
+                          {guestsError[index].address}
+                        </AppText>
+                      </View>
+                    )}
                   </View>
 
                   {/* ID , Passport Number , Driving Licence */}
@@ -586,6 +817,9 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
                         onSelect={(i: any) =>
                           handleInputChange(index, items2[i.row], "idType")
                         }
+                        status={
+                          guestsError[index].idType ? "danger" : undefined
+                        }
                         value={
                           guest.idType
                             ? (idTypeToid as any)[guest["idType"]]
@@ -597,17 +831,46 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
                         <SelectItem title={t("passport_number")} />
                         <SelectItem title={t("driving_licence")} />
                       </Select>
+                      {guestsError[index].idType && (
+                        <View
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Ionicons name="alert-circle" size={20} color="red" />
+                          <AppText styles={styles.error}>
+                            {guestsError[index].idType}
+                          </AppText>
+                        </View>
+                      )}
                       <Input
                         placeholder={
                           guest.idType
                             ? (idTypeToid as any)[guest["idType"]]
                             : t("id_card_number")
                         }
+                        status={guestsError[index].id ? "danger" : undefined}
                         value={guest.id}
                         onChangeText={(nextValue) =>
                           handleInputChange(index, nextValue, "id")
                         }
                       />
+                      {guestsError[index].id && (
+                        <View
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Ionicons name="alert-circle" size={20} color="red" />
+                          <AppText styles={styles.error}>
+                            {guestsError[index].id}
+                          </AppText>
+                        </View>
+                      )}
                     </View>
                   </View>
 
@@ -671,7 +934,22 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
                 onChangeText={(nextValue) =>
                   handlePaymentInputChange(nextValue, "cardHolderName")
                 }
+                status={paymentError.cardHolderName ? "danger" : undefined}
               />
+              {paymentError.cardHolderName && (
+                <View
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                  }}
+                >
+                  <Ionicons name="alert-circle" size={20} color="red" />
+                  <AppText styles={styles.error}>
+                    {paymentError.cardHolderName}
+                  </AppText>
+                </View>
+              )}
             </View>
 
             {/* Card Number */}
@@ -755,6 +1033,7 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
               <Input
                 placeholder={t("card_number")}
                 value={paymentDetail.cardNumber}
+                status={paymentError.cardNumber ? "danger" : undefined}
                 onChangeText={(nextValue) => {
                   handlePaymentInputChange(nextValue, "cardNumber");
                   if (nextValue.slice(0, 1) == "4") {
@@ -770,6 +1049,20 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
                   }
                 }}
               />
+              {paymentError.cardNumber && (
+                <View
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                  }}
+                >
+                  <Ionicons name="alert-circle" size={20} color="red" />
+                  <AppText styles={styles.error}>
+                    {paymentError.cardNumber}
+                  </AppText>
+                </View>
+              )}
             </View>
 
             {/* Exp Date */}
@@ -782,10 +1075,25 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
                 accessoryRight={<Icon name="calendar" />}
                 placeholder={t("expiration_date")}
                 value={paymentDetail.expDate}
+                status={paymentError.expDate ? "danger" : undefined}
                 onChangeText={(nextValue) =>
                   handlePaymentInputChange(nextValue, "expDate")
                 }
               />
+              {paymentError.expDate && (
+                <View
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                  }}
+                >
+                  <Ionicons name="alert-circle" size={20} color="red" />
+                  <AppText styles={styles.error}>
+                    {paymentError.expDate}
+                  </AppText>
+                </View>
+              )}
             </View>
 
             {/* CVV */}
@@ -800,10 +1108,23 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
                 placeholder={t("cvv")}
                 value={paymentDetail.cvv}
                 maxLength={3}
+                status={paymentError.cvv ? "danger" : undefined}
                 onChangeText={(nextValue) =>
                   handlePaymentInputChange(nextValue, "cvv")
                 }
               />
+              {paymentError.cvv && (
+                <View
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                  }}
+                >
+                  <Ionicons name="alert-circle" size={20} color="red" />
+                  <AppText styles={styles.error}>{paymentError.cvv}</AppText>
+                </View>
+              )}
             </View>
           </View>
         </View>
@@ -864,8 +1185,10 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
                   isCheckedPDPA: nextChecked,
                 });
               }}
+              status={checkboxError ? "danger" : undefined}
               style={styles.checkbox}
             />
+
             <View
               style={{ padding: 10, display: "flex", flexDirection: "row" }}
             >
@@ -885,6 +1208,18 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
               </TouchableOpacity>
             </View>
           </View>
+          {checkboxError && (
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
+              <Ionicons name="alert-circle" size={20} color="red" />
+              <AppText styles={styles.error}>{checkboxError}</AppText>
+            </View>
+          )}
         </View>
         {/* Modal PDPA */}
         <Modal
@@ -938,10 +1273,60 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
           navigation.navigate("Reservation And Guest Detail");
         }}
         summaryBookingDetailHandler={() => {
-          navigation.navigate("Summary Booking Detail");
+          let isFormFull = true;
+
+          guests.map((guest, index) => {
+            Object.keys(guest).map((guestKey) => {
+              if ((guests[index] as any)[guestKey] === "") {
+                if (guestKey !== "middleName" && guestKey !== "city")
+                  isFormFull = false;
+                let ud = guestsError;
+                ud[index] = {
+                  ...ud[index],
+                  [guestKey]:
+                    guestKey === "id" || guestKey === "idType"
+                      ? lng === "English"
+                        ? "This input" + t("isRequired")
+                        : "อินพุตนี้" + t("isRequired")
+                      : formatGuestDetail[guestKey] + t("isRequired"),
+                };
+                setGuestsError(ud);
+              }
+            });
+          });
+          Object.keys(paymentError).map((paymentDetailKey) => {
+            if ((paymentDetail as any)[paymentDetailKey] === "") {
+              isFormFull = false;
+              setPaymentError2(
+                paymentDetailKey,
+                formatPaymentDetail[paymentDetailKey] + t("isRequired")
+              );
+            }
+          });
+          if (!bookingDetail.isCheckedPDPA) {
+            lng == "English"
+              ? setCheckboxError("Checkbox is required")
+              : setCheckboxError("จำเป็นต้องทำเครื่องหมายในช่อง");
+          } else {
+            setCheckboxError("");
+          }
+          if (isFormFull && bookingDetail.isCheckedPDPA) {
+            navigation.navigate("Summary Booking Detail");
+          } else {
+            Toast.show({
+              type: "error",
+              text1:
+                lng == "English"
+                  ? "Some required field is empty"
+                  : "ช่องที่ต้องกรอกบางช่องว่างเปล่า",
+              text1Style: { fontWeight: "bold", fontSize: 16 },
+              position: "bottom",
+            });
+          }
         }}
         isDisabledConfirm={isDisabledConfirm}
       />
+      <Toast />
     </View>
   );
 }
@@ -958,8 +1343,8 @@ const styles = StyleSheet.create({
   text: { fontSize: 11 },
   checkboxContainer: {
     flexDirection: "row",
-    marginBottom: 20,
-    padding: 5,
+    marginBottom: 0,
+    padding: 0,
   },
   checkbox: {
     alignSelf: "center",
@@ -972,5 +1357,11 @@ const styles = StyleSheet.create({
   },
   modalText: {
     fontSize: 11,
+  },
+  error: {
+    color: "#FF0000",
+    fontSize: 12,
+    fontWeight: "normal",
+    marginLeft: 4,
   },
 });
