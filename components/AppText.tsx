@@ -55,11 +55,6 @@ const NUMBER_WEIGHT_REGEX = /^[1-9]00$/;
 
 const getFontFamily = (weight: FONT_WEIGHT) => {
   let family;
-  // if(Platform.OS === "ios"){
-
-  // }else{
-
-  // }
   if (NUMBER_WEIGHT_REGEX.test(weight)) {
     family = FONT_FAMILY[Number(weight.toString()[0]) - 1];
   } else {
