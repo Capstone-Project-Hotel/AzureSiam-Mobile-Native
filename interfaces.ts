@@ -48,3 +48,24 @@ interface Guest {
     showBelowOption2: boolean;
     showBelowOption3: boolean;
   }
+
+  interface GuestError {
+    firstName: string;
+    lastName: string;
+    gender: string;
+    birthDate: string;
+    email: string;
+    phoneNumber: string;
+    country: string;
+    zipCode: string;
+    address: string;
+    idType: string;
+    id: string;
+  }
+  
+  interface PaymentError {
+    cardHolderName: string;
+    cardNumber: string;
+    expDate: string;
+    cvv: string;
+  }
