@@ -1,8 +1,18 @@
-import { COLORS } from "@/constants";
 import useStore from "@/hooks/useStore";
 import { Button, CalendarRange, RangeDatepicker } from "@ui-kitten/components";
 import React, { useState } from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  Modal,
+  StyleSheet,
+  ViewStyle,
+  StyleProp,
+} from "react-native";
+import { AntDesign } from "@expo/vector-icons";
+import { COLORS, DEVICE } from "@/constants";
 
 export default function RoomCard({
   roomName,
@@ -15,6 +25,11 @@ export default function RoomCard({
   roomDetail,
   roomType,
   isAvailable,
+  modalContent,
+  modalContentStyle,
+  modalStyle,
+  transparent = false,
+  animationType = "fade",
   //   disabledDate,
   t,
 }: {
@@ -28,11 +43,20 @@ export default function RoomCard({
   roomDetail: string;
   roomType: string;
   isAvailable: boolean;
+  modalContent?: React.ReactNode;
+  modalContentStyle?: StyleProp<ViewStyle>;
+  modalStyle?: StyleProp<ViewStyle>;
+  transparent?: boolean;
+  animationType?: "none" | "slide" | "fade" | undefined;
   //   disabledDate: string;
   t: any;
 }) {
   const { bookingDetail, setBookingDetail, currency, exchangeRate } =
     useStore();
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleOpen = () => setIsModalOpen(true);
+  const handleClose = () => setIsModalOpen(false);
 
   const [range, setRange] = React.useState<CalendarRange<string>>({
     startDate: bookingDetail.startDate,
@@ -52,8 +76,6 @@ export default function RoomCard({
     };
     setBookingDetail(updatedBookingDetail);
   };
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <>
@@ -107,14 +129,15 @@ export default function RoomCard({
             <Text style={{ fontSize: 14 }}>
               {t("size")}: {roomSize} m&sup2;
             </Text>
-
-            {/* <TouchableOpacity
+            <TouchableOpacity
               onPress={() => {
-                setIsModalOpen(true);
+                handleOpen();
               }}
             >
-              <Text style={{ fontSize: 14 }}>{t("show_more")}</Text>
-            </TouchableOpacity> */}
+              <Text style={{ fontSize: 16, color: COLORS.SECONDARY }}>
+                {t("show_more")}
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
         <View
@@ -193,19 +216,129 @@ export default function RoomCard({
           )}
         </View>
       </View>
+      <Modal
+        animationType={animationType}
+        transparent={transparent}
+        visible={isModalOpen}
+      >
+        <View style={[styles.container, modalStyle]}>
+          <View style={[styles.modalContent, modalContentStyle]}>
+            <AntDesign
+              name="close"
+              style={{
+                alignSelf: "flex-end",
+              }}
+              size={40}
+              onPress={handleClose}
+            />
+            {modalContent}
+          </View>
+        </View>
+      </Modal>
     </>
   );
 }
 
-// const styles = StyleSheet.create({
-//   container: {
-//     // backgroundColor: "rgb(25, 90, 90)",
-//     flex: 1,
-//   },
-//   modalContent: {
-//     margin: 8,
-//   },
-//   // title: {
-//   //   fontWeight: "900",
-//   // },
-// });
+const styles = StyleSheet.create({
+  bannerImage: {
+    marginBottom: 16,
+    height: 240,
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "flex-end",
+  },
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    // alignItems: "center",
+    // gap: 16,
+  },
+  bigCard: {
+    height: 350,
+    marginBottom: 24,
+  },
+  sectionMargin: {
+    paddingLeft: 8,
+    paddingBottom: 16,
+    // marginRight: 8,
+  },
+  sectionText: {
+    fontFamily: "NotoSansThai_700Bold",
+    fontSize: 18,
+    fontWeight: "600",
+    marginBottom: 8,
+  },
+  listText: {
+    fontFamily: "NotoSansThai_400Regular",
+    fontSize: 18,
+  },
+  landingBigCardTitle: {
+    fontSize: 12,
+    fontWeight: "bold",
+    lineHeight: 30,
+    marginBottom: 6,
+  },
+  landingBigCardDescription: {
+    fontWeight: "normal",
+    fontSize: 12,
+  },
+  modalTitle: {
+    fontWeight: "bold",
+    fontSize: 24,
+    marginBottom: 20,
+  },
+  modalDescription: {
+    fontWeight: "normal",
+    fontSize: 16,
+    marginBottom: 8,
+  },
+  carouselImage: {
+    flex: 1,
+    borderColor: "black",
+    borderWidth: 0,
+  },
+  bottomScrollSpace: {
+    height: 40,
+  },
+  menuModalContainer: {
+    paddingHorizontal: 30,
+    paddingVertical: 15,
+    display: "flex",
+    flexDirection: "row",
+    columnGap: 20,
+    alignItems: "center",
+    borderBottomColor: "gray",
+    borderBottomWidth: 1,
+    borderStyle: "solid",
+  },
+  menuModalText: {
+    fontFamily: "NotoSansThai_400Regular",
+    fontSize: 20,
+  },
+  modalImage: {
+    width: DEVICE.WIDTH * 0.3,
+    aspectRatio: 1.25,
+  },
+  listRoomFeatures: {
+    marginBottom: 8,
+  },
+  centerScreenModalStyle: {
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0,0,0,0.5)",
+  },
+  centerScreenModalContentStyle: {
+    width: "75%",
+    borderRadius: 8,
+    borderWidth: 2,
+    // paddingTop: 8,
+    paddingHorizontal: 8,
+    borderColor: COLORS.WHITE,
+    backgroundColor: COLORS.WHITE,
+  },
+  modalContent: {
+    margin: 8,
+  },
+});

@@ -4,12 +4,60 @@ import { useTranslation } from "react-i18next";
 import dayjs from "dayjs";
 import useStore from "@/hooks/useStore";
 import RoomCard from "@/components/RoomCard";
-import { TouchableOpacity, View, Text, StatusBar } from "react-native";
+import {
+  TouchableOpacity,
+  View,
+  Text,
+  StatusBar,
+  FlatList,
+  StyleSheet,
+  Image,
+} from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import Topbar from "@/components/Topbar";
 import SummaryBar from "@/components/SummaryBar";
-import { COLORS } from "@/constants";
+import { COLORS, DEVICE } from "@/constants";
+import AppText from "@/components/AppText";
 dayjs().format();
+
+const rooms = {
+  standard: {
+    uri: "https://drive.google.com/uc?export=download&id=1T7uKb6UmggJ4UEzY7gY9f442zkrqqNPi",
+    images: [
+      "https://image-tc.galaxy.tf/wijpeg-4xrh8wkeksa0lb2jjhjyb6bxk/sandman-signature-saskatoon-south-hotel-corp-king-sofa-bed-w-euro-shower-bath-2_wide.jpg?crop=0%2C84%2C1600%2C900&width=1140",
+      "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTrmFKkPaYE9q1hzcjDppcp_QYSJlZG8JnSF0_FUOtTT2loh4kA",
+    ],
+  },
+  deluxe: {
+    uri: "https://drive.google.com/uc?export=download&id=1A1LakXbp0_34aEUuJiheHpQjvjkU-bgC",
+    images: [
+      "https://www.botanicserviceroom.com/uploads/images/rooms/1580916590qf79ctC5yT.jpeg",
+      "https://lebua.com/wp-content/uploads/2019/07/02.-LST_-Suites-City-View.jpg",
+    ],
+  },
+  family: {
+    uri: "https://drive.google.com/uc?export=download&id=1oVxVhLAQYnYUlMAhbqsaU-_5uqLCmWuf",
+    images: [
+      "https://media-cdn.tripadvisor.com/media/photo-s/0b/16/99/02/bathroom-of-the-family.jpg",
+      "https://1.bp.blogspot.com/-QC4aWXP3BJw/VNnTWYJ9LgI/AAAAAAAAg9A/9S6vPwcsaOQ/s1600/1.jpg",
+    ],
+  },
+  suite: {
+    uri: "https://drive.google.com/uc?export=download&id=14poEWNuJlDvqWRX_xcg8tFeQrDwrlOpF",
+    images: [
+      "https://d2e5ushqwiltxm.cloudfront.net/wp-content/uploads/sites/219/2020/02/11095044/3.-Rooms-Suites-details-1.-Superior-Room.jpg",
+      "https://d2e5ushqwiltxm.cloudfront.net/wp-content/uploads/sites/219/2020/03/31105553/26.jpg",
+    ],
+  },
+  executive: {
+    uri: "https://drive.google.com/uc?export=download&id=1jyPl3qhga00wJ8eWcyXB131K0k0e3aed",
+    images: [
+      "https://drive.google.com/uc?export=download&id=1jyPl3qhga00wJ8eWcyXB131K0k0e3aed",
+      "https://drive.google.com/uc?export=download&id=1GPzWaZZwOtOQupH_ABnWE9H8n8utPq1Z",
+      "https://discoveryprimeademo.hotelpropeller.com/files/2017/02/Executive_Suite_2.jpg",
+    ],
+  },
+};
 
 export default function SearchResultPage({ navigation }: any) {
   const { bookingDetail } = useStore();
@@ -27,7 +75,6 @@ export default function SearchResultPage({ navigation }: any) {
     let dateList: string[] = [];
     for (let date = start; date < end; date.setDate(date.getDate() + 1)) {
       let dateVar = date.toLocaleDateString("en-GB");
-      console.log(dateVar);
       dateList.push(dateVar);
     }
     return dateList;
@@ -35,7 +82,6 @@ export default function SearchResultPage({ navigation }: any) {
 
   // bookingDetail
   const generatedDates = generateDateList(startDate, endDate);
-  console.log(generatedDates);
 
   const standardUnavailableDateList = ["01/03/2024", "10/03/2024"];
   const deluxeUnavailableDateList = [
@@ -271,6 +317,55 @@ export default function SearchResultPage({ navigation }: any) {
                 roomType={room.roomType}
                 t={t}
                 isAvailable={room.isAvailable}
+                modalContent={
+                  <>
+                    <AppText styles={styles.modalTitle}>
+                      {/* {t("std_title")} */}
+                      {room.roomName}
+                    </AppText>
+                    <AppText styles={styles.modalDescription}>
+                      {/* {t("standard_room_desc")} */}
+                      {room.roomDetail}
+                    </AppText>
+                    <FlatList
+                      data={[
+                        { key: `- ${t("mini_fridge")}` },
+                        { key: `- ${t("hairdryer")}` },
+                        { key: `- ${t("television")}` },
+                        { key: `- ${t("air_conditioner")}` },
+                        { key: `- ${t("wireless_internet")}` },
+                        { key: `- ${t("desk")}` },
+                        { key: `- ${t("bath")}` },
+                      ]}
+                      renderItem={({ item }) => (
+                        <Text style={styles.listText}>{item.key}</Text>
+                      )}
+                      style={styles.listRoomFeatures}
+                    />
+                    <View
+                      style={{
+                        marginTop: 20,
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "center",
+                        columnGap: 5,
+                      }}
+                    >
+                      <Image
+                        source={{ uri: rooms.standard.uri }}
+                        style={styles.modalImage}
+                      />
+                      <Image
+                        source={{ uri: rooms.standard.images[0] }}
+                        style={styles.modalImage}
+                      />
+                      <Image
+                        source={{ uri: rooms.standard.images[1] }}
+                        style={styles.modalImage}
+                      />
+                    </View>
+                  </>
+                }
                 // disabledDate={}
               />
             ) : null
@@ -289,3 +384,104 @@ export default function SearchResultPage({ navigation }: any) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  bannerImage: {
+    marginBottom: 16,
+    height: 240,
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "flex-end",
+  },
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    // alignItems: "center",
+    // gap: 16,
+  },
+  bigCard: {
+    height: 350,
+    marginBottom: 24,
+  },
+  sectionMargin: {
+    paddingLeft: 8,
+    paddingBottom: 16,
+    // marginRight: 8,
+  },
+  sectionText: {
+    fontFamily: "NotoSansThai_700Bold",
+    fontSize: 18,
+    fontWeight: "600",
+    marginBottom: 8,
+  },
+  listText: {
+    fontFamily: "NotoSansThai_400Regular",
+    fontSize: 18,
+  },
+  landingBigCardTitle: {
+    fontSize: 12,
+    fontWeight: "bold",
+    lineHeight: 30,
+    marginBottom: 6,
+  },
+  landingBigCardDescription: {
+    fontWeight: "normal",
+    fontSize: 12,
+  },
+  modalTitle: {
+    fontWeight: "bold",
+    fontSize: 24,
+    marginBottom: 20,
+  },
+  modalDescription: {
+    fontWeight: "normal",
+    fontSize: 16,
+    marginBottom: 8,
+  },
+  carouselImage: {
+    flex: 1,
+    borderColor: "black",
+    borderWidth: 0,
+  },
+  bottomScrollSpace: {
+    height: 40,
+  },
+  menuModalContainer: {
+    paddingHorizontal: 30,
+    paddingVertical: 15,
+    display: "flex",
+    flexDirection: "row",
+    columnGap: 20,
+    alignItems: "center",
+    borderBottomColor: "gray",
+    borderBottomWidth: 1,
+    borderStyle: "solid",
+  },
+  menuModalText: {
+    fontFamily: "NotoSansThai_400Regular",
+    fontSize: 20,
+  },
+  modalImage: {
+    width: DEVICE.WIDTH * 0.3,
+    aspectRatio: 1.25,
+  },
+  listRoomFeatures: {
+    marginBottom: 8,
+  },
+  centerScreenModalStyle: {
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0,0,0,0.5)",
+  },
+  centerScreenModalContentStyle: {
+    width: "75%",
+    borderRadius: 8,
+    borderWidth: 2,
+    // paddingTop: 8,
+    paddingHorizontal: 8,
+    borderColor: COLORS.WHITE,
+    backgroundColor: COLORS.WHITE,
+  },
+});
