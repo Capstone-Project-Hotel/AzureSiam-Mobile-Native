@@ -6,6 +6,7 @@
   "history_description": "AzureSiam Hotel, a city oasis located in Pathumwan, Bangkok, seamlessly combines modern luxury with timeless charm. It offers stunning city views and a rooftop dining experience that delights the taste buds, along with a serene spa for relaxation. Every aspect of AzureSiam is designed to provide a sophisticated escape from the city's hustle and bustle.",
   "room_type": "Room Type",
   "room_feature": "Room Features",
+  "select_feature": "Select Feature",
   "std_title": "Standard Room",
   "std_description": "Standard rooms offer cost-effective comfort with a bed, private bathroom, and essential furniture for solo.",
   "dlx_title": "Deluxe Room",
