@@ -179,7 +179,7 @@ export default function BookingConfirmationPage({ navigation }: any) {
                     {/* City */}
                     <View>
                       <Text>
-                        {t("city")} : {guest.city}
+                        {t("city_state")} : {guest.city}
                       </Text>
                     </View>
 

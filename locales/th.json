@@ -196,5 +196,6 @@
   "saturday_additional_cost_remark" :"มีค่าบริการเพิ่มเติมในคืนวันเสาร์ 200 บาทต่อห้องต่อคืน",
   "home": "หน้าหลัก",
   "change-language": "เปลี่ยนภาษา",
-  "currency": "สกุลเงิน"
+  "currency": "สกุลเงิน",
+  "close": "ปิด"
 }

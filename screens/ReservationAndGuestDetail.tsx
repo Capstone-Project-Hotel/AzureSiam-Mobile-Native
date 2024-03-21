@@ -46,7 +46,7 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
 
   const { t } = useTranslation();
 
-  const items = ["Male", "Female", "Other"];
+  const items = ["male", "female", "other"];
   const items2 = ["id", "passportNumber", "drivingLicence"];
   const countries = Country.getAllCountries().map((country) => {
     return country.name;
@@ -440,7 +440,7 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
                       onSelect={(i: any) =>
                         handleInputChange(index, items[i.row], "gender")
                       }
-                      value={guest.gender}
+                      value={t(guest.gender)}
                       placeholder={t("gender_default")}
                     >
                       <SelectItem title={t("male")} />
@@ -531,13 +531,13 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
 
                   {/* City */}
                   <View>
-                    <Text>{t("city")}</Text>
+                    <Text>{t("city_state")}</Text>
                     <Select
                       onSelect={(i: any) =>
                         handleInputChange(index, city[i.row], "city")
                       }
                       value={guest.city}
-                      placeholder={t("city_default")}
+                      placeholder={t("city_state_default")}
                     >
                       {city.map((city: any) => {
                         return <SelectItem title={city} key={city} />;
@@ -842,6 +842,16 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
             <Text style={styles.text}>{t("cancel_policy_description2")}</Text>
             <Text style={styles.text}>{t("cancel_policy_description3")}</Text>
           </View>
+          <View>
+            <Text style={[styles.text, { marginTop: 10 }]}>
+              {t("cancel_policy_description_header2")}
+            </Text>
+            <Text style={styles.text}></Text>
+            <Text style={styles.text}>{t("cancel_policy_description4")}</Text>
+            <Text style={styles.text}>{t("cancel_policy_description5")}</Text>
+            <Text style={styles.text}>{t("cancel_policy_description6")}</Text>
+            <Text style={styles.text}>{t("cancel_policy_description7")}</Text>
+          </View>
         </View>
         {/* PDPA */}
         <View style={styles.container}>
@@ -886,7 +896,7 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
             <Text
               style={{ fontSize: 15, fontWeight: "bold", marginBottom: 10 }}
             >
-              {t("terms_condition_2")}
+              {t("terms_condition_label")}
             </Text>
             <View style={{ display: "flex", rowGap: 10, marginBottom: 10 }}>
               <Text style={styles.modalText}>1) {t("terms_condition_d1")}</Text>
@@ -896,6 +906,13 @@ export default function ReservationAndGuestDetailPage({ navigation }: any) {
               <Text style={styles.modalText}>5) {t("terms_condition_d5")}</Text>
               <Text style={styles.modalText}>6) {t("terms_condition_d6")}</Text>
               <Text style={styles.modalText}>7) {t("terms_condition_d7")}</Text>
+            </View>
+            <Text
+              style={{ fontSize: 15, fontWeight: "bold", marginBottom: 10 }}
+            >
+              {t("privacy_policy_label")}
+            </Text>
+            <View style={{ display: "flex", rowGap: 10, marginBottom: 10 }}>
               <Text style={styles.modalText}>8) {t("terms_condition_d8")}</Text>
               <Text style={styles.modalText}>9) {t("terms_condition_d9")}</Text>
               <Text style={styles.modalText}>

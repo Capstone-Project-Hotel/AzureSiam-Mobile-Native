@@ -198,5 +198,6 @@
   "saturday_additional_cost_remark" :"There will be an additional service charge of 200 baht per room per night for stays on Saturday nights.",
   "home": "Home",
   "change-language": "Change language",
-  "currency": "Currency"
+  "currency": "Currency",
+  "close": "Close"
 }

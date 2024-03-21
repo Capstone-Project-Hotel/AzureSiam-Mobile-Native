@@ -47,6 +47,11 @@ import {
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
 
+import i18next, { languageResources } from "../services/i18next";
+import { useTranslation } from "react-i18next";
+import languagesList from "../services/languagesList.json";
+import { Select, SelectItem } from "@ui-kitten/components";
+import { COLORS, DEVICE } from "@/constants";
 const width = Dimensions.get("window").width; // ย้ายไป cosntant
 
 const logo = {
@@ -120,12 +125,6 @@ const gallery = [
     uri: "https://www.botanicserviceroom.com/uploads/images/rooms/1580918079W9DIBxRYeD.jpeg",
   },
 ];
-
-import i18next, { languageResources } from "../services/i18next";
-import { useTranslation } from "react-i18next";
-import languagesList from "../services/languagesList.json";
-import { Select, SelectItem } from "@ui-kitten/components";
-import { COLORS, DEVICE } from "@/constants";
 
 const promotions = {
   fifty: {
@@ -1010,23 +1009,6 @@ export default function Landing({ navigation }: any) {
                 </View>
               )}
             />
-            {/* <CustomDateRange />
-            <TouchableOpacity
-              onPress={() => {
-                const updatedBookingDetail: BookingDetail = {
-                  ...bookingDetail,
-                  startDate: "14/02/2024",
-                  endDate: "11/02/2024",
-                  adultNumber: 1,
-                  childrenNumber: 0,
-                  codePromotion: "promo001",
-                };
-                setBookingDetail(updatedBookingDetail);
-                navigation.navigate("SearchResult");
-              }}
-            >
-              <Text style={{ height: 55 }}>Go To Search Result Page</Text>
-            </TouchableOpacity> */}
           </View>
 
           {/* setNearbyLayout */}
