@@ -129,7 +129,7 @@ export default function SummaryBar({
     2500 * bookingDetail.suiteRoomNumber +
     3000 * bookingDetail.executiveRoomNumber;
 
-  let mondayAndFridaySale =
+  let mondayAndFridayDiscount =
     200 * mondayAndFridayNightCount * totalRooms * exchangeRate * dayDuration;
   let saturdayAdditionalCost =
     200 * saturdayNightCount * totalRooms * exchangeRate * dayDuration;
@@ -137,7 +137,7 @@ export default function SummaryBar({
   let subTotal =
     (totalRoomPrice * reducedRate * dayDuration +
       saturdayAdditionalCost -
-      mondayAndFridaySale) *
+      mondayAndFridayDiscount) *
     exchangeRate;
 
   if (bookingDetail.packageOne === true)
@@ -945,7 +945,7 @@ export default function SummaryBar({
                 }}
               >
                 <Text style={{ fontSize: 12 }}>
-                  {t("monday_and_friday_sale")}
+                  {t("monday_and_friday_discount")}
                 </Text>
                 <Text style={{ fontSize: 12 }}>
                   {" "}
@@ -954,7 +954,7 @@ export default function SummaryBar({
                     style: "decimal",
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
-                  }).format(mondayAndFridaySale)}
+                  }).format(mondayAndFridayDiscount)}
                 </Text>
               </View>
               <View

@@ -64,15 +64,15 @@ export default function SummaryCard({ t }: { t: any }) {
     2500 * bookingDetail.suiteRoomNumber +
     3000 * bookingDetail.executiveRoomNumber;
 
-  let mondayAndFridaySale =
-    200 * mondayAndFridayNightCount * totalRooms * exchangeRate * dayDuration;
+  let mondayAndFridayDiscount =
+    200 * mondayAndFridayNightCount * totalRooms * exchangeRate;
   let saturdayAdditionalCost =
-    200 * saturdayNightCount * totalRooms * exchangeRate * dayDuration;
+    200 * saturdayNightCount * totalRooms * exchangeRate;
 
   let subTotal =
     (totalRoomPrice * reducedRate * dayDuration +
       saturdayAdditionalCost -
-      mondayAndFridaySale) *
+      mondayAndFridayDiscount) *
     exchangeRate;
 
   if (bookingDetail.packageOne === true)
@@ -360,7 +360,9 @@ export default function SummaryCard({ t }: { t: any }) {
               justifyContent: "space-between",
             }}
           >
-            <Text style={{ fontSize: 12 }}>{t("monday_and_friday_sale")}</Text>
+            <Text style={{ fontSize: 12 }}>
+              {t("monday_and_friday_discount")}
+            </Text>
             <Text style={{ fontSize: 12 }}>
               {" "}
               {currency}{" "}
@@ -368,7 +370,7 @@ export default function SummaryCard({ t }: { t: any }) {
                 style: "decimal",
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
-              }).format(mondayAndFridaySale)}
+              }).format(mondayAndFridayDiscount)}
             </Text>
           </View>
           <View
