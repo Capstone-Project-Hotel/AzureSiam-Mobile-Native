@@ -46,15 +46,10 @@ export default function Filter({ t }: any) {
   });
 
   const filter = (date: Date): boolean => {
-    const currentDateFormatted = format(new Date(), "dd/MM/yyyy");
-
     const disabledDatesFormat = myDisabledDates.map((d) =>
       format(d, "dd/MM/yyyy")
     );
-    return (
-      format(date, "dd/MM/yyyy") >= currentDateFormatted &&
-      !disabledDatesFormat.includes(format(date, "dd/MM/yyyy"))
-    );
+    return !disabledDatesFormat.includes(format(date, "dd/MM/yyyy"));
   };
 
   const [selectedIndexForRoomTypes, setSelectedIndexForRoomTypes] =
@@ -120,7 +115,9 @@ export default function Filter({ t }: any) {
             style={{ width: 250 }}
             range={range}
             filter={filter}
+            min={new Date()}
             onSelect={(nextRange: any) => {
+              console.log(nextRange);
               setRange(nextRange);
 
               if (nextRange.startDate && nextRange.endDate) {
@@ -206,7 +203,7 @@ export default function Filter({ t }: any) {
             <Input
               size="small"
               style={{ width: 150 }}
-              placeholder="Code Promotion"
+              placeholder={t("promo_placeholder")}
               keyboardType="default"
               value={bookingDetail.codePromotion}
               onChangeText={(text) => {

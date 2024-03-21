@@ -75,40 +75,53 @@ export default function SummaryBar({
   const { bookingDetail, setBookingDetail, exchangeRate, currency } =
     useStore();
 
+  let startDate = bookingDetail.startDate
+    .toString()
+    .split(" ")
+    .slice(0, 4)
+    .join(" ");
+
+  let endDate = bookingDetail.endDate
+    .toString()
+    .split(" ")
+    .slice(0, 4)
+    .join(" ");
+
+  // Create Date objects
+  const date1 = new Date(startDate);
+  const date2 = new Date(endDate);
+
+  const date1Ms = date1.getTime();
+  const date2Ms = date2.getTime();
+
+  // Calculate difference in milliseconds
+  const diffInMs = date2Ms - date1Ms;
+
+  // Convert milliseconds to days
+  const msInDay = 1000 * 60 * 60 * 24;
+  let dayDuration = diffInMs / msInDay;
+
   let mondayAndFridayNightCount = 0;
   let saturdayNightCount = 0;
-  let dayDuration = 1;
 
-  // Assuming startDate and endDate are in the format dd-mm-yyyy
-  // const startDateParts = bookingDetail.startDate.split("/");
-  // const endDateParts = bookingDetail.endDate.split("/");
+  const generateDateList = (start: Date, end: Date): string[] => {
+    let dateList: string[] = [];
+    for (let date = start; date < end; date.setDate(date.getDate() + 1)) {
+      if (date.getDay() === 6) {
+        // 0 is Sunday, 1 is Monday, ..., 6 is Saturday
+        saturdayNightCount++;
+      }
+      if (date.getDay() === 5 || date.getDay() === 1) {
+        mondayAndFridayNightCount++;
+      }
+      let dateVar = date.toLocaleDateString("en-GB");
+      dateList.push(dateVar);
+    }
+    return dateList;
+  };
 
-  // Creating Date objects with the specified format
-  // const startDateFormat = new Date(
-  // Date.UTC(
-  //     parseInt(startDateParts[2]),
-  //     parseInt(startDateParts[1]) - 1,
-  //     parseInt(startDateParts[0]),
-  //     0,
-  //     0,
-  //     0
-  //   )
-  // );
-  // const endDateFormat = new Date(
-  //   Date.UTC(
-  //     parseInt(endDateParts[2]),
-  //     parseInt(endDateParts[1]) - 1,
-  //     parseInt(endDateParts[0]),
-  //     0,
-  //     0,
-  //     0
-  //   )
-  // );
+  const generatedDates = generateDateList(date1, date2);
 
-  // // Calculate the difference in milliseconds
-  // const timeDifference = endDateFormat.getTime() - startDateFormat.getTime();
-
-  // const dayDuration = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
   let reducedRate = 1;
 
   if (bookingDetail.codePromotion === "valid001") {
@@ -153,32 +166,6 @@ export default function SummaryBar({
 
   const [showModal, setShowModal] = useState(false);
 
-  let startDate = bookingDetail.startDate
-    .toString()
-    .split(" ")
-    .slice(0, 4)
-    .join(" ");
-
-  let endDate = bookingDetail.endDate
-    .toString()
-    .split(" ")
-    .slice(0, 4)
-    .join(" ");
-
-  // Create Date objects
-  const date1 = new Date(startDate);
-  const date2 = new Date(endDate);
-
-  const date1Ms = date1.getTime();
-  const date2Ms = date2.getTime();
-
-  // Calculate difference in milliseconds
-  const diffInMs = date2Ms - date1Ms;
-
-  // Convert milliseconds to days
-  const msInDay = 1000 * 60 * 60 * 24;
-  const diffInDays = diffInMs / msInDay;
-
   return (
     <View
       style={{
@@ -221,7 +208,7 @@ export default function SummaryBar({
                     </AppText>
                   </View>
                   <AppText styles={{ fontSize: 16, paddingLeft: 24 }}>
-                    {diffInDays} night(s)
+                    {dayDuration} night(s)
                   </AppText>
                   <View style={{ display: "flex", flexDirection: "row" }}>
                     <Octicons name="person" size={24} color="black" />
@@ -949,7 +936,7 @@ export default function SummaryBar({
                 </Text>
                 <Text style={{ fontSize: 12 }}>
                   {" "}
-                  {currency}{" "}
+                  {currency} {mondayAndFridayDiscount > 0 ? "-" : ""}
                   {new Intl.NumberFormat("th-TH", {
                     style: "decimal",
                     minimumFractionDigits: 2,
@@ -1078,12 +1065,15 @@ export default function SummaryBar({
               </Button>
             ) : (
               <Button
-                onPress={() => summaryBookingDetailHandler()}
+                onPress={() => {
+                  setShowModal(false);
+                  summaryBookingDetailHandler();
+                }}
                 style={{
                   backgroundColor: COLORS.SECONDARY,
                   borderColor: "transparent",
                 }}
-                disabled={isDisabledConfirm || !bookingDetail.isCheckedPDPA}
+                // disabled={isDisabledConfirm || !bookingDetail.isCheckedPDPA}
               >
                 <Text style={{ height: 55, color: "white" }}>
                   {t("confirm")}
@@ -1150,7 +1140,7 @@ export default function SummaryBar({
                 backgroundColor: COLORS.SECONDARY,
                 borderColor: "transparent",
               }}
-              disabled={isDisabledConfirm || !bookingDetail.isCheckedPDPA}
+              // disabled={isDisabledConfirm || !bookingDetail.isCheckedPDPA}
             >
               <Text style={{ height: 55, color: "white" }}>{t("confirm")}</Text>
             </Button>

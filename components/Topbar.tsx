@@ -5,15 +5,51 @@ import useStore from "@/hooks/useStore";
 import languagesList from "../services/languagesList.json";
 import axios from "axios";
 import { COLORS } from "@/constants";
+import { useEffect } from "react";
 
 export default function Topbar({
   landingHandler,
 }: {
   landingHandler: Function;
 }) {
-  const { lng, setLng, currency, setCurrency, setExchangeRate } = useStore();
+  const {
+    lng,
+    setLng,
+    currency,
+    setCurrency,
+    setExchangeRate,
+    guestsError,
+    setCheckboxError,
+    setPaymentError,
+    setGuestsError,
+  } = useStore();
   const changeLng = (lng: any) => {
     i18next.changeLanguage(lng);
+    const emptyGuestError: GuestError = {
+      firstName: "",
+      lastName: "",
+      gender: "",
+      birthDate: "",
+      email: "",
+      phoneNumber: "",
+      country: "",
+      zipCode: "",
+      address: "",
+      idType: "",
+      id: "",
+    };
+    const guestsErrorNew = guestsError.map(() => emptyGuestError);
+    setGuestsError(guestsErrorNew);
+
+    const emptyPaymentError: PaymentError = {
+      cardHolderName: "",
+      cardNumber: "",
+      expDate: "",
+      cvv: "",
+    };
+    setPaymentError(emptyPaymentError);
+
+    setCheckboxError("");
   };
 
   const listquotes = [

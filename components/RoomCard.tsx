@@ -1,6 +1,6 @@
 import useStore from "@/hooks/useStore";
 import { Button, CalendarRange, RangeDatepicker } from "@ui-kitten/components";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -63,6 +63,13 @@ export default function RoomCard({
     endDate: bookingDetail.endDate,
   });
 
+  useEffect(() => {
+    setRange({
+      startDate: bookingDetail.startDate,
+      endDate: bookingDetail.endDate,
+    });
+  }, [bookingDetail.startDate, bookingDetail.endDate]);
+
   let reducedRate = 1;
 
   if (bookingDetail.codePromotion === "valid001") {
@@ -87,8 +94,6 @@ export default function RoomCard({
           padding: 10,
           shadowColor: "#000",
           elevation: 8,
-          // shadowOpacity: 1,
-          // shadowRadius: 10,
           shadowOffset: {
             height: 10,
             width: 10,
@@ -190,8 +195,11 @@ export default function RoomCard({
               <RangeDatepicker
                 size="small"
                 style={{ width: 250 }}
-                range={range}
-                // filter={disabledDate}
+                range={{
+                  startDate: bookingDetail.startDate,
+                  endDate: bookingDetail.endDate,
+                }}
+                filter={disabledDate}
                 onSelect={(nextRange: any) => {
                   setRange(nextRange);
 
